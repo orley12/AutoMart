@@ -20,8 +20,6 @@ body {
 .row {
     padding: 20px;
     width: 100%;
-    /* display: flex;
-    flex-wrap: wrap; */
 }
 
 .col:first-child {
@@ -125,8 +123,114 @@ header .nav-lower {
 }
 
 .bg-image {
-    background-image: url('../img/image.jpg');
+    background-image: url('../assets/cover-photo.jpg');
     background-size: cover;
     height: 90vh;
     width: 100%;
+}
+
+.section-2, .car-collection {
+    height: 140vh;
+    width: 100%;
+}
+
+.make-type-section-title h1, .body-type-section-title h1 {
+    text-align: center;    
+    margin-top: 70px;
+    font-size: 20px;
+    color: black;
+    margin-bottom: 0; 
+}
+
+.make-type-section-title h2, .body-type-section-title h2, .sign-up-form h1, .sell-section h1 {
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    font-size: 50px;
+    color: black;
+}
+
+.body-type-section img{
+    margin-top: 60px;
+    width: 100%;
+    width: 100%;
+}
+
+.body-type-section, .car-collection-group, .search-cols {
+}
+
+.body-type-set-1, .body-type-set-2, 
+.body-type-set-3, .body-type-set-4 {
+     float: left;
+}
+
+.body-type-set-1 {
+    text-align: center;
+}
+
+.section-3 {
+    height: 120vh;
+    width: 100%;
+}
+
+.make-type-section {
+    margin: 0 auto;
+}
+
+.make-type-section a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.make-type-section img {
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+}
+
+.make-type-set-1, .make-type-set-2, 
+.make-type-set-3, .make-type-set-4, .make-type-set-5{
+    margin-left: 6.33%;
+    margin-right: 6.33%; 
+    float: left;
+}
+
+.make-type-set-1 {
+    margin-left: 15.66%;
+
+}
+
+.footer-form input {
+    display: inline-block;
+    height: 50px;
+    /* margin-top:50px; */
+    text-align: center;
+}
+
+.footer-form #name {
+float: left;
+}
+
+.footer-form #number {
+    float: right;
+}
+
+.footer-form input[type="text"] {
+    width: 100%
+}
+
+.footer-form input[type="number"] {
+    width: 100%
+}
+
+.footer-form textarea {
+    text-align: center;
+    margin-top: 50px;
+    height: 200px;
+}
+
+.footer-form button {
+    text-align: center;
+    margin-top: 50px;
+    height: 50px;
 }
