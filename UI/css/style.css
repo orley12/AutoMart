@@ -1,0 +1,132 @@
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+body, html {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    min-width: 320px;
+    margin: 0 auto;
+}
+
+.row {
+    padding: 20px;
+    width: 100%;
+    /* display: flex;
+    flex-wrap: wrap; */
+}
+
+.col:first-child {
+    margin: 0px;
+}
+
+.col:last-child {
+    margin-right: 0px;
+}
+
+.col-1 {
+    width: 3.93%;
+}
+
+.col-2 {
+    width: 12.66%;
+}
+
+.col-3 {
+    width: 21.4%;
+}
+
+.col-4 {
+    width: 30.13%;
+}
+
+.col-5 {
+    width: 38.867%;
+}
+
+.col-6 {
+    width: 47.6%;
+}
+
+.col-7 {
+    width: 56.333%;
+}
+
+.col-8 {
+    width: 65.07%;
+}
+
+.col-9 {
+    width: 73.8%;
+}
+.col-10 {
+    width: 82.533%;
+}
+
+.col-11 {
+    width: 91.27%;
+}
+
+.col-12 {
+    width: 100%;
+} 
+
+.upper-div nav {
+    margin: 0.01% 0;
+    float: right;
+}
+
+.upper-div nav a, .upper-div nav li{
+    font-size: 8px;
+}
+
+.header-container {
+    margin: auto;
+    overflow: hidden;
+}
+
+header #branding{
+    float: left;
+    color: #fff;
+}
+
+header #branding h1{
+    margin: 0;
+}
+
+header a {
+    text-decoration: none;
+    color: #fff;
+}
+
+header ul {
+    margin: 0;
+    padding: 0;
+}
+
+header li {
+    float: left;
+    display: inline;
+    padding: 0 50px 0 50px;
+}
+
+header .nav-lower {
+    float: right;
+    border-bottom: #fff 3px solid;
+    padding-bottom: 40px;
+}
+
+.bg-image {
+    background-image: url('../img/image.jpg');
+    background-size: cover;
+    height: 90vh;
+    width: 100%;
+}
