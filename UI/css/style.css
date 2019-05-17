@@ -379,3 +379,72 @@ float: left;
     height: 100vh;
     width: 100%;
 }
+
+.description {
+    float: right;
+}
+
+.interaction{
+    padding: 0;
+    margin: 0;
+}
+.interaction img {
+    width: 30px;
+    height: 40px;
+    padding-top: 15px;
+    color: #fff;
+}
+
+.interaction h5 {
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+.interaction button {
+    margin-top: 20px;
+    border-radius: 5px;
+    border-color: blue; 
+    background-color: transparent; 
+    height: 40px;
+    float: right;
+    font-weight: bold;
+}
+
+.fraud {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.main-img {
+    width: 50%;
+    height: 50%;
+    background-color: #000000;
+}
+
+.tumbnail-img {
+    margin-top: 20px;
+    display: inline;  
+}
+
+.tumbnail-img .tumbnail-img {
+    float: left;
+    text-align: center;
+    width: 30%;
+    padding: 10px;
+}
+
+.tumbnail-img img {
+    margin-right: 1%;
+    width: 15.66%;
+}
+
+.owner-controls button {
+    margin-top: 20px;
+    border-radius: 5px;
+    border-color: blue; 
+    background-color: transparent; 
+    height: 40px;
+    font-weight: bold;
+}
