@@ -168,6 +168,23 @@ header .nav-lower {
     text-align: center;
 }
 
+.car-collection div.first-child{
+    float: right;
+} 
+
+.car-collection aside {
+    width: 16%;
+    margin: 50px 2% 0;
+    float: left;
+}
+
+.car-collection-col-1{
+    width: 23%;
+    padding-top: 20px;
+    /* margin-bottom: 2%; */
+    float: left;
+}
+
 .section-3 {
     height: 120vh;
     width: 100%;
@@ -447,4 +464,40 @@ float: left;
     background-color: transparent; 
     height: 40px;
     font-weight: bold;
+}
+
+.bg-image-vehicles {
+    background-image: url('../assets/image.jpg');
+    background-size: cover;
+    height: 75vh;
+    width: 100%;
+}
+
+.sub-header form{
+    margin-top: 100px;
+    margin-right: 2.66%; 
+    float: right;
+}
+
+.sub-header .intro-text{
+    float: left;
+}
+
+.sub-header input[type="submit"] {
+    width: 100px;
+    height: 40px;
+}
+
+.intro-text{
+    margin-left: 11.66%;
+}
+
+.intro-text h1 {
+    font-size: 700%;
+    margin: 0;
+    padding: 0;
+}
+
+.sub-header .intro-text{
+    float: left;
 }
