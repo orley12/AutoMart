@@ -111,9 +111,9 @@ header ul {
 }
 
 header li {
-    float: left;
     display: inline;
     padding: 0 50px 0 50px;
+    float: left;
 }
 
 header .nav-lower {
@@ -235,10 +235,17 @@ float: left;
     height: 50px;
 }
 
-.bg-image-sign-up {
+.bg-image-sign-in {
     background-image: url('../assets/cover-photo.jpg');
     background-size: cover;
     height: 100vh;
+    width: 100%;
+}
+
+.bg-image-sign-up {
+    background-image: url('../assets/cover-photo.jpg');
+    background-size: cover;
+    height: 140vh;
     width: 100%;
 }
 
@@ -269,4 +276,5 @@ float: left;
     height: 45px;
     background: transparent;
     margin-bottom: 30px;
+    font-weight: bold;
 }
