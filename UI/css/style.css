@@ -467,7 +467,7 @@ float: left;
 }
 
 .bg-image-vehicles {
-    background-image: url('../assets/image.jpg');
+    background-image: url('../assets/cover-photo.jpg');
     background-size: cover;
     height: 75vh;
     width: 100%;
@@ -500,4 +500,13 @@ float: left;
 
 .sub-header .intro-text{
     float: left;
+}
+
+.about-div {
+    text-align: center;
+}
+
+.about-1 {
+     font-size: 30px;
+    font-weight: bold;
 }
