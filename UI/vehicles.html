@@ -4,208 +4,301 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>AutoMart | Vehicles</title>
     <link rel="stylesheet" href="css/style.css"/>
     <script type="text/javascript"
-            src="js/vehicles.js"
-            async></script>
-    </head>
-<body>            
-    <div class="bg-image-vehicles">
-        <header>
-            <div class="upper-div row">
-                <nav class="nav-upper">
+            src="js/script.js"
+            async></script> 
+    <title>Document</title>
+</head>
+<body>
+    <div class="bg-image-veh">
+        <div class="notification">I am stiky</div>
+        <div class="row nav-bar">
+            <div class="col-8">
+                <h1>AutoMart</h1>
+            </div>
+            <div class="col-2 nav-bar-img">
+               <a href="#contact"><img src="img/phone.svg" alt="phone image"></a>
+            </div>
+            <div class="col-2 nav-bar-img">
+                <img id="open-nav" src="img/menu.svg" alt="hambuger menu">
+            </div>
+        </div>
+
+        <div class="desktop-nav">
+                <nav class="col-12 nav-upper">
                     <ul>
-                        <li><a  href="#" hidden>Logout</a></li>
                         <li><a  href="#contact">Contact Us</a></li>
                         <li><a  href="signup.html">Reigster</a></li>
                         <li><a  href="signin.html">Login</a></li>
-                        <li>0904 444 4444</li>
+                        <li><a href="#">0904 444 4444</a></li>
                     </ul>
                 </nav>
-            </div>
             <div class="header-container row">
-                <div id="branding">
+                <div id="branding" class="col-4">
                         <h1>Auto Mart</h1>
                 </div>
-                <nav class="nav-lower">
+                <nav class="col-8 nav-lower">
                     <ul>
                         <li><a  href="index.html">Home</a></li>
                         <li><a  href="vehicles.html">Vehicles</a></li>
-                        <li><a  href="aboutUs.html">About Us</a></li>
+                        <li><a  href="about.html">About Us</a></li>
                         <li><a  href="sell.html">Sell<br> A Car </a></li>
-                        <li><a  href="#make">Find<br> Manufacturer </a></li>
+                        <li><a  href="#search">Search</a></li>
                     </ul>
                 </nav>
             </div>
-        </header>
-        <div class="sub-header">
-            <div class="intro-text">
-                <ul>
-                    <li>Our mission</li>
-                </ul>
-                <h1>Get your<br>dream car</h1>
-            </div>
-            <!-- <form action=""> -->
-                <div class="search-cols">
-                    <div class="search-col">
-                        Price<br>
-                        Name*<br>
-                        <input class="col-5 select-price" type="text" name="name"/>
-                        <br>  
-
-                        State<br>
-                        <select class="select-state">
-                            <option disabled selected value >Select State</option>
-                            <option value="used">Used</option>
-                            <option value="new">New</option>
-                        </select>
-                        <br>
-                    </div>
-                    <div class="search-col">
-                        Make<br>                 
-                        <select class="select-make" >
-                            <option disabled selected value >Select Manufaturer</option>
-                            <option value="toyota">Toyota</option>
-                            <option value="chevrolet">Chevrolet</option>
-                            <option value="ford">Ford</option>
-                            <option value="honda">Honda</option>
-                            <option value="nissan">Nissan</option>
-                            <option value="bmw">Bmw</option>
-                            <option value="jeep">Jeep</option>
-                            <option value="dodge">Dodge</option>
-                            <option value="lexus">Lexus</option>
-                            <option value="benz">Mercedes-Benz</option>
-                            <option value="gmc">GMC</option>
-                            <option value="ferrari">Ferrai</option>
-                            <option value="lamborgini">Lamborgini</option>
-                            <option value="tesla">Tesla</option>
-                            <option value="aston-martin">Aston-Martin</option>
-                            <option value="acura">Acura</option>
-                            <option value="alfa-romeo">Alfa-Romeo</option>
-                            <option value="audi">Audi</option>
-                            <option value="bentley">Bentley</option>
-                            <option value="cadillac">Cadillac</option>
-                            <option value="bugatti">Bugatti</option>
-                            <option value="geely">Geely</option>
-                            <option value="maserati">Maserati</option>
-                            <option value="infiniti">Infiniti</option>
-                            <option value="hyundai">Hyundai</option>
-                            <option value="mazda">Mazda</option>
-                            <option value="land-rover">Land-Rover</option>
-                            <option value="mini">Mini</option>
-                            <option value="kia">Kia</option>
-                            <option value="geely">Geely</option>
-                            <option value="koenigsegg">Koenigsegg</option>
-                        </select>
-
-                        Body Type<br>
-                        <select class="select-body-type">
-                            <option disabled selected value >Select Body Type</option>
-                            <option value="bus">Bus</option>
-                            <option value="cabriolet">Cabriolet</option>
-                            <option value="estate">Estate</option>
-                            <option value="hatchback"Hatchback</option>
-                            <option value="sedan">Sedan</option>
-                            <option value="roadstar">Roadstar</option>
-                            <option value="suv">SUV</option>
-                            <option value="crossover">Crossover</option>
-                            <option value="family_coupe">Family Coupe</option>
-                            <option value="truck">Truck</option>
-                        </select>
-                    </div>
-                </div>
-                    <!-- <input type="submit" value="Search" id="check"/> -->
-                    <Button id="search-vehicles">Search Car</Button>
-            <!-- </form> -->
         </div>
-    </div> 
-    <main>
-        <section class="car-collection">
-            <aside>
-                <div>
-                    <h1>Search for car</h1>
-                    <form action="">
-                        Price<br>
-                        <select class="select-text">
-                            <option value="1,000,000">Under #1,000,000</option>
-                            <option value="2,000,000">Under #2,000,000</option>
-                            <option value="3,000,000">Under #3,000,000</option>
-                            <option value="4,000,000">#4,000,000 - #10,000,000</option>
-                            <option value="10,000,000">#10,000,000 - #50,000,000</option>
-                            <option value="50,000,000">#50,000,000 - #100,000,000</option>
-                            <option value="100,000,000">#100,000,000 and Above</option>
-                        </select>  
-                        <br>
-    
-                        Make<br>                  
-                        <select class="select-text" >
-                            <option value="toyota">Toyota</option>
-                            <option value="chevrolet">Chevrolet</option>
-                            <option value="ford">Ford</option>
-                            <option value="honda">Honda</option>
-                            <option value="nissan">Nissan</option>
-                            <option value="bmw">Bmw</option>
-                            <option value="jeep">Jeep</option>
-                            <option value="dodge">Dodge</option>
-                            <option value="lexus">Lexus</option>
-                            <option value="benz">Mercedes-Benz</option>
-                            <option value="gmc">GMC</option>
-                            <option value="ferrari">Ferrai</option>
-                            <option value="lamborgini">Lamborgini</option>
-                            <option value="tesla">Tesla</option>
-                            <option value="aston-martin">Aston-Martin</option>
-                            <option value="acura">Acura</option>
-                            <option value="alfa-romeo">Alfa-Romeo</option>
-                            <option value="audi">Audi</option>
-                            <option value="bentley">Bentley</option>
-                            <option value="cadillac">Cadillac</option>
-                            <option value="bugatti">Bugatti</option>
-                            <option value="geely">Geely</option>
-                            <option value="maserati">Maserati</option>
-                            <option value="infiniti">Infiniti</option>
-                            <option value="hyundai">Hyundai</option>
-                            <option value="mazda">Mazda</option>
-                            <option value="land-rover">Land-Rover</option>
-                            <option value="mini">Mini</option>
-                            <option value="kia">Kia</option>
-                            <option value="geely">Geely</option>
-                            <option value="koenigsegg">Koenigsegg</option>
-                        </select>
-                        <br>
-                        State<br>
-                        <select class="select-text">
-                            <option value="used">Used</option>
-                            <option value="new">New</option>
-                        </select>
-                        <br>
-    
-                        Body Type<br>
-                        <select class="select-text">
-                            <option value="bus">Bus</option>
-                            <option value="cabriolet">Cabriolet</option>
-                            <option value="estate">Estate</option>
-                            <option value="hatchback"Hatchback</option>
-                            <option value="sedan">Sedan</option>
-                            <option value="roadstar">Roadstar</option>
-                            <option value="suv">SUV</option>
-                            <option value="crossover">Crossover</option>
-                            <option value="family_coupe">Family Coupe</option>
-                            <option value="truck">Truck</option>
-                        </select>
-                        <br>
-                        <input type="submit" value="Search" id="check"/>
-                        <br>
-                    </form>
+        
+        <div id="side-menu" class="side-nav">
+            <a href="#" id="close-nav" class="btn-close">&times;</a>
+            <a href="index.html">Home</a>
+            <a href="vehicles.html">vehicles</a>
+            <a href="about.html">About Us</a>
+            <a href="sell.html">Sell <br> A Car</a>
+            <a href="#search">Search</a>
+            <a href="signin.html">Log in</a>
+            <a href="signup.html">Register</a>
+            <a href="#contact">Contact Us</a>
+            <a href="#0904-444-4444">0904-444-4444</a>
+        </div>
+        <div class="row">
+            <div class="col-12 title-vehicles">
+                <h5>Our Mission</h5>
+                <h1>Get your <br> dream car</h1>
             </div>
-            </aside>
-            <div class="car-collection-group">
-                <div class="row body-type-section-title">
-                    <h1>All Cars</h1>
-                    <h2>Body Type</h2>
+            <div class="col-12 search-section">
+                <form action="">
+                    <div class="row search-form">
+                        <div class="col-12 search-price">
+                            Price<br>
+                            <input class="col-10" class="col-5 select-price" type="text" name="price"/>
+                        </div>
+                            
+                        <div class="col-12 search-state">
+                            State<br>
+                            <select class="col-10 select-state">
+                                <option disabled selected value >Select State</option>
+                                <option value="used">Used</option>
+                                <option value="new">New</option>
+                            </select>
+                        </div>
+                        <div class="col-12 search-make">
+                            Make<br>                 
+                            <select class="col-10 select-make" >
+                                <option disabled selected value >Select Manufaturer</option>
+                                <option value="toyota">Toyota</option>
+                                <option value="chevrolet">Chevrolet</option>
+                                <option value="ford">Ford</option>
+                                <option value="honda">Honda</option>
+                                <option value="nissan">Nissan</option>
+                                <option value="bmw">Bmw</option>
+                                <option value="jeep">Jeep</option>
+                                <option value="dodge">Dodge</option>
+                                <option value="lexus">Lexus</option>
+                                <option value="benz">Mercedes-Benz</option>
+                                <option value="gmc">GMC</option>
+                                <option value="ferrari">Ferrai</option>
+                                <option value="lamborgini">Lamborgini</option>
+                                <option value="tesla">Tesla</option>
+                                <option value="aston-martin">Aston-Martin</option>
+                                <option value="acura">Acura</option>
+                                <option value="alfa-romeo">Alfa-Romeo</option>
+                                <option value="audi">Audi</option>
+                                <option value="bentley">Bentley</option>
+                                <option value="cadillac">Cadillac</option>
+                                <option value="bugatti">Bugatti</option>
+                                <option value="geely">Geely</option>
+                                <option value="maserati">Maserati</option>
+                                <option value="infiniti">Infiniti</option>
+                                <option value="hyundai">Hyundai</option>
+                                <option value="mazda">Mazda</option>
+                                <option value="land-rover">Land-Rover</option>
+                                <option value="mini">Mini</option>
+                                <option value="kia">Kia</option>
+                                <option value="geely">Geely</option>
+                                <option value="koenigsegg">Koenigsegg</option>
+                            </select>
+                        </div>
+                        <div class="col-12 search-body">
+                            Body Type<br>
+                            <select class="col-10 select-body">
+                                <option disabled selected value >Select Body Type</option>
+                                <option value="bus">Bus</option>
+                                <option value="cabriolet">Cabriolet</option>
+                                <option value="estate">Estate</option>
+                                <option value="hatchback"Hatchback</option>
+                                <option value="sedan">Sedan</option>
+                                <option value="roadstar">Roadstar</option>
+                                <option value="suv">SUV</option>
+                                <option value="crossover">Crossover</option>
+                                <option value="family_coupe">Family Coupe</option>
+                                <option value="truck">Truck</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="submit" value="Search" id="check"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <div class="row make-title">
+            <div class="col-12 title-make">
+                <h2>All Cars</h2>
+            </div>
+        </div>
+        <div class="row collection-section">
+            <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                          <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                          <p>#1000000 | 5000 Miles</p>
+                          <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 body-type-img">
+                    <div class="card">
+                        <img src="img/coupe.png" alt="coupe img">
+                        <div class="container">
+                            <h4><b>2018 Benz</b> Renegade Sport</h4> 
+                            <p>#1000000 | 5000 Miles</p>
+                            <h5>Ikorodu, Lagos</h5> 
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
+    <div class="row contact-background">
+        <div class="col-12 contact-title">
+            <h1>Contact Us</h1>
+            <h2>Tips & Information</h2>
+            <p>You want advice, information on buying or selling a vehicle. Our team of advisers are vehicle exparts</p>
+        </div>
+        <div id="contact" class="col-12 contact-form">
+            <form action="">
+                    <div class="col-12">
+                        Name*<br>
+                        <input class="col-10" id="name-contact" type="text" name="name"/>
+                        <br>
+                    </div>
+                    
+                    <div class="col-12">
+                        Email*<br>
+                        <input class="col-10" id="email-contact" type="email" name="email"/>
+                        <br>
+                    </div>
+
+                    Message*<br>
+                    <textarea class="col-10" placeholder="Message"></textarea>
+                    
+                    <br>
+                    <input class="col-3" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
 </body>
 </html>

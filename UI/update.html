@@ -4,149 +4,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>AutoMart | Sell</title>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript"
-            src="js/sell.js"
-            async></script>
+            src="js/script.js"
+            async></script> 
+    <title>Document</title>
 </head>
 <body>
     <div class="bg-image-sell">
-        <header>
-            <div class="upper-div row">
-                <nav class="nav-upper">
+        <div class="notification">I am stiky</div>
+        <div class="row nav-bar">
+            <div class="col-8">
+                <h1>AutoMart</h1>
+            </div>
+            <div class="col-2 nav-bar-img">
+               <a href="#"><img src="img/phone.svg" alt="phone image"></a>
+            </div>
+            <div class="col-2 nav-bar-img">
+                <img id="open-nav" src="img/menu.svg" alt="hambuger menu">
+            </div>
+        </div>
+
+        <div class="desktop-nav">
+                <nav class="col-12 nav-upper">
                     <ul>
-                        <li><a  href="#" hidden>Logout</a></li>
                         <li><a  href="#contact">Contact Us</a></li>
                         <li><a  href="signup.html">Reigster</a></li>
                         <li><a  href="signin.html">Login</a></li>
-                        <li>0904 444 4444</li>
+                        <li><a href="#">0904 444 4444</a></li>
                     </ul>
                 </nav>
-            </div>
             <div class="header-container row">
-                <div id="branding">
+                <div id="branding" class="col-4">
                         <h1>Auto Mart</h1>
                 </div>
-                <nav class="nav-lower">
+                <nav class="col-8 nav-lower">
                     <ul>
                         <li><a  href="index.html">Home</a></li>
                         <li><a  href="vehicles.html">Vehicles</a></li>
-                        <li><a  href="aboutUs.html">About Us</a></li>
+                        <li><a  href="about.html">About Us</a></li>
                         <li><a  href="sell.html">Sell<br> A Car </a></li>
-                        <li><a  href="#make">Find<br> Manufacturer </a></li>
+                        <li><a  href="#search">Search</a></li>
                     </ul>
                 </nav>
             </div>
-        </header>
-        <section class="sell-section">
-                <div>
-                    <h1>Sell Your Car</h1>
-                    <h5>YOUR CAR DETAILS</h5>
-                </div>
-                <div class="form-div-sell">
-                    <form action="">
-                        <div class="car-data">
-                                Make<br>
-                                <select class="select-text" id="make">
-                                    <option value="toyota">Toyota</option>
-                                    <option value="chevrolet">Chevrolet</option>
-                                    <option value="ford">Ford</option>
-                                    <option value="honda">Honda</option>
-                                    <option value="nissan">Nissan</option>
-                                    <option value="bmw">Bmw</option>
-                                    <option value="jeep">Jeep</option>
-                                    <option value="dodge">Dodge</option>
-                                    <option value="lexus">Lexus</option>
-                                    <option value="benz">Mercedes-Benz</option>
-                                    <option value="gmc">GMC</option>
-                                    <option value="ferrari">Ferrai</option>
-                                    <option value="lamborgini">Lamborgini</option>
-                                    <option value="tesla">Tesla</option>
-                                    <option value="aston-martin">Aston-Martin</option>
-                                    <option value="acura">Acura</option>
-                                    <option value="alfa-romeo">Alfa-Romeo</option>
-                                    <option value="audi">Audi</option>
-                                    <option value="bentley">Bentley</option>
-                                    <option value="cadillac">Cadillac</option>
-                                    <option value="bugatti">Bugatti</option>
-                                    <option value="geely">Geely</option>
-                                    <option value="maserati">Maserati</option>
-                                    <option value="infiniti">Infiniti</option>
-                                    <option value="hyundai">Hyundai</option>
-                                    <option value="mazda">Mazda</option>
-                                    <option value="land-rover">Land-Rover</option>
-                                    <option value="mini">Mini</option>
-                                    <option value="kia">Kia</option>
-                                    <option value="geely">Geely</option>
-                                    <option value="koenigsegg">Koenigsegg</option>
-                                </select>                                <br>
-                                Model<br>
-                                <input id="model" type="text" name="model"/>
-                                <br>
-                                Body Type<br>
-                                <select class="select-text" id="body-type">
-                                    <option value="bus">Bus</option>
-                                    <option value="cabriolet">Cabriolet</option>
-                                    <option value="estate">Estate</option>
-                                    <option value="hatchback"Hatchback</option>
-                                    <option value="sedan">Sedan</option>
-                                    <option value="roadstar">Roadstar</option>
-                                    <option value="suv">SUV</option>
-                                    <option value="crossover">Crossover</option>
-                                    <option value="family_coupe">Family Coupe</option>
-                                    <option value="truck">Truck</option>
-                                </select><br>
-                                Milage<br>
-                                <input id="milage" type="text" name="Milage"/>
+        </div>
+
+        <div id="side-menu" class="side-nav">
+            <a href="#" id="close-nav" class="btn-close">&times;</a>
+            <a href="index.html">Home</a>
+            <a href="vehicles.html">vehicles</a>
+            <a href="about.html">About Us</a>
+            <a href="sell.html">Sell <br> A Car</a>
+            <a href="#search">Search</a>
+            <a href="signin.html">Log in</a>
+            <a href="signup.html">Register</a>
+            <a href="#contact">Contact Us</a>
+            <a href="#0904-444-4444">0904-444-4444</a>
+        </div>
+
+        <div class="row">
+            <div class="col-12 sell-title">
+                <h1>Sell Your Car</h1>
+                <h5>UPDATE CAR DETAILS</h5>
+            </div>
+            <div class="col-12 form-div-sell">
+                <form action="">
+                    <div class="row veh-form">
+                        <div class="col-12">
+                            Make<br>
+                            <select class="col-10 select-text" id="make">
+                                <option value="toyota">Toyota</option>
+                                <option value="chevrolet">Chevrolet</option>
+                                <option value="ford">Ford</option>
+                                <option value="honda">Honda</option>
+                                <option value="nissan">Nissan</option>
+                                <option value="bmw">Bmw</option>
+                                <option value="jeep">Jeep</option>
+                                <option value="dodge">Dodge</option>
+                                <option value="lexus">Lexus</option>
+                                <option value="benz">Mercedes-Benz</option>
+                                <option value="gmc">GMC</option>
+                                <option value="ferrari">Ferrai</option>
+                                <option value="lamborgini">Lamborgini</option>
+                                <option value="tesla">Tesla</option>
+                                <option value="aston-martin">Aston-Martin</option>
+                                <option value="acura">Acura</option>
+                                <option value="alfa-romeo">Alfa-Romeo</option>
+                                <option value="audi">Audi</option>
+                                <option value="bentley">Bentley</option>
+                                <option value="cadillac">Cadillac</option>
+                                <option value="bugatti">Bugatti</option>
+                                <option value="geely">Geely</option>
+                                <option value="maserati">Maserati</option>
+                                <option value="infiniti">Infiniti</option>
+                                <option value="hyundai">Hyundai</option>
+                                <option value="mazda">Mazda</option>
+                                <option value="land-rover">Land-Rover</option>
+                                <option value="mini">Mini</option>
+                                <option value="kia">Kia</option>
+                                <option value="geely">Geely</option>
+                                <option value="koenigsegg">Koenigsegg</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            Model<br>
+                            <input class="col-10" id="model" type="text" name="model"/>
+                        </div>
+                        <div class="col-12">
+                            Body Type<br>
+                            <select class="col-10 select-text" id="body-type">
+                                <option value="bus">Bus</option>
+                                <option value="cabriolet">Cabriolet</option>
+                                <option value="estate">Estate</option>
+                                <option value="hatchback">Hatchback</option>
+                                <option value="sedan">Sedan</option>
+                                <option value="roadstar">Roadstar</option>
+                                <option value="suv">SUV</option>
+                                <option value="crossover">Crossover</option>
+                                <option value="family_coupe">Family Coupe</option>
+                                <option value="truck">Truck</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            Milage<br>
+                            <input class="col-10" id="milage" type="text" name="Milage"/>
                         </div>
 
-                        <div class="car-data">
-                                State<br>
-                                <select class="select-text" id="state">
-                                    <option value="used">Used</option>
-                                    <option value="new">New</option>
-                                </select>
-                                <br>
-                                Transmission<br>
-                                <select class="select-text" id="transmission">
-                                    <option value="automatic">Automatic</option>
-                                    <option value="manual">Manual</option>
-                                    <option value="hybrid">Hybrid</option>
-                                </select>      
-                                <br>
-                                Price<br>
-                                <input id="price" type="number" name="price"/>
-                                <br>
-                                Year<br>
-                                <input id="year" type="number" name="year"/>
-                                <br>
+                        <div class="col-12">
+                            State<br>
+                            <select class="col-10 select-text" id="state">
+                                <option value="used">Used</option>
+                                <option value="new">New</option>
+                            </select>
                         </div>
-                        <div class="photo-input">
-                            <label for="exterior-img">Exterior</label>
-                            <img src="../UI/assets/camera.svg" alt="camera">
+                        <div class="col-12">
+                            Transmission<br>
+                            <select class="col-10 select-text" id="transmission">
+                                <option value="automatic">Automatic</option>
+                                <option value="manual">Manual</option>
+                                <option value="hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            Price<br>
+                            <input class="col-10" id="price" type="number" name="price"/>
+                        </div>
+                        <div class="col-12">
+                            Year<br>
+                            <input class="col-10" id="year" type="number" name="year"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 photo-input-1">
+                            Exterior<br>
                             <input id="exterior-img" type="file" name="exterior" accept="image/png, image/jpeg"/>
-                            <textarea id="exterior-txt" class="col-8" placeholder="Message"></textarea>
                         </div>
-                        <div class="photo-input">
-                            <label for="interior-img">Interior</label>
-                            <img src="../UI/assets/camera.svg" alt="camera">
-                            <input id="interior-img" type="file" name="interior" accept="image/png, image/jpeg"/>
-                            <textarea id="interior-txt" class="col-8" placeholder="Message"></textarea>
+                        <div class="col-12 photo-input-2">
+                            Interior<br>
+                            <input id="exterior-img" type="file" name="interior" accept="image/png, image/jpeg"/>
                         </div>
-                        <div class="photo-input">
-                            <label for="engine-img">Engine</label>
-                            <img src="../UI/assets/camera.svg" alt="camera">
+                        <div class="col-12 photo-input-3">
+                            Engine<br>
                             <input id="engine-img" type="file" name="engine" accept="image/png, image/jpeg"/>
-                            <textarea id="engine-txt" class="col-8" placeholder="Message"></textarea>
                         </div>
-                        <!-- <br> -->
-                        <input class="col-3 sell-button" type="submit" value="Update Sale">
-                        <!-- <button class="col-3" id="sell-car">Post AD</button> -->
-                    </form>
-                </div>
-        </section>
-    </div> 
-
+                        <div class="col-12 button-sell">
+                            <input class="col-3 sell-button" type="submit" value="Update AD">
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
