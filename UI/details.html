@@ -4,78 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>AutoMart | Details</title>
-    <link rel="stylesheet" href="css/style.css"/></head>
+    <link rel="stylesheet" href="css/style.css"/>
     <script type="text/javascript"
-            src="js/details.js"
-            async></script>
+            src="js/script.js"
+            async></script> 
+    <title>Document</title>
 </head>
 <body>
+    <div class="notification">I am stiky</div>
     <div class="bg-image-details">
-        <header>
-            <div class="upper-div row">
-                <nav class="nav-upper">
+        <div class="row nav-bar">
+            <div class="col-8">
+                <h1>AutoMart</h1>
+            </div>
+            <div class="col-2 nav-bar-img">
+               <a href="#"><img src="img/phone.svg" alt="phone image"></a> 
+            </div>
+            <div class="col-2 nav-bar-img">
+                <img id="open-nav" src="img/menu.svg" alt="hambuger menu">
+            </div>
+        </div>
+
+        <div class="desktop-nav">
+                <nav class="col-12 nav-upper">
                     <ul>
-                        <li><a  href="#" hidden>Logout</a></li>
                         <li><a  href="#contact">Contact Us</a></li>
                         <li><a  href="signup.html">Reigster</a></li>
                         <li><a  href="signin.html">Login</a></li>
-                        <li>0904 444 4444</li>
+                        <li><a href="#">0904 444 4444</a></li>
                     </ul>
                 </nav>
-            </div>
             <div class="header-container row">
-                <div id="branding">
+                <div id="branding" class="col-4">
                         <h1>Auto Mart</h1>
                 </div>
-                <nav class="nav-lower">
+                <nav class="col-8 nav-lower">
                     <ul>
                         <li><a  href="index.html">Home</a></li>
                         <li><a  href="vehicles.html">Vehicles</a></li>
-                        <li><a  href="aboutUs.html">About Us</a></li>
+                        <li><a  href="about.html">About Us</a></li>
                         <li><a  href="sell.html">Sell<br> A Car </a></li>
-                        <li><a  href="#make">Find<br> Manufacturer </a></li>
+                        <li><a  href="#search">Search</a></li>
                     </ul>
                 </nav>
             </div>
-        </header>
-        <section class="col-10 section-details">
-            <div class="description">
-                <h1>Exterior</h1>
-                <h3>Benz</h3>
-                <h4>Hatcher Back 430</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti quam debitis<br>
-                    veniam nostrum quod eveniet similique consequatur accusamus, eos nulla aliquid<br>
-                    sint dolorum tempora hic enim, quidem neque ex saepe!</p>
-                    <div class="interaction">
-                        <div class="fraud">
-                        <img class="fraud" src="../UI/assets/not-good.svg" alt="not-scam">
-                        <h5>Flag as fraudulent</h5>
-                        </div>
-                        <button id="button-buy">Purchase Car</button>
-                    </div>
-            </div>
-            <div class="images">
-                <img class="main-img" src="../UI/assets/coupe.png" alt="coupe"/>
+        </div>
+        
+        <div id="side-menu" class="side-nav">
+            <a href="#" id="close-nav" class="btn-close">&times;</a>
+            <a href="index.html">Home</a>
+            <a href="vehicles.html">vehicles</a>
+            <a href="about.html">About Us</a>
+            <a href="sell.html">Sell <br> A Car</a>
+            <a href="#search">Search</a>
+            <a href="signin.html">Log in</a>
+            <a href="signup.html">Register</a>
+            <a href="#contact">Contact Us</a>
+            <a href="#0904-444-4444">0904-444-4444</a>
+        </div>
+
+        <div class="row">
+            <div class="col-12 images">
+                <img class="main-img" src="img/coupe.png" alt="coupe"/>
                 <div class="tumbnail-group">
-                    <div class="tumbnail-img">
-                        <img  src="../UI/assets/coupe.png" alt="coupe"/>
+                    <div class="col-4 tumbnail-img">
+                        <img  src="img/coupe.png" alt="coupe"/>
+                        <p>Exterior</p>
                     </div>
-                    <div class="tumbnail-img">
-                        <img src="../UI/assets/coupe.png" alt="coupe"/>
+                    <div class="col-4 tumbnail-img">
+                        <img src="img/coupe.png" alt="coupe"/>
+                        <p>Interior</p>
                     </div>
-                    <div class="tumbnail-img">
-                        <img src="../UI/assets/coupe.png" alt="coupe"/>
+                    <div class="col-4 tumbnail-img">
+                        <img src="img/coupe.png" alt="coupe"/>
+                        <p>Engine</p>
                     </div>
                 </div>
             </div>
-            <div class="owner-controls">
-                <button class="delete col-2">Delete</button>
-                <button class="edit col-2">Edit</button>
-                Sold <input  type="checkbox" name="sold" value="Sold" id="sold"  />    
-                        
+            <div class="col-12 description">
+                <h1>Exterior</h1>
+                <h2>Price: #1200000</h2>
+                <h3>Benz(Coupe)</h3>
+                <h4>Model: Hatcher Back 430</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti quam debitis<br>
+                    veniam nostrum quod eveniet similique consequatur accusamus, eos nulla aliquid<br>
+                    sint dolorum tempora hic enim, quidem neque ex saepe!</p>
+
+                <div class="row interaction">
+                    <div class="col-6 fraud">
+                        <img src="img/not-scam.svg" alt="not-scam">
+                        <h5>Flag as fraudulent</h5>
+                    </div>
+                    <div class="col-6">
+                        <button id="button-buy">Purchase Car</button>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+
+        <div class="row owner-controls">
+            <div class="col-4">
+                <button class="delete">Delete</button>
+            </div>
+            <div class="col-4">    
+                <button class="edit">Edit</button>
+            </div>
+            <div class="col-4">
+                Sold <input  type="checkbox" name="sold" value="Sold" id="sold"  />         
+            </div>
+        </div>
+    </div>
+    <div class="cart-notify">
+        <img src="img/cart.svg" alt="cart logo">
+        <h1>1</h1>
+        <h2>Item</h2>
     </div>
 </body>
 </html>
