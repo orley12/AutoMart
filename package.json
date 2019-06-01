@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start:dev": "nodemon --exec babel-node app",
+    "start:dev": "nodemon --exec babel-node server/app",
     "test": "mocha --exit --require @babel/register test"
   },
   "keywords": [],
