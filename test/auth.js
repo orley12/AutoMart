@@ -1,7 +1,7 @@
 // Require the dev-dependencies
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../app';
+import app from '../server/app';
 
 // eslint-disable-next-line no-unused-vars
 const should = chai.should();
