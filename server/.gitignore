@@ -1,1 +1,7 @@
 node_modules
+
+.babelrc
+
+eslintrc.js
+
+.eslintrc.json
