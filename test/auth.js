@@ -65,6 +65,61 @@ describe('USER ROUTES TEST', () => {
         });
     });
 
+    describe('/POST signin', () => {
+      it('should correctly return a user data if sign in was successful', (done) => {
+        requester.post('/api/v1/auth/signin')
+          .send({
+            email: 'sole@yahoo.com',
+            password: 'Password',
+          }).end((err, res) => {
+            res.body.should.have.property('status').eql(200);
+            res.body.should.have.property('data');
+            res.body.data.should.be.a('object');
+            res.body.data.should.have.property('id');
+            res.body.data.should.have.property('first_name');
+            res.body.data.should.have.property('last_name');
+            res.body.data.should.have.property('email');
+            done();
+          });
+      });
+
+      it('should return an error in the responds body, when sign in lacks any user data', (done) => {
+        requester.post('/api/v1/auth/signin')
+          .send({
+            email: 'sole@yahoo.com',
+          }).end((err, res) => {
+            res.body.should.have.property('status').eql(400);
+            res.body.should.have.property('error');
+            done();
+          });
+      });
+
+      it('should return an error in the responds body, when user is not in the database', (done) => {
+        requester.post('/api/v1/auth/signin')
+          .send({
+            email: 'sol@yahoo.com',
+            password: 'Password',
+          }).end((err, res) => {
+            res.body.should.have.property('status').eql(401);
+            res.body.should.have.property('error');
+            done();
+          });
+      });
+
+      it(`should return an error in the responds body, 
+      when signed in user is trying to access the signin route`, (done) => {
+        requester.post('/api/v1/auth/signin')
+          .set('x-access-token', 1234584)
+          .send({
+            email: 'sole@yahoo.com',
+            password: 'Password',
+          }).end((err, res) => {
+            res.body.should.have.property('status').eql(403);
+            res.body.should.have.property('error');
+            done();
+          });
+      });
+    });
     after(() => {
       requester.close();
     });

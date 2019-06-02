@@ -20,6 +20,7 @@ const findByEmail = (email) => {
   return user;
 };
 
+// eslint-disable-next-line consistent-return
 User.authenticate = (email, password, callback) => {
   const user = findByEmail(email);
   if (!user) {
@@ -31,7 +32,6 @@ User.authenticate = (email, password, callback) => {
     }
     return callback();
   });
-  return callback();
 };
 
 User.save = (user) => {
