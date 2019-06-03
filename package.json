@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start:dev": "nodemon --exec babel-node server/app",	
     "test": "nyc --require @babel/register --reporter=lcov --reporter=text mocha --exit --timeout 90000 --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -30,8 +31,10 @@
     "@babel/node": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
+    "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.3"
+    "eslint-plugin-import": "^2.17.3",
+    "mocha-lcov-reporter": "^1.3.0"
   }
 }
