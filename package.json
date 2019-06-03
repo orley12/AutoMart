@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=text mocha --exit --timeout 90000 --recursive --require @babel/register test",
+    "test": "nyc --require @babel/register test --reporter=lcov --reporter=text mocha --exit --timeout 90000 --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
