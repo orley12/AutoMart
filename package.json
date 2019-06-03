@@ -4,9 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "coverage": "nyc npm test",
-    "start:dev": "nodemon --exec babel-node server/app",
-    "test": "mocha --exit --timeout 90000 --recursive --require @babel/register test"
+    "test": "nyc --require @babel/register test --reporter=lcov --reporter=text mocha --exit --timeout 90000 --recursive",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "",

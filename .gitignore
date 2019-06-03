@@ -5,3 +5,7 @@ eslintrc.js
 .eslintrc.json
 
 .env
+
+coverage
+
+.nyc_output
