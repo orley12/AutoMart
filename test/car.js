@@ -16,21 +16,23 @@ describe('CAR ROUTES TEST', () => {
     before((done) => {
       requester.post('/api/v1/auth/signup')
         .send({
-          name: 'Ola',
+          firstName: 'Ola',
+          lastName: 'Ola',
           email: 'sole@yahoo.com',
           phone: '09049908094',
-          password: 'Password',
-          confirmPassword: 'Password',
-          address: 'okpjkdpjpejj',
+          password: 'hashedPassword',
+          confirmPassword: 'hashedPassword',
+          address: 'akmodojojfoj',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(201);
           res.body.should.have.property('data');
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('first_name');
-          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('firstName');
+          res.body.data.should.have.property('lastName');
           res.body.data.should.have.property('email');
-          // res.body.data.should.have.property('address')
+          res.body.data.should.have.property('address');
+          // eslint-disable-next-line prefer-destructuring
           token = res.body.data.token;
           console.log(`${token} HERE`);
           done();
@@ -45,7 +47,7 @@ describe('CAR ROUTES TEST', () => {
         .attach('interior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
         .attach('engine', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
         .field('data', JSON.stringify({
-          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', body_type: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exterior_img: 'car.exterior_img', interior_img: 'car.interior_img', engine_img: 'car.engine_img',
+          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img',
         }))
         .end((err, res) => {
           res.body.should.have.property('status').eql(201);
@@ -58,12 +60,12 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.have.property('price');
           res.body.data.should.have.property('state');
           res.body.data.should.have.property('status');
-          res.body.data.should.have.property('body_type');
+          res.body.data.should.have.property('bodyType');
           res.body.data.should.have.property('milage');
           res.body.data.should.have.property('year');
-          res.body.data.should.have.property('exterior_img');
-          res.body.data.should.have.property('interior_img');
-          res.body.data.should.have.property('engine_img');
+          res.body.data.should.have.property('exteriorImg');
+          res.body.data.should.have.property('interiorImg');
+          res.body.data.should.have.property('engineImg');
           done();
         });
     });
@@ -75,11 +77,12 @@ describe('CAR ROUTES TEST', () => {
         .attach('interior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
         .attach('engine', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
         .field('data', JSON.stringify({
-          manufacturer: 'aston-martin', model: 'stallion', price: '750000', body_type: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exterior_img: 'car.exterior_img', interior_img: 'car.interior_img', engine_img: 'car.engine_img',
+          manufacturer: 'aston-martin', model: 'stallion', price: '750000', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img',
         }))
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
-          res.body.should.have.property('error');
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
           done();
         });
     });
@@ -90,11 +93,12 @@ describe('CAR ROUTES TEST', () => {
         .attach('interior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
         .attach('engine', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
         .field('data', JSON.stringify({
-          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', body_type: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exterior_img: 'car.exterior_img', interior_img: 'car.interior_img', engine_img: 'car.engine_img',
+          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img',
         }))
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
-          res.body.should.have.property('error');
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
           done();
         });
     });
