@@ -6,6 +6,7 @@ import app from '../server/app';
 
 // eslint-disable-next-line no-unused-vars
 const should = chai.should();
+const expect = chai.expect();
 chai.use(chaiHttp);
 
 
@@ -44,8 +45,8 @@ describe('CAR ROUTES TEST', () => {
       requester.post('/api/v1/car')
         .set('x-access-token', token)
         .attach('exterior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
-        .attach('interior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
-        .attach('engine', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
+        // .attach('interior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
+        // .attach('engine', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
         .field('data', JSON.stringify({
           manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img',
         }))
@@ -103,9 +104,59 @@ describe('CAR ROUTES TEST', () => {
         });
     });
 
+    describe('/GET car', () => {
+      it('should return a status 200,and an array of car objects', (done) => {
+        requester.get('/api/v1/car')
+          .set('x-access-token', token)
+          .end((err, res) => {
+            res.body.should.have.property('status').eql(200);
+            res.body.should.have.property('message').eql('success');
+            res.body.data.should.be.a('array');
+            done();
+          });
+      });
 
-    after(() => {
-      requester.close();
+      it('should return a status 200,and an array of car objects', (done) => {
+        requester.get('/api/v1/car?manufacturer=aston-martin')
+          .set('x-access-token', token)
+          .end((err, res) => {
+            res.body.should.have.property('status').eql(200);
+            res.body.should.have.property('message').eql('success');
+            res.body.data.should.be.a('array').that.does.not.include({});
+            done();
+          });
+      });
     });
+
+    it('should return a status 200,and an array of car objects', (done) => {
+      requester.get('/api/v1/car?manufacturer=sedan')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const data = JSON.parse(res.body.data);
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message').eql('success');
+          data.should.be.a().that.does.not.include({});
+          // eslint-disable-next-line no-unused-expressions
+          expect(data).to.be.empty;
+          done();
+        });
+    });
+
+    it('should return a status 200,and an array of car objects with property manufacturer = aston-martin', (done) => {
+      requester.get('/api/v1/car?manufacturer=aston-martin')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const data = JSON.parse(res.body.data);
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message').eql('success');
+          // eslint-disable-next-line no-unused-expressions
+          expect(data).to.not.be.empty;
+          done();
+        });
+    });
+  });
+
+  after(() => {
+    requester.close();
   });
 });

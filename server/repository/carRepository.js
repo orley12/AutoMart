@@ -21,4 +21,24 @@ export default class CarRepository {
     cars.set(car.id, car);
     return cars.get(car.id);
   }
+
+  static findAll() {
+    const allCars = [];
+    // eslint-disable-next-line no-unused-vars
+    cars.forEach((value, key) => {
+      allCars.push(value);
+    });
+    return allCars;
+  }
+
+  static findAllUnsold() {
+    const allUnsoldCars = [];
+    // eslint-disable-next-line no-unused-vars
+    cars.forEach((value, key) => {
+      if (value.status === 'unsold') {
+        allUnsoldCars.push(value);
+      }
+    });
+    return allUnsoldCars;
+  }
 }
