@@ -93,4 +93,29 @@ export default class CarController {
       data: cars,
     });
   }
+
+  static updateCar(req, res, next) {
+    if (req.body.status) {
+      if (req.body.status.toLowerCase() === 'sold' || req.body.status.toLowerCase() === 'unsold') {
+        const updatedCar = carRepository.update(req.params.id, req.body.status);
+        res.json({
+          status: 200,
+          data: {
+            id: updatedCar.id,
+            email: updatedCar.email,
+            createdOn: updatedCar.createdOn,
+            manufacturer: updatedCar.manufacturer,
+            model: updatedCar.model,
+            price: updatedCar.price,
+            state: updatedCar.state,
+            status: updatedCar.status,
+          },
+        });
+      } else {
+        next(new ApiError(400, 'Bad Request', ['Invalid status']));
+      }
+    } else {
+      next(new ApiError(400, 'Bad Request', ['No status provided']));
+    }
+  }
 }
