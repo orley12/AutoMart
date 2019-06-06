@@ -13,7 +13,6 @@ export default class CarController {
       if (errors.length > 0) {
         throw new ApiError(400, 'Bad Request', errors);
       }
-      console.log(carData);
       const filekeys = Object.keys(req.files);
       const filePromises = carUtils.fileUploadPromises(req.files, filekeys);
       if (filePromises.length < 1 || filePromises.length > 3) {
@@ -50,5 +49,48 @@ export default class CarController {
     } catch (error) {
       next(error);
     }
+  }
+
+  static getCars(req, res) {
+    let cars = [];
+    if (req.decoded.id) {
+      const userId = JSON.parse(req.decoded.id);
+      const user = authRepository.findById(userId);
+      if (user.is_admin === true) {
+        cars = carRepository.findAll();
+      }
+    } else {
+      cars = carRepository.findAllUnsold();
+    }
+    if (req.query.manufacturer) {
+      cars = cars.filter((car) => {
+        console.log(`${req.query.manufacturer}  ${car.manufacturer}`);
+        return req.query.manufacturer.toLowerCase() === car.manufacturer.toLowerCase();
+      });
+    }
+    if (req.query.state) {
+      cars = cars.filter((car) => {
+        console.log(`${req.query.state.toLowerCase()}  ${car.state.toLowerCase()}`);
+        return req.query.state.toLowerCase() === car.state.toLowerCase();
+      });
+    }
+    if (req.query.bodyType) {
+      cars = cars.filter((car) => {
+        console.log(`${req.query.bodyType.toLowerCase()}  ${car.bodyType.toLowerCase()}`);
+        return req.query.bodyType.toLowerCase() === car.bodyType.toLowerCase();
+      });
+    }
+    if (req.query.minPrice && req.query.maxPrice) {
+      cars = cars.filter((car) => {
+        console.log(`${req.query.min_price}  ${req.query.max_price}`);
+        // eslint-disable-next-line max-len
+        return (Number(car.price) >= Number(req.query.min_price)) && (Number(car.price) <= Number(req.query.max_price));
+      });
+    }
+    res.json({
+      status: 200,
+      message: 'success',
+      data: cars,
+    });
   }
 }

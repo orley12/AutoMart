@@ -27,4 +27,26 @@ export default class CarMiddleware {
       next(error);
     }
   }
+
+  static hasToken(req, res, next) {
+    const token = req.headers['x-access-token'];
+    try {
+      if (!token) {
+        next();
+      }
+      jwt.verify(token, process.env.SECRET, (error, decoded) => {
+        try {
+          if (error) {
+            next();
+          }
+          req.decoded = decoded;
+          next();
+        } catch (err) {
+          next(err);
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
