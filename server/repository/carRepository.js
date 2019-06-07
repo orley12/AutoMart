@@ -46,9 +46,13 @@ export default class CarRepository {
     return cars.get(id);
   }
 
-  static update(carId, status) {
+  static update(carId, status, price) {
     const car = cars.get(Number(carId));
-    car.status = status;
+    if (price === null) {
+      car.status = status;
+    } else if (status === null) {
+      car.price = price;
+    }
     car.updatedOn = Date.now();
     cars.set(car.id, car);
     return car;
