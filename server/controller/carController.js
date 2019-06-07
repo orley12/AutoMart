@@ -97,7 +97,7 @@ export default class CarController {
   static updateCarStatus(req, res, next) {
     if (req.body.status) {
       if (req.body.status.toLowerCase() === 'sold' || req.body.status.toLowerCase() === 'unsold') {
-        const updatedCar = carRepository.update(req.params.id, req.body.status);
+        const updatedCar = carRepository.update(req.params.id, req.body.status, null /* price */);
         res.json({
           status: 200,
           data: {
@@ -116,6 +116,32 @@ export default class CarController {
       }
     } else {
       next(new ApiError(400, 'Bad Request', ['No status provided']));
+    }
+  }
+
+  static updateCarPrice(req, res, next) {
+    if (req.body.price) {
+      console.log(typeof (Number(req.body.price)));
+      if (typeof (Number(req.body.price)) === 'number' || req.body.price !== '') {
+        const updatedCar = carRepository.update(req.params.id, null, req.body.price);
+        res.json({
+          status: 200,
+          data: {
+            id: updatedCar.id,
+            email: updatedCar.email,
+            createdOn: updatedCar.createdOn,
+            manufacturer: updatedCar.manufacturer,
+            model: updatedCar.model,
+            price: updatedCar.price,
+            state: updatedCar.state,
+            status: updatedCar.status,
+          },
+        });
+      } else {
+        next(new ApiError(400, 'Bad Request', ['Invalid price']));
+      }
+    } else {
+      next(new ApiError(400, 'Bad Request', ['No price provided']));
     }
   }
 }
