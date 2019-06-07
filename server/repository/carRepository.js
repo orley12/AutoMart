@@ -47,7 +47,7 @@ export default class CarRepository {
   }
 
   static update(carId, status) {
-    const car = cars.get(carId);
+    const car = cars.get(Number(carId));
     car.status = status;
     car.updatedOn = Date.now();
     cars.set(car.id, car);

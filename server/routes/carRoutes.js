@@ -12,6 +12,6 @@ router.post('/', [multipartMiddleware, carMiddleWare.canWrite], carController.cr
 
 router.get('/', carMiddleWare.hasToken, carController.getCars);
 
-router.patch('/:id/status', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCar);
+router.patch('/:id/status', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarStatus);
 
 export default router;

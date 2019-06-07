@@ -94,7 +94,7 @@ export default class CarController {
     });
   }
 
-  static updateCar(req, res, next) {
+  static updateCarStatus(req, res, next) {
     if (req.body.status) {
       if (req.body.status.toLowerCase() === 'sold' || req.body.status.toLowerCase() === 'unsold') {
         const updatedCar = carRepository.update(req.params.id, req.body.status);

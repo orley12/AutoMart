@@ -53,6 +53,7 @@ export default class CarMiddleware {
 
   static isOwner(req, res, next) {
     const userId = JSON.parse(req.decoded.id);
+    console.log(car);
     const car = carRepository.findById(Number(req.params.id));
     try {
       if (userId !== car.owner) {
