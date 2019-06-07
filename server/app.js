@@ -20,14 +20,12 @@ app.use('/api/v1/car', carRoutes);
 
 
 app.use((req, res, next) => {
-  console.log('CALLED JOB');
   const err = new Error('Resource Not Found');
   err.status = 404;
   next(err);
 });
 
 app.use((err, req, res, next) => {
-  console.log('CALLED JOB');
   res.json({
     status: err.status || 500,
     message: err.message,
