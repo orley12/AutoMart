@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 const cars = new Map();
+const flags = new Map();
 
 export default class CarRepository {
   static save(owner, car, files) {
@@ -63,5 +64,15 @@ export default class CarRepository {
       return null;
     }
     return cars.delete(id);
+  }
+
+  static saveFlag(userId, carId, flag) {
+    flag.owner = userId;
+    flag.carId = carId;
+    flag.createdOn = Date.now();
+    flag.id = flags.size;
+
+    flags.set(flag.id, flag);
+    return flags.get(flag.id);
   }
 }

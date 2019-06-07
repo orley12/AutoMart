@@ -59,7 +59,6 @@ export default class CarMiddleware {
       if (userId !== car.owner) {
         throw new ApiError(401, 'Unauthorizied', ['You do not have permission to perform this action']);
       }
-      console.log(car);
       next();
     } catch (error) {
       next(error);
