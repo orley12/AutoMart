@@ -57,4 +57,11 @@ export default class CarRepository {
     cars.set(car.id, car);
     return car;
   }
+
+  static delete(id) {
+    if (!cars.has(id)) {
+      return null;
+    }
+    return cars.delete(id);
+  }
 }
