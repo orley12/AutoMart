@@ -100,6 +100,7 @@ export default class CarController {
         const updatedCar = carRepository.update(req.params.id, req.body.status, null /* price */);
         res.json({
           status: 200,
+          message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
           data: {
             id: updatedCar.id,
             email: updatedCar.email,
@@ -124,8 +125,9 @@ export default class CarController {
       console.log(typeof (Number(req.body.price)));
       if (typeof (Number(req.body.price)) === 'number' || req.body.price !== '') {
         const updatedCar = carRepository.update(req.params.id, null, req.body.price);
-        res.json({
+        res.status(200).json({
           status: 200,
+          message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
           data: {
             id: updatedCar.id,
             email: updatedCar.email,
@@ -148,19 +150,37 @@ export default class CarController {
   static getCar(req, res, next) {
     const car = carRepository.findById(Number(req.params.id));
     if (car) {
-      res.json({
-        id: car.id,
-        owner: car.owner,
-        created_on: car.created_on,
-        state: car.state,
-        status: car.status,
-        price: car.price,
-        manufacturer: car.manufacturer,
-        model: car.model,
-        bodyType: car.bodyType,
+      res.status(200).json({
+        status: 200,
+        data: {
+          id: car.id,
+          owner: car.owner,
+          created_on: car.created_on,
+          state: car.state,
+          status: car.status,
+          price: car.price,
+          manufacturer: car.manufacturer,
+          model: car.model,
+          bodyType: car.bodyType,
+        },
       });
     } else {
       next(new ApiError(400, 'Not Found', ['The car is not in our database']));
+    }
+  }
+
+  static deleteCar(req, res, next) {
+    const deletedCar = carRepository.delete(Number(req.params.id));
+    if (deletedCar === true) {
+      res.status(200).json({
+        status: 200,
+        message: 'Request Successful',
+        data: 'Car Ad successfully deleted',
+      });
+    } else if (deletedCar === null) {
+      next(new ApiError(404, 'Not Found', ['The car is not in our database']));
+    } else {
+      next(new ApiError(403, 'Bad Request', ['Unable to delete AD']));
     }
   }
 }
