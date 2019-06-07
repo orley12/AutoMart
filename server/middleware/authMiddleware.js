@@ -10,11 +10,6 @@ export default class AuthMiddleware {
       }
       next();
     } catch (error) {
-      // return res.status(error.status).json({
-      //   status: error.status,
-      //   message: error.message,
-      //   error: error.errors,
-      // });
       next(error);
     }
   }

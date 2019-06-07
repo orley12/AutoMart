@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import ApiError from '../error/ApiError';
+import carRepository from '../repository/carRepository';
 
 dotenv.config();
 
@@ -45,6 +46,21 @@ export default class CarMiddleware {
           next(err);
         }
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static isOwner(req, res, next) {
+    const userId = JSON.parse(req.decoded.id);
+    console.log(car);
+    const car = carRepository.findById(Number(req.params.id));
+    try {
+      if (userId !== car.owner) {
+        throw new ApiError(401, 'Unauthorizied', ['You do not have permission to perform this action']);
+      }
+      console.log(car);
+      next();
     } catch (error) {
       next(error);
     }

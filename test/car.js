@@ -154,6 +154,26 @@ describe('CAR ROUTES TEST', () => {
           done();
         });
     });
+
+    it('/PUT CAR STATUS should return updated car data', (done) => {
+      requester.patch('/api/v1/car/0/status')
+        .set('x-access-token', token)
+        .send({
+          status: 'sold',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('created_on');
+          res.body.data.should.have.property('manufacturer');
+          res.body.data.should.have.property('model');
+          res.body.data.should.have.property('status');
+          res.body.data.should.have.property('price');
+          done();
+        });
+    });
   });
 
   after(() => {

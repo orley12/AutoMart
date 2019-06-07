@@ -41,4 +41,16 @@ export default class CarRepository {
     });
     return allUnsoldCars;
   }
+
+  static findById(id) {
+    return cars.get(id);
+  }
+
+  static update(carId, status) {
+    const car = cars.get(Number(carId));
+    car.status = status;
+    car.updatedOn = Date.now();
+    cars.set(car.id, car);
+    return car;
+  }
 }
