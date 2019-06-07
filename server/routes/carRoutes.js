@@ -16,4 +16,7 @@ router.patch('/:id/status', [carMiddleWare.canWrite, carMiddleWare.isOwner], car
 
 router.patch('/:id/price', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarPrice);
 
+router.get('/:id', carMiddleWare.canWrite, carController.getCar);
+
+
 export default router;
