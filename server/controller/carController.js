@@ -144,4 +144,23 @@ export default class CarController {
       next(new ApiError(400, 'Bad Request', ['No price provided']));
     }
   }
+
+  static getCar(req, res, next) {
+    const car = carRepository.findById(Number(req.params.id));
+    if (car) {
+      res.json({
+        id: car.id,
+        owner: car.owner,
+        created_on: car.created_on,
+        state: car.state,
+        status: car.status,
+        price: car.price,
+        manufacturer: car.manufacturer,
+        model: car.model,
+        bodyType: car.bodyType,
+      });
+    } else {
+      next(new ApiError(400, 'Not Found', ['The car is not in our database']));
+    }
+  }
 }
