@@ -4,16 +4,14 @@
   "description": "",
   "main": "server/app.js",
   "scripts": {
-    "clean": "rm -rf build && mkdir build",
-    "build-server" : "babel -d ./build ./serve -s",
-    // "build": "babel server -out-dir build",
-    "build": "npm run clean && npm run build-css && npm run build-server",
-    "start": "node --debug ./build/app.js",
+
+    "build": "babel server --out-dir build",
+    "start": "node build/app.js",
     "start:dev": "nodemon --exec babel-node server/app",	
     "test": "nyc --require @babel/register --reporter=lcov --reporter=text mocha --exit --timeout 90000 --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
-    "heroku-postbuild": "npm run build && npm run start"
+    "heroku-postbuild": "npm run build"
   },
   "keywords": [],
   "author": "",
