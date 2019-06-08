@@ -38,7 +38,7 @@ export default class AuthRepository {
   static save(user, hashPassWord) {
     user.password = hashPassWord;
     user.id = users.size;
-    user.is_admin = false;
+    user.isAdmin = false;
 
     users.set(user.id, user);
     return user;

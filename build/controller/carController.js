@@ -92,12 +92,12 @@ function () {
     value: function getCars(req, res) {
       var cars = [];
 
-      if (req.decoded.id) {
+      if (req.decoded) {
         var userId = JSON.parse(req.decoded.id);
 
         var user = _authRepository["default"].findById(userId);
 
-        if (user.is_admin === true) {
+        if (user.isAdmin === true) {
           cars = _carRepository["default"].findAll();
         }
       } else {
