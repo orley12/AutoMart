@@ -11,10 +11,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.get('/', (req, res, next) => {
-//   res.send('hello world');
-// });
-
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/car', carRoutes);
 
