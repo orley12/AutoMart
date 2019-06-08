@@ -99,37 +99,41 @@ function () {
 
         if (user.isAdmin === true) {
           cars = _carRepository["default"].findAll();
+        } else {
+          cars = _carRepository["default"].findAllUnsold();
         }
       } else {
         cars = _carRepository["default"].findAllUnsold();
       }
 
       if (req.query.manufacturer) {
+        // eslint-disable-next-line max-len
         cars = cars.filter(function (car) {
-          console.log("".concat(req.query.manufacturer, "  ").concat(car.manufacturer));
           return req.query.manufacturer.toLowerCase() === car.manufacturer.toLowerCase();
         });
       }
 
       if (req.query.state) {
         cars = cars.filter(function (car) {
-          console.log("".concat(req.query.state.toLowerCase(), "  ").concat(car.state.toLowerCase()));
           return req.query.state.toLowerCase() === car.state.toLowerCase();
         });
       }
 
       if (req.query.bodyType) {
         cars = cars.filter(function (car) {
-          console.log("".concat(req.query.bodyType.toLowerCase(), "  ").concat(car.bodyType.toLowerCase()));
           return req.query.bodyType.toLowerCase() === car.bodyType.toLowerCase();
         });
       }
 
-      if (req.query.minPrice && req.query.maxPrice) {
+      if (req.query.minPrice) {
         cars = cars.filter(function (car) {
-          console.log("".concat(req.query.min_price, "  ").concat(req.query.max_price)); // eslint-disable-next-line max-len
+          return Number(car.price) >= Number(req.query.minPrice);
+        });
+      }
 
-          return Number(car.price) >= Number(req.query.min_price) && Number(car.price) <= Number(req.query.max_price);
+      if (req.query.maxPrice) {
+        cars = cars.filter(function (car) {
+          return Number(car.price) <= Number(req.query.maxPrice);
         });
       }
 

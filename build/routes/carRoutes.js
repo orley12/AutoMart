@@ -21,7 +21,7 @@ var multipartMiddleware = (0, _connectMultiparty["default"])();
 var router = _express["default"].Router();
 
 router.post('/', [multipartMiddleware, _carMiddleware["default"].canWrite], _carController["default"].createCar);
-router.get('/', _carMiddleware["default"].hasToken, _carController["default"].getCars);
+router.get('/', _carController["default"].getCars);
 router.patch('/:id/status', [_carMiddleware["default"].canWrite, _carMiddleware["default"].isOwner], _carController["default"].updateCarStatus);
 router.patch('/:id/price', [_carMiddleware["default"].canWrite, _carMiddleware["default"].isOwner], _carController["default"].updateCarPrice);
 router.get('/:id', _carMiddleware["default"].canWrite, _carController["default"].getCar);
