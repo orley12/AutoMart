@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import carUtils from '../util/carUtil';
 import ApiError from '../error/ApiError';
 import carRepository from '../repository/carRepository';
@@ -58,34 +59,27 @@ export default class CarController {
       const user = authRepository.findById(userId);
       if (user.isAdmin === true) {
         cars = carRepository.findAll();
+      } else {
+        cars = carRepository.findAllUnsold();
       }
     } else {
       cars = carRepository.findAllUnsold();
     }
     if (req.query.manufacturer) {
-      cars = cars.filter((car) => {
-        console.log(`${req.query.manufacturer}  ${car.manufacturer}`);
-        return req.query.manufacturer.toLowerCase() === car.manufacturer.toLowerCase();
-      });
+      // eslint-disable-next-line max-len
+      cars = cars.filter(car => req.query.manufacturer.toLowerCase() === car.manufacturer.toLowerCase());
     }
     if (req.query.state) {
-      cars = cars.filter((car) => {
-        console.log(`${req.query.state.toLowerCase()}  ${car.state.toLowerCase()}`);
-        return req.query.state.toLowerCase() === car.state.toLowerCase();
-      });
+      cars = cars.filter(car => req.query.state.toLowerCase() === car.state.toLowerCase());
     }
     if (req.query.bodyType) {
-      cars = cars.filter((car) => {
-        console.log(`${req.query.bodyType.toLowerCase()}  ${car.bodyType.toLowerCase()}`);
-        return req.query.bodyType.toLowerCase() === car.bodyType.toLowerCase();
-      });
+      cars = cars.filter(car => req.query.bodyType.toLowerCase() === car.bodyType.toLowerCase());
     }
-    if (req.query.minPrice && req.query.maxPrice) {
-      cars = cars.filter((car) => {
-        console.log(`${req.query.min_price}  ${req.query.max_price}`);
-        // eslint-disable-next-line max-len
-        return (Number(car.price) >= Number(req.query.min_price)) && (Number(car.price) <= Number(req.query.max_price));
-      });
+    if (req.query.minPrice) {
+      cars = cars.filter(car => (Number(car.price) >= Number(req.query.minPrice)));
+    }
+    if (req.query.maxPrice) {
+      cars = cars.filter(car => (Number(car.price) <= Number(req.query.maxPrice)));
     }
     res.json({
       status: 200,

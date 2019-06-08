@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post('/', [multipartMiddleware, carMiddleWare.canWrite], carController.createCar);
 
-router.get('/', carMiddleWare.hasToken, carController.getCars);
+router.get('/', carController.getCars);
 
 router.patch('/:id/status', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarStatus);
 

@@ -9,3 +9,5 @@ eslintrc.js
 coverage
 
 .nyc_output
+
+build
