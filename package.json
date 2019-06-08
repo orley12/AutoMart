@@ -11,7 +11,7 @@
     "test": "nyc --require @babel/register --reporter=lcov --reporter=text mocha --exit --timeout 90000 --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
