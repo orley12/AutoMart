@@ -18,10 +18,7 @@ app.use((0, _morgan["default"])('dev'));
 app.use(_bodyParser["default"].json());
 app.use(_bodyParser["default"].urlencoded({
   extended: false
-})); // app.get('/', (req, res, next) => {
-//   res.send('hello world');
-// });
-
+}));
 app.use('/api/v1/auth', _authRoutes["default"]);
 app.use('/api/v1/car', _carRoutes["default"]);
 app.use(function (req, res, next) {

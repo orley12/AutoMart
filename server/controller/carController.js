@@ -53,10 +53,10 @@ export default class CarController {
 
   static getCars(req, res) {
     let cars = [];
-    if (req.decoded.id) {
+    if (req.decoded) {
       const userId = JSON.parse(req.decoded.id);
       const user = authRepository.findById(userId);
-      if (user.is_admin === true) {
+      if (user.isAdmin === true) {
         cars = carRepository.findAll();
       }
     } else {
