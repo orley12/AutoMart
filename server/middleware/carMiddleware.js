@@ -71,10 +71,11 @@ export default class CarMiddleware {
     const car = carRepository.findById(Number(req.params.id));
     if (car !== undefined) {
       try {
-        if (userId !== car.owner || user.isAdmin === false) {
+        if (userId === car.owner || user.isAdmin === true) {
+          next();
+        } else {
           throw new ApiError(401, 'Unauthorizied', ['You do not have permission to perform this action']);
         }
-        next();
       } catch (error) {
         next(error);
       }
