@@ -34,11 +34,6 @@ export default class AuthController {
         },
       });
     } catch (error) {
-      // return res.status(error.status).json({
-      //   status: error.status,
-      //   error: error.errors,
-      //   message: error.message,
-      // });
       next(error);
     }
   }
@@ -69,21 +64,11 @@ export default class AuthController {
               },
             });
           } catch (err) {
-            // return res.status(err.status).json({
-            //   status: err.status,
-            //   error: err.errors,
-            //   message: err.message,
-            // });
             next(err);
           }
         });
       }
     } catch (error) {
-      // return res.status(error.status).json({
-      //   status: error.status,
-      //   error: error.errors,
-      //   message: error.message,
-      // });
       next(error);
     }
   }
