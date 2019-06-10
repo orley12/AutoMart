@@ -2,8 +2,10 @@
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import swaggerUI from 'swagger-ui-express';
 import authRoutes from './routes/authRoutes';
 import carRoutes from './routes/carRoutes';
+import docs from '../swagger.json';
 
 const app = express();
 
@@ -13,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/car', carRoutes);
-
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 app.use((req, res, next) => {
   const err = new Error('Resource Not Found');

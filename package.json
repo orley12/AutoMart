@@ -4,10 +4,9 @@
   "description": "",
   "main": "server/app.js",
   "scripts": {
-
     "build": "babel server --out-dir build",
     "start": "node build/app.js",
-    "start:dev": "nodemon --exec babel-node server/app",	
+    "start:dev": "nodemon --exec babel-node server/app",
     "test": "nyc --require @babel/register --reporter=lcov --reporter=text mocha --exit --timeout 90000 --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
@@ -19,11 +18,17 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cloudinary": "^1.14.0",
     "connect-multiparty": "^2.2.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^6.1.4",
+    "morgan": "^1.9.1",
+    "nyc": "^14.1.1",
+    "swagger-ui-express": "^4.0.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -31,11 +36,6 @@
     "@babel/node": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "mocha": "^6.1.4",
-    "morgan": "^1.9.1",
-    "nyc": "^14.1.1",
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
