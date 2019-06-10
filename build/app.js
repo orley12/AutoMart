@@ -6,9 +6,15 @@ var _morgan = _interopRequireDefault(require("morgan"));
 
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 
+var _swaggerUiExpress = _interopRequireDefault(require("swagger-ui-express"));
+
 var _authRoutes = _interopRequireDefault(require("./routes/authRoutes"));
 
 var _carRoutes = _interopRequireDefault(require("./routes/carRoutes"));
+
+var _orderRoutes = _interopRequireDefault(require("./routes/orderRoutes"));
+
+var _swagger = _interopRequireDefault(require("../swagger.json"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -21,6 +27,8 @@ app.use(_bodyParser["default"].urlencoded({
 }));
 app.use('/api/v1/auth', _authRoutes["default"]);
 app.use('/api/v1/car', _carRoutes["default"]);
+app.use('/api/v1/order', _orderRoutes["default"]);
+app.use('/api-docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(_swagger["default"]));
 app.use(function (req, res, next) {
   var err = new Error('Resource Not Found');
   err.status = 404;
