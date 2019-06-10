@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import ApiError from '../error/ApiError';
+import orderRepository from '../repository/orderRepository';
 
 dotenv.config();
 
@@ -23,6 +24,19 @@ export default class OrderMiddleware {
           next(err);
         }
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static isOwner(req, res, next) {
+    const userId = JSON.parse(req.decoded.id);
+    const order = orderRepository.findById(Number(req.params.id));
+    try {
+      if (userId !== order.buyer) {
+        throw new ApiError(401, 'Unauthorizied', ['You do not have permission to perform this action']);
+      }
+      next();
     } catch (error) {
       next(error);
     }

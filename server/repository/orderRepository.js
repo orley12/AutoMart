@@ -14,4 +14,13 @@ export default class CarRepository {
 
     return order;
   }
+
+  static findById(id) {
+    return orders.get(id);
+  }
+
+  static update(order) {
+    orders.set(order.id, order);
+    return orders.get(order.id);
+  }
 }

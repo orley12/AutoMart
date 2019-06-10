@@ -10,4 +10,16 @@ export default class AuthUtil {
 
     return errors;
   }
+
+  static validatePropsUpdateOrder(obj) {
+    const props = ['offeredPrice'];
+    const errors = [];
+    props.forEach((property) => {
+      if (!obj[property] || obj[property].trim() === '') {
+        errors.push(`${property} not provided`);
+      }
+    });
+
+    return errors;
+  }
 }
