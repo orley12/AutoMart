@@ -24,14 +24,13 @@ UI Templates
 Preview UI templates 👍 [Github Pages](#)
 
 API
-The API is currently in version 1 (v1) and is hosted at https://placeholder.herokuapp.com
+The API is currently in version 1 (v1) and is hosted at https://infinite-garden-51728.herokuapp.com/api/v1/car
 
 API-Documentation
-The API endpoints are documented using swagger.json and can be accessed here [API-Docs](#)
+The API endpoints are documented using swagger.json and can be accessed here [API-Docs](https://infinite-garden-51728.herokuapp.com/api/v1/car)
 
 Pivotal Tracker ID
-https://www.pivotaltracker.com/n/projects/placeholder
-
+https://www.pivotaltracker.com/n/projects/2346834
 *Required Features*
 - User can sign up.
 - User can sign in.
@@ -72,7 +71,7 @@ Ensure you have NodeJS installed by entering node -v on your terminal If you don
 
 To install this app
 
-git clone https://github.com/orley12/placeholder
+git clone https://github.com/orley12/AutoMart.git
 
 And install the required dependencies
 
@@ -99,6 +98,3 @@ Endpoint	Functionality	HTTP method
 /api/v1/car/ Create a car sale ad POST
 /api/v1/order/ Create a purchase order POST
 /api/v1/order/<:order-id>/price Update the price of a purchase order PATCH
-
-License 💥
-This project is under the MIT LICENSE
