@@ -69,7 +69,7 @@ export default class CarMiddleware {
     const userId = JSON.parse(req.decoded.id);
     const user = authRepository.findById(Number(req.params.id));
     const car = carRepository.findById(Number(req.params.id));
-    if (car !== undefined) {
+    if (car) {
       try {
         if (userId === car.owner || user.isAdmin === true) {
           next();
@@ -79,6 +79,8 @@ export default class CarMiddleware {
       } catch (error) {
         next(error);
       }
+    } else {
+      next(new ApiError(404, 'Not Found', ['The car is not in our database']));
     }
   }
 }

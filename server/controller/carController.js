@@ -171,8 +171,6 @@ export default class CarController {
         message: 'Request Successful',
         data: 'Car Ad successfully deleted',
       });
-    } else if (deletedCar === null) {
-      next(new ApiError(404, 'Not Found', ['The car is not in our database']));
     } else {
       next(new ApiError(403, 'Bad Request', ['Unable to delete AD']));
     }

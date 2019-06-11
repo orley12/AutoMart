@@ -16,8 +16,8 @@ export default class CarController {
         throw new ApiError(404, 'Not found', ['Car cannot be found']);
       }
       const order = orderRepository.save(Number(buyer), req.body, car.price);
-      res.status(200).json({
-        status: 200,
+      res.status(201).json({
+        status: 201,
         data: {
           id: order.id,
           carId: order.carId,
