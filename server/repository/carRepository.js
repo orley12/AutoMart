@@ -60,10 +60,11 @@ export default class CarRepository {
   }
 
   static delete(id) {
-    if (!cars.has(id)) {
-      return null;
+    if (cars.has(id)) {
+      console.log("came here");
+      return cars.delete(id);
     }
-    return cars.delete(id);
+    return 'Not Found';
   }
 
   static saveFlag(userId, carId, flag) {
