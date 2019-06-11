@@ -151,8 +151,5 @@ describe('USER ROUTES TEST', () => {
           });
       });
     });
-    after(() => {
-      requester.close();
-    });
   });
 });

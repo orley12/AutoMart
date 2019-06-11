@@ -7,7 +7,7 @@
     "build": "babel server --out-dir build",
     "start": "node build/app.js",
     "start:dev": "nodemon --exec babel-node server/app",
-    "test": "nyc --require @babel/register --reporter=lcov --reporter=text mocha --exit --timeout 90000 --recursive",
+    "test": "nyc --require @babel/register --reporter=lcov --reporter=text mocha --exit --timeout 500000 --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "heroku-postbuild": "npm run build"
