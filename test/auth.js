@@ -94,23 +94,22 @@ describe('USER ROUTES TEST', () => {
           });
       });
 
-      // it('should correctly return a user data if sign in was successful', (done) => {
-      //   requester.post('/api/v1/auth/signin')
-      //     .send({
-      //       email: 'sole@yahoo.com',
-      //       password: 'hashedPassword',
-      //     }).end((err, res) => {
-      //       // console.log(res);
-      // //       res.body.should.have.property('status').eql(200);
-      // //       // res.body.should.have.property('data');
-      // //       // res.body.data.should.be.a('object');
-      // //       // res.body.data.should.have.property('id');
-      // //       // res.body.data.should.have.property('firstName');
-      // //       // res.body.data.should.have.property('lastName');
-      // //       // res.body.data.should.have.property('email');
-      //       done();
-      //     });
-      // });
+      it('should correctly return a user data if sign in was successful', (done) => {
+        requester.post('/api/v1/auth/signin')
+          .send({
+            email: 'sole@yahoo.com',
+            password: 'hashedPassword',
+          }).end((err, res) => {
+            res.body.should.have.property('status').eql(200);
+            res.body.should.have.property('data');
+            res.body.data.should.be.a('object');
+            res.body.data.should.have.property('id');
+            res.body.data.should.have.property('firstName');
+            res.body.data.should.have.property('lastName');
+            res.body.data.should.have.property('email');
+            done();
+          });
+      });
 
       it('should return an error in the responds body, when sign in lacks any user data', (done) => {
         requester.post('/api/v1/auth/signin')
