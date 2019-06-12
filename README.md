@@ -27,7 +27,7 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 
 # UI Templates
 
-Preview UI templates :+1: [Github Pages](/)
+Preview UI templates :+1: [Github Pages](https://orley12.github.io/AutoMart/UI/index.html)
 
 # API
 
@@ -99,7 +99,7 @@ To run test cases
 ## _API Endpoints_
 
 | Endpoint                                                      | Functionality                          | HTTP method |
-| -------------------------------------------------------------  :-------------------------------------------:|------: |
+| ------------------------------------------------------------- | :------------------------------------: | ----------: |
 | /api/v1/auth/signup                                           | Create a user account                       | POST   |
 | /api/v1/auth/login                                            | Login a user                                | POST   |
 | /api/v1/car                                                   | Create a car advertiment                    | POST   |
