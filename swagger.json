@@ -1,171 +1,2106 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "version": "1.0",
-      "title": "auth",
-      "description": "Authentication endpoints",
-      "contact": {}
-    },
-    "host": "infinite-garden-51728.herokuapp.com",
-    "basePath": "/api/v1/auth",
-    "schemes": [
-      "https"
-    ],
-    "consumes": [
-      "application/json"
-    ],
-    "produces": [
-      "application/json"
-    ],
-    "paths": {
-      "/signup": {
-        "post": {
-          "description": "Sign user up",
-          "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signup",
-          "tags": [
-            "Misc"
-          ],
-          "operationId": "SignupPost",
-          "deprecated": false,
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "in": "header",
-              "required": true,
-              "type": "string",
-              "description": ""
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "AutoMart",
+    "description": "TODO: Add Description",
+    "contact": {}
+  },
+  "host": "infinite-garden-51728.herokuapp.com",
+  "basePath": "/api/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signup",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "AuthSignupPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1auth~1signup-request"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/POSTSignup"
             },
-            {
-              "name": "Body",
-              "in": "body",
-              "required": true,
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1auth~1signup-request"
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 201,
+                "message": "haybankz test Created",
+                "data": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTYwMzAyNjI2LCJleHAiOjE1NjAzODkwMjZ9.xbPHPgkzkoELj98kIV2k1wYzEpkTt1ml7Hw_whGyWIo",
+                  "id": 3,
+                  "firstName": "haybankz",
+                  "lastName": "test",
+                  "email": "aa@gmail.com",
+                  "address": "07089175605"
+                }
+              }
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "300"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"12c-Lk4NpcLIxPnHIpbePFIzljGlGJ8\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 01:23:46 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
               }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signin",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "AuthSigninPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1auth~1signin-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/POSTSignin"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 200,
+                "message": "Welcome haybankz test",
+                "data": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTYwMzAyOTQ0LCJleHAiOjE1NjAzODkzNDR9.efx7LmJ_0U3Dawp1bjXsX-h1MrNzPPOnOtbkl6XGRCY",
+                  "id": 4,
+                  "firstName": "haybankz",
+                  "lastName": "test",
+                  "email": "aa@gmail.com"
+                }
+              }
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "276"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"114-/YFYyLvtVWKn9eNC3cksLax9ceI\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 01:29:04 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/car": {
+      "get": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/car",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "CarGet",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GETCarsstatus%3Davaliable%26minPrice%3D200000%26maxPrice%3D1000000"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 200,
+                "message": "success",
+                "data": [
+                  {
+                    "manufacturer": "aston-martin",
+                    "model": "stallion",
+                    "price": "750000",
+                    "state": "new",
+                    "bodyType": "sedan",
+                    "transmission": "automatic",
+                    "milage": "5000",
+                    "year": "2018",
+                    "id": 0,
+                    "status": "unsold",
+                    "owner": 0,
+                    "ownerEmail": "aa@gmail.com",
+                    "createdOn": 1560326140995,
+                    "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326140/exterior/DOljjvlhWDWybQ8K9PCMiugC.jpg",
+                    "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326140/interior/XnA0-tlhHQ81eIrnwNyuWOeo.jpg",
+                    "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326140/engine/d8JF5uhGFawC358lQN7VoqzI.jpg"
+                  },
+                  {
+                    "manufacturer": "benz",
+                    "model": "stallion",
+                    "price": "750000",
+                    "state": "used",
+                    "bodyType": "sedan",
+                    "transmission": "automatic",
+                    "milage": "5000",
+                    "year": "2018",
+                    "id": 1,
+                    "status": "unsold",
+                    "owner": 0,
+                    "ownerEmail": "aa@gmail.com",
+                    "createdOn": 1560326208409,
+                    "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326207/exterior/d8zj68RlqbCDogXrB3CwIEAd.jpg",
+                    "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326207/interior/DgVehdfu96M1azRRsMN6XXQy.jpg",
+                    "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326208/engine/mm67A02m_wgG5uNPJvo5LT3g.jpg"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "1236"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"4d4-qjzHcLGr+xdKj0iL1mq7JaemeIQ\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 08:01:55 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
+              }
             }
           }
         }
       },
-      "/signin": {
-        "post": {
-          "description": "Sign user in",
-          "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signin",
-          "tags": [
-            "Misc"
-          ],
-          "operationId": "SigninPost",
-          "deprecated": false,
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "in": "header",
-              "required": true,
-              "type": "string",
-              "description": ""
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/car",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "CarPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "data",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "exterior",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "interior",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "engine",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car"
             },
-            {
-              "name": "Body",
-              "in": "body",
-              "required": true,
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1auth~1signin-request"
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 201,
+                "message": "benz stallion Created",
+                "data": {
+                  "id": 3,
+                  "email": "aa@gmail.com",
+                  "manufacturer": "benz",
+                  "model": "stallion",
+                  "price": "750000",
+                  "state": "used",
+                  "status": "unsold",
+                  "bodyType": "sedan",
+                  "transnmission": "automatic",
+                  "milage": "5000",
+                  "year": "2018",
+                  "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/exterior/VGnW3uBd_tYZ8v0yAxghIREL.jpg",
+                  "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/interior/M-WEUdzjmLYw51D3d8dxQRsx.jpg",
+                  "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/engine/d8uz2PQO1d-lYmQydT_RWjE0.jpg"
+                }
               }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "headers": {}
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "608"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"260-qwE9YTPw7+FuE7wRUM63l2ypiAc\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 09:06:43 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
+              }
             }
           }
         }
       }
     },
-    "definitions": {
-      "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signup-request": {
-        "title": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signup-request",
-        "example": {
-          "firstName": "Ola",
-          "lastName": "Ola",
-          "email": "sole@yahoo.com",
-          "phone": "09049908094",
-          "password": "hashedPassword",
-          "confirmPassword": "hashedPassword",
-          "address": "akmodojojfoj"
-        },
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
+    "/car/2/price": {
+      "patch": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/price",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "Car2PricePatch",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
           },
-          "lastName": {
-            "type": "string"
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
           },
-          "email": {
-            "type": "string"
-          },
-          "phone": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "confirmPassword": {
-            "type": "string"
-          },
-          "address": {
-            "type": "string"
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~12~1price-request"
+            }
           }
-        },
-        "required": [
-          "firstName",
-          "lastName",
-          "email",
-          "phone",
-          "password",
-          "confirmPassword",
-          "address"
-        ]
-      },
-      "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signin-request": {
-        "title": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signin-request",
-        "example": {
-          "email": "sole@yahoo.com",
-          "password": "hashedPassword"
-        },
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~12~1price"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 200,
+                "message": "benz stallion Updated",
+                "data": {
+                  "id": 2,
+                  "createdOn": 1560330307624,
+                  "manufacturer": "benz",
+                  "model": "stallion",
+                  "price": 700000,
+                  "state": "used",
+                  "status": "unsold"
+                }
+              }
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "179"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"b3-u+PYMdBzb1R7kkd8fvx7m0ORj1c\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 09:31:00 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
+              }
+            }
           }
-        },
-        "required": [
-          "email",
-          "password"
-        ]
+        }
       }
     },
-    "tags": [
-      {
-        "name": "Misc",
-        "description": ""
+    "/car/2/status": {
+      "patch": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/status",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "Car2StatusPatch",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~12~1status-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~12~1price"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 200,
+                "message": "benz stallion Updated",
+                "data": {
+                  "id": 2,
+                  "createdOn": 1560330307624,
+                  "manufacturer": "benz",
+                  "model": "stallion",
+                  "price": 700000,
+                  "state": "used",
+                  "status": "unsold"
+                }
+              }
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "179"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"b3-u+PYMdBzb1R7kkd8fvx7m0ORj1c\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 09:34:10 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
+              }
+            }
+          }
+        }
       }
-    ]
-  }
+    },
+    "/car/2/flag": {
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/flag",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "Car2FlagPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~12~1flag-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~12~1flag"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 200,
+                "message": "Car flaged",
+                "data": {
+                  "id": 1,
+                  "carId": 2,
+                  "reason": "stolen"
+                }
+              }
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "81"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"51-y1DoERfVwz1CMAP7KgC1DfpkyLQ\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 09:39:10 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/car/0": {
+      "delete": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/car/0",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "Car0Delete",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~10"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 200,
+                "message": "Request Successful",
+                "data": "Car Ad successfully deleted"
+              }
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "82"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"52-l3kOHfGLZOjILcmp2JKZiNL9Apg\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 09:43:25 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order": {
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/order",
+        "tags": [
+          "Order"
+        ],
+        "operationId": "OrderPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1order-request"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1order"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 201,
+                "data": {
+                  "id": 3,
+                  "carId": "1",
+                  "createdOn": 1560332887300,
+                  "status": "pending",
+                  "sellersPrice": 700000,
+                  "offeredPrice": "400000"
+                }
+              }
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "133"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"85-A1++rp6nETsiLnLaAHDfyhW+g2I\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 09:48:07 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/3/price": {
+      "patch": {
+        "description": "TODO: Add Description",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/order/3/price",
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Order3PricePatch",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1order~13~1price-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1order~13~1price"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 200,
+                "data": {
+                  "id": 3,
+                  "carId": "1",
+                  "status": "pending",
+                  "oldOfferedPrice": "444440",
+                  "newOfferedPrice": "444440"
+                }
+              }
+            },
+            "headers": {
+              "Server": {
+                "type": "string",
+                "default": "Cowboy"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "115"
+              },
+              "Etag": {
+                "type": "string",
+                "default": "W/\"73-4FUQWnoo4/B/KrLP5HGSX5qfDlY\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Wed, 12 Jun 2019 09:52:32 GMT"
+              },
+              "Via": {
+                "type": "string",
+                "default": "1.1 vegur"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signup-request": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signup-request",
+      "example": {
+        "email": "aa@gmail.com",
+        "password": "testPassword",
+        "confirmPassword": "testPassword",
+        "firstName": "haybankz",
+        "lastName": "test",
+        "phone": "07089175605",
+        "address": "07089175605"
+      },
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password",
+        "confirmPassword",
+        "firstName",
+        "lastName",
+        "phone",
+        "address"
+      ]
+    },
+    "POSTSignup": {
+      "title": "POSTSignup",
+      "example": {
+        "status": 201,
+        "message": "haybankz test Created",
+        "data": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTYwMzAyNjI2LCJleHAiOjE1NjAzODkwMjZ9.xbPHPgkzkoELj98kIV2k1wYzEpkTt1ml7Hw_whGyWIo",
+          "id": 3,
+          "firstName": "haybankz",
+          "lastName": "test",
+          "email": "aa@gmail.com",
+          "address": "07089175605"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "data"
+      ]
+    },
+    "Data": {
+      "title": "Data",
+      "example": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTYwMzAyNjI2LCJleHAiOjE1NjAzODkwMjZ9.xbPHPgkzkoELj98kIV2k1wYzEpkTt1ml7Hw_whGyWIo",
+        "id": 3,
+        "firstName": "haybankz",
+        "lastName": "test",
+        "email": "aa@gmail.com",
+        "address": "07089175605"
+      },
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "token",
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "address"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signin-request": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signin-request",
+      "example": {
+        "email": "aa@gmail.com",
+        "password": "testPassword"
+      },
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "POSTSignin": {
+      "title": "POSTSignin",
+      "example": {
+        "status": 200,
+        "message": "Welcome haybankz test",
+        "data": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTYwMzAyOTQ0LCJleHAiOjE1NjAzODkzNDR9.efx7LmJ_0U3Dawp1bjXsX-h1MrNzPPOnOtbkl6XGRCY",
+          "id": 4,
+          "firstName": "haybankz",
+          "lastName": "test",
+          "email": "aa@gmail.com"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data1"
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "data"
+      ]
+    },
+    "Data1": {
+      "title": "Data1",
+      "example": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTYwMzAyOTQ0LCJleHAiOjE1NjAzODkzNDR9.efx7LmJ_0U3Dawp1bjXsX-h1MrNzPPOnOtbkl6XGRCY",
+        "id": 4,
+        "firstName": "haybankz",
+        "lastName": "test",
+        "email": "aa@gmail.com"
+      },
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "token",
+        "id",
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    "GETCarsstatus=avaliable&minPrice=200000&maxPrice=1000000": {
+      "title": "GETCarsstatus=avaliable&minPrice=200000&maxPrice=1000000",
+      "example": {
+        "status": 200,
+        "message": "success",
+        "data": [
+          {
+            "manufacturer": "aston-martin",
+            "model": "stallion",
+            "price": "750000",
+            "state": "new",
+            "bodyType": "sedan",
+            "transmission": "automatic",
+            "milage": "5000",
+            "year": "2018",
+            "id": 0,
+            "status": "unsold",
+            "owner": 0,
+            "ownerEmail": "aa@gmail.com",
+            "createdOn": 1560326140995,
+            "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326140/exterior/DOljjvlhWDWybQ8K9PCMiugC.jpg",
+            "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326140/interior/XnA0-tlhHQ81eIrnwNyuWOeo.jpg",
+            "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326140/engine/d8JF5uhGFawC358lQN7VoqzI.jpg"
+          },
+          {
+            "manufacturer": "benz",
+            "model": "stallion",
+            "price": "750000",
+            "state": "used",
+            "bodyType": "sedan",
+            "transmission": "automatic",
+            "milage": "5000",
+            "year": "2018",
+            "id": 1,
+            "status": "unsold",
+            "owner": 0,
+            "ownerEmail": "aa@gmail.com",
+            "createdOn": 1560326208409,
+            "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326207/exterior/d8zj68RlqbCDogXrB3CwIEAd.jpg",
+            "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326207/interior/DgVehdfu96M1azRRsMN6XXQy.jpg",
+            "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326208/engine/mm67A02m_wgG5uNPJvo5LT3g.jpg"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Data2"
+          }
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "data"
+      ]
+    },
+    "Data2": {
+      "title": "Data2",
+      "example": {
+        "manufacturer": "aston-martin",
+        "model": "stallion",
+        "price": "750000",
+        "state": "new",
+        "bodyType": "sedan",
+        "transmission": "automatic",
+        "milage": "5000",
+        "year": "2018",
+        "id": 0,
+        "status": "unsold",
+        "owner": 0,
+        "ownerEmail": "aa@gmail.com",
+        "createdOn": 1560326140995,
+        "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326140/exterior/DOljjvlhWDWybQ8K9PCMiugC.jpg",
+        "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326140/interior/XnA0-tlhHQ81eIrnwNyuWOeo.jpg",
+        "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326140/engine/d8JF5uhGFawC358lQN7VoqzI.jpg"
+      },
+      "type": "object",
+      "properties": {
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "bodyType": {
+          "type": "string"
+        },
+        "transmission": {
+          "type": "string"
+        },
+        "milage": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ownerEmail": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "exteriorImg": {
+          "type": "string"
+        },
+        "interiorImg": {
+          "type": "string"
+        },
+        "engineImg": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "manufacturer",
+        "model",
+        "price",
+        "state",
+        "bodyType",
+        "transmission",
+        "milage",
+        "year",
+        "id",
+        "status",
+        "owner",
+        "ownerEmail",
+        "createdOn",
+        "exteriorImg",
+        "interiorImg",
+        "engineImg"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car?status=avaliable&minPrice=200000&maxPrice=1000000": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car?status=avaliable&minPrice=200000&maxPrice=1000000",
+      "example": {
+        "status": 200,
+        "message": "success",
+        "data": [
+          {
+            "manufacturer": "benz",
+            "model": "stallion",
+            "price": 700000,
+            "state": "used",
+            "bodyType": "sedan",
+            "transmission": "automatic",
+            "milage": "5000",
+            "year": "2018",
+            "id": 1,
+            "status": "unsold",
+            "owner": 0,
+            "ownerEmail": "aa@gmail.com",
+            "createdOn": 1560326208409,
+            "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326207/exterior/d8zj68RlqbCDogXrB3CwIEAd.jpg",
+            "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326207/interior/DgVehdfu96M1azRRsMN6XXQy.jpg",
+            "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326208/engine/mm67A02m_wgG5uNPJvo5LT3g.jpg",
+            "updatedOn": 1560327405229
+          },
+          {
+            "manufacturer": "benz",
+            "model": "stallion",
+            "price": 750000,
+            "state": "used",
+            "bodyType": "sedan",
+            "transmission": "automatic",
+            "milage": "5000",
+            "year": "2018",
+            "id": 2,
+            "status": "unsold",
+            "owner": 1,
+            "ownerEmail": "aa@gmail.com",
+            "createdOn": 1560330307624,
+            "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330307/exterior/miMa_hJqtd6yPLVe1ZFRlXN9.jpg",
+            "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330307/interior/LH17ZCIalS1wDIX6jwJZZsHT.jpg",
+            "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330307/engine/P_-U_EZGkxBW_Cyf6M0pBbib.jpg"
+          },
+          {
+            "manufacturer": "benz",
+            "model": "stallion",
+            "price": 750000,
+            "state": "used",
+            "bodyType": "sedan",
+            "transmission": "automatic",
+            "milage": "5000",
+            "year": "2018",
+            "id": 3,
+            "status": "unsold",
+            "owner": 1,
+            "ownerEmail": "aa@gmail.com",
+            "createdOn": 1560330403532,
+            "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/exterior/VGnW3uBd_tYZ8v0yAxghIREL.jpg",
+            "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/interior/M-WEUdzjmLYw51D3d8dxQRsx.jpg",
+            "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/engine/d8uz2PQO1d-lYmQydT_RWjE0.jpg"
+          },
+          {
+            "manufacturer": "ferrari",
+            "model": "stallion",
+            "price": 750000,
+            "state": "new",
+            "bodyType": "sedan",
+            "transmission": "automatic",
+            "milage": "5000",
+            "year": "2018",
+            "id": 4,
+            "status": "unsold",
+            "owner": 1,
+            "ownerEmail": "aa@gmail.com",
+            "createdOn": 1560330515675,
+            "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330515/exterior/xWUkxZcotSjnGWhaidJd7I_X.jpg",
+            "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330515/interior/lVO9LE8Efat0WuJNSwhFl94o.jpg",
+            "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330515/engine/xUIoTYtEfvSzDTBnQl16AbnX.jpg"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Data3"
+          }
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "data"
+      ]
+    },
+    "Data3": {
+      "title": "Data3",
+      "example": {
+        "manufacturer": "benz",
+        "model": "stallion",
+        "price": 700000,
+        "state": "used",
+        "bodyType": "sedan",
+        "transmission": "automatic",
+        "milage": "5000",
+        "year": "2018",
+        "id": 1,
+        "status": "unsold",
+        "owner": 0,
+        "ownerEmail": "aa@gmail.com",
+        "createdOn": 1560326208409,
+        "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326207/exterior/d8zj68RlqbCDogXrB3CwIEAd.jpg",
+        "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326207/interior/DgVehdfu96M1azRRsMN6XXQy.jpg",
+        "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560326208/engine/mm67A02m_wgG5uNPJvo5LT3g.jpg",
+        "updatedOn": 1560327405229
+      },
+      "type": "object",
+      "properties": {
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "state": {
+          "type": "string"
+        },
+        "bodyType": {
+          "type": "string"
+        },
+        "transmission": {
+          "type": "string"
+        },
+        "milage": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ownerEmail": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "exteriorImg": {
+          "type": "string"
+        },
+        "interiorImg": {
+          "type": "string"
+        },
+        "engineImg": {
+          "type": "string"
+        },
+        "updatedOn": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "required": [
+        "manufacturer",
+        "model",
+        "price",
+        "state",
+        "bodyType",
+        "transmission",
+        "milage",
+        "year",
+        "id",
+        "status",
+        "owner",
+        "ownerEmail",
+        "createdOn",
+        "exteriorImg",
+        "interiorImg",
+        "engineImg"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car?status=avaliable&state=new": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car?status=avaliable&state=new",
+      "example": {
+        "status": 200,
+        "message": "success",
+        "data": [
+          {
+            "manufacturer": "ferrari",
+            "model": "stallion",
+            "price": "750000",
+            "state": "new",
+            "bodyType": "sedan",
+            "transmission": "automatic",
+            "milage": "5000",
+            "year": "2018",
+            "id": 4,
+            "status": "unsold",
+            "owner": 1,
+            "ownerEmail": "aa@gmail.com",
+            "createdOn": 1560330515675,
+            "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330515/exterior/xWUkxZcotSjnGWhaidJd7I_X.jpg",
+            "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330515/interior/lVO9LE8Efat0WuJNSwhFl94o.jpg",
+            "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330515/engine/xUIoTYtEfvSzDTBnQl16AbnX.jpg"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Data2"
+          }
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "data"
+      ]
+    },
+    "data8": {
+      "title": "data8",
+      "example": {
+        "manufacturer": "benz",
+        "model": "stallion",
+        "price": "750000",
+        "state": "used",
+        "bodyType": "sedan",
+        "transmission": "automatic",
+        "milage": "5000",
+        "year": "2018"
+      },
+      "type": "object",
+      "properties": {
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "bodyType": {
+          "type": "string"
+        },
+        "transmission": {
+          "type": "string"
+        },
+        "milage": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "manufacturer",
+        "model",
+        "price",
+        "state",
+        "bodyType",
+        "transmission",
+        "milage",
+        "year"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car",
+      "example": {
+        "status": 201,
+        "message": "benz stallion Created",
+        "data": {
+          "id": 3,
+          "email": "aa@gmail.com",
+          "manufacturer": "benz",
+          "model": "stallion",
+          "price": "750000",
+          "state": "used",
+          "status": "unsold",
+          "bodyType": "sedan",
+          "transnmission": "automatic",
+          "milage": "5000",
+          "year": "2018",
+          "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/exterior/VGnW3uBd_tYZ8v0yAxghIREL.jpg",
+          "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/interior/M-WEUdzjmLYw51D3d8dxQRsx.jpg",
+          "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/engine/d8uz2PQO1d-lYmQydT_RWjE0.jpg"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data9"
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "data"
+      ]
+    },
+    "Data9": {
+      "title": "Data9",
+      "example": {
+        "id": 3,
+        "email": "aa@gmail.com",
+        "manufacturer": "benz",
+        "model": "stallion",
+        "price": "750000",
+        "state": "used",
+        "status": "unsold",
+        "bodyType": "sedan",
+        "transnmission": "automatic",
+        "milage": "5000",
+        "year": "2018",
+        "exteriorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/exterior/VGnW3uBd_tYZ8v0yAxghIREL.jpg",
+        "interiorImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/interior/M-WEUdzjmLYw51D3d8dxQRsx.jpg",
+        "engineImg": "https://res.cloudinary.com/automart-api/image/upload/v1560330403/engine/d8uz2PQO1d-lYmQydT_RWjE0.jpg"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "email": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "bodyType": {
+          "type": "string"
+        },
+        "transnmission": {
+          "type": "string"
+        },
+        "milage": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "exteriorImg": {
+          "type": "string"
+        },
+        "interiorImg": {
+          "type": "string"
+        },
+        "engineImg": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "manufacturer",
+        "model",
+        "price",
+        "state",
+        "status",
+        "bodyType",
+        "transnmission",
+        "milage",
+        "year",
+        "exteriorImg",
+        "interiorImg",
+        "engineImg"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/price-request": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/price-request",
+      "example": {
+        "price": 700000
+      },
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "price"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/price": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/price",
+      "example": {
+        "status": 200,
+        "message": "benz stallion Updated",
+        "data": {
+          "id": 2,
+          "createdOn": 1560330307624,
+          "manufacturer": "benz",
+          "model": "stallion",
+          "price": 700000,
+          "state": "used",
+          "status": "unsold"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data10"
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "data"
+      ]
+    },
+    "Data10": {
+      "title": "Data10",
+      "example": {
+        "id": 2,
+        "createdOn": 1560330307624,
+        "manufacturer": "benz",
+        "model": "stallion",
+        "price": 700000,
+        "state": "used",
+        "status": "unsold"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdOn": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "state": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "createdOn",
+        "manufacturer",
+        "model",
+        "price",
+        "state",
+        "status"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/status-request": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/status-request",
+      "example": {
+        "status": "sold"
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/flag-request": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/flag-request",
+      "example": {
+        "reason": "stolen"
+      },
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/flag": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/2/flag",
+      "example": {
+        "status": 200,
+        "message": "Car flaged",
+        "data": {
+          "id": 1,
+          "carId": 2,
+          "reason": "stolen"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data12"
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "data"
+      ]
+    },
+    "Data12": {
+      "title": "Data12",
+      "example": {
+        "id": 1,
+        "carId": 2,
+        "reason": "stolen"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "carId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "carId",
+        "reason"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car/0": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/0",
+      "example": {
+        "status": 200,
+        "message": "Request Successful",
+        "data": "Car Ad successfully deleted"
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "data"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/order-request": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/order-request",
+      "example": {
+        "carId": "1",
+        "offeredPrice": "400000"
+      },
+      "type": "object",
+      "properties": {
+        "carId": {
+          "type": "string"
+        },
+        "offeredPrice": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "carId",
+        "offeredPrice"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/order": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/order",
+      "example": {
+        "status": 201,
+        "data": {
+          "id": 3,
+          "carId": "1",
+          "createdOn": 1560332887300,
+          "status": "pending",
+          "sellersPrice": 700000,
+          "offeredPrice": "400000"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/Data13"
+        }
+      },
+      "required": [
+        "status",
+        "data"
+      ]
+    },
+    "Data13": {
+      "title": "Data13",
+      "example": {
+        "id": 3,
+        "carId": "1",
+        "createdOn": 1560332887300,
+        "status": "pending",
+        "sellersPrice": 700000,
+        "offeredPrice": "400000"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "carId": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        },
+        "sellersPrice": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offeredPrice": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "carId",
+        "createdOn",
+        "status",
+        "sellersPrice",
+        "offeredPrice"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/order/3/price-request": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/order/3/price-request",
+      "example": {
+        "offeredPrice": "444440"
+      },
+      "type": "object",
+      "properties": {
+        "offeredPrice": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "offeredPrice"
+      ]
+    },
+    "https://infinite-garden-51728.herokuapp.com/api/v1/order/3/price": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/order/3/price",
+      "example": {
+        "status": 200,
+        "data": {
+          "id": 3,
+          "carId": "1",
+          "status": "pending",
+          "oldOfferedPrice": "444440",
+          "newOfferedPrice": "444440"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/Data14"
+        }
+      },
+      "required": [
+        "status",
+        "data"
+      ]
+    },
+    "Data14": {
+      "title": "Data14",
+      "example": {
+        "id": 3,
+        "carId": "1",
+        "status": "pending",
+        "oldOfferedPrice": "444440",
+        "newOfferedPrice": "444440"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "carId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "oldOfferedPrice": {
+          "type": "string"
+        },
+        "newOfferedPrice": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "carId",
+        "status",
+        "oldOfferedPrice",
+        "newOfferedPrice"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Authentication"
+    },
+    {
+      "name": "Car"
+    },
+    {
+      "name": "Order"
+    }
+  ]
+}

@@ -1,37 +1,48 @@
 # AutoMart
 Auto Mart is an online marketplace for automobiles of diverse makes, model or body type.
+
+
 [![Coverage Status](https://coveralls.io/repos/github/orley12/AutoMart/badge.svg?branch=develop)](https://coveralls.io/github/orley12/AutoMart?branch=develop)
 
-##Table of Contents
-- Introduction
-- UI Templates
-- API
-- API Documentation
-- Pivotal Tracker ID
-- Technologies
-- Installing
-- Working Routes
- License
+## Table of Contents
 
-#Introduction
-##Project Overview
+- [Introduction](#introduction)
+- [UI Templates](#ui-templates)
+- [API](#api)
+- [API Documentation](#api-documentation)
+- [Pivotal Tracker ID](https://www.pivotaltracker.com/n/projects/2346834)
+- [Technologies](#technologies)
+- [Installing](#installing)
+- [Working Routes](#working-routes)
+
+# Introduction
+
+## _Project Overview_
+
 Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. where users{sellers) can sell vehicles via ads and alo users(buyers) buy vehicles.
 
-Style guide
-Airbnb (Javascript style guide)
+### **Style guide**
 
-UI Templates
-Preview UI templates 👍 [Github Pages](#)
+[Airbnb ](https://github.com/airbnb/javascript)(Javascript style guide)
 
-API
-The API is currently in version 1 (v1) and is hosted at https://infinite-garden-51728.herokuapp.com/api/v1/car
+# UI Templates
 
-API-Documentation
-The API endpoints are documented using swagger.json and can be accessed here [API-Docs](https://infinite-garden-51728.herokuapp.com/api/v1/car)
+Preview UI templates :+1: [Github Pages](https://orley12.github.io/AutoMart/UI/index.html)
 
-Pivotal Tracker ID
+# API
+
+The API is currently in version 1 (v1) and is hosted at https://infinite-garden-51728.herokuapp.com/
+
+# API-Documentation
+
+The API endpoints are documented using swagger.json and can be accessed here [API-Docs](https://infinite-garden-51728.herokuapp.com/api-docs)
+
+# Pivotal Tracker ID
+
 https://www.pivotaltracker.com/n/projects/2346834
-*Required Features*
+
+## Required Features
+
 - User can sign up.
 - User can sign in.
 - User (seller) can post a car sale advertisement.
@@ -45,56 +56,62 @@ https://www.pivotaltracker.com/n/projects/2346834
 - Admin can delete a posted AD record.
 - Admin can view all posted ads whether sold or unsold.
 
-*Optional Features*
-- User can reset password.
-- User can view all cars of a specific body type.
-- User can add multiple pictures to a posted ad.
-- User can flag/report a posted AD as fraudulent.
-- User can view all unsold cars of a specific make (manufacturer).
-- User can view all used unsold cars.
-● User can view all new unsold cars
+# Technologies
 
-#Technologies
 - NodeJs
 - Express
 - Mocha & Chai
 - ESLint
 - Babel
-- Travis CI
+- Travis
 - Code Climate
 - Coveralls
 
-#Installing
+# Installing
 
-*Prerequisites*
-Ensure you have NodeJS installed by entering node -v on your terminal If you don't have NodeJS installed, go to the NodeJS Website, and follow the download instructions
+#### _Prerequisites_
+
+Ensure you have **NodeJS** installed by entering `node -v` on your terminal
+If you don't have **NodeJS** installed, go to the [NodeJS Website](http://nodejs.org), and follow the download instructions
 
 To install this app
 
-git clone https://github.com/orley12/AutoMart.git
+`git clone https://github.com/orley12/AutoMart.git`
 
 And install the required dependencies
 
-npm install
+`npm install`
 
 Run server
 
-npm run start:dev
+`npm run start:dev`
 
-Server listens on port 8081
+Server listens on port `8081`
 
-Running the tests
+## Running the tests
+
 To run test cases
 
-npm test
+`npm test`
 
-#Working Routes
+# Working Routes
 
-##API Endpoints
+## _API Endpoints_
 
-Endpoint	Functionality	HTTP method
-/api/v1/auth/signup	Create a user account	POST
-/api/v1/auth/login	Login a user	POST
-/api/v1/car/ Create a car sale ad POST
-/api/v1/order/ Create a purchase order POST
-/api/v1/order/<:order-id>/price Update the price of a purchase order PATCH
+| Endpoint                                                      | Functionality                          | HTTP method |
+| ------------------------------------------------------------- | :------------------------------------: | ----------: |
+| /api/v1/auth/signup                                           | Create a user account                       | POST   |
+| /api/v1/auth/login                                            | Login a user                                | POST   |
+| /api/v1/car                                                   | Create a car advertiment                    | POST   |
+| /api/v1/car/:id                                               | Get a single car by its id                  | GET    |
+| /api/v1/car                                                   | Get all cars                                | GET    |
+| /api/v1/car?status=avaliable&minPrice=100000&maxPrice=5000000 | View all car between the min and max prices | GET    |
+| /api/v1/car?status=avaliable&manufacturer=benz                | Return all coupe benz cars                  | GET    |
+| /api/v1/car?status=avaliable&bodyType=coupe                   | Return all coupe bodyType cars              | GET    |
+| /api/v1/car?status=avaliable&state=new                        | Return all new cars                         | GET    |
+| /api/v1/car/:id/status                                        | Modify status of a car(sold/unsold)         | PATCH  |           |/api/v1/car/:id/status                                         | Modify price of a car                       | PATCH  |
+| /api/v1/car/:id/flag                                          | Flag an advert as fraudulent                | POST   |
+| /api/v1/car/:id                                               | Delete an advert                            | DELETE |
+| /api/v1/order                                                 | Create an order for a car                   | POST   |
+| /api/v1/order/:id?price                                       | Modify an order for a car                   | PATCH  |
+| /api-docs                                                     | Read API documentation                      | GET    |
