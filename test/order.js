@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 describe('ORDER ROUTES TEST', () => {
   const requester = chai.request(app).keepOpen();
-  describe('/POST Register', () => {
+  describe('/POST ORDER', () => {
     let token = '';
     before((done) => {
       requester.post('/api/v1/auth/signup')
@@ -119,8 +119,10 @@ describe('ORDER ROUTES TEST', () => {
     });
   });/* STOP */
 
-  describe('/POST Register', () => {
+  describe('/POST ORDER MODIFICATION', () => {
     let token = '';
+    let orderId = '';
+    let savedCarId = '';
     before((done) => {
       requester.post('/api/v1/auth/signup')
         .send({
@@ -174,6 +176,8 @@ describe('ORDER ROUTES TEST', () => {
           res.body.data.should.have.property('exteriorImg');
           res.body.data.should.have.property('interiorImg');
           res.body.data.should.have.property('engineImg');
+          savedCarId = res.body.data.id;
+          console.log(typeof(savedCarId));
           done();
         });
     });
@@ -185,20 +189,20 @@ describe('ORDER ROUTES TEST', () => {
           carId: '0',
           offeredPrice: '400000',
         }).end((err, res) => {
-          res.body.should.have.property('status').eql(201);
-          res.body.should.have.property('data');
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('id');
           res.body.data.should.have.property('carId');
           res.body.data.should.have.property('createdOn');
           res.body.data.should.have.property('status');
           res.body.data.should.have.property('offeredPrice');
+          orderId = Number(res.body.data.id);
+          console.log(res.body.data);
           done();
         });
     });
 
     it('should return status 200 if order is successfully modified', (done) => {
-      requester.patch('/api/v1/order/0/price')
+      requester.patch(`/api/v1/order/${orderId}/price`)
         .set('x-access-token', token)
         .send({
           offeredPrice: '400000',
@@ -215,7 +219,7 @@ describe('ORDER ROUTES TEST', () => {
     });
 
     it('should return status 400 and error, if offeredPrice is not provided', (done) => {
-      requester.patch('/api/v1/order/0/price')
+      requester.patch(`/api/v1/order/${orderId}/price`)
         .set('x-access-token', token)
         .send({
         }).end((err, res) => {
