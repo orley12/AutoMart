@@ -3,6 +3,9 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 
 
 [![Coverage Status](https://coveralls.io/repos/github/orley12/AutoMart/badge.svg?branch=develop)](https://coveralls.io/github/orley12/AutoMart?branch=develop)
+[![Build Status](https://travis-ci.org/orley12/AutoMart.svg?branch=develop)](https://travis-ci.org/orley12/AutoMart)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f5b6108bf16a44f823e2/maintainability)](https://codeclimate.com/github/orley12/AutoMart/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f5b6108bf16a44f823e2/test_coverage)](https://codeclimate.com/github/orley12/AutoMart/test_coverage)
 
 ## Table of Contents
 
