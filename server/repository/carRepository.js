@@ -2,7 +2,7 @@
 const cars = new Map();
 const flags = new Map();
 
-export default class CarRepository {
+export default class carService {
   static save(owner, car, files) {
     car.id = cars.size;
     car.status = 'unsold'; // sold,available - default is available
@@ -61,7 +61,7 @@ export default class CarRepository {
 
   static delete(id) {
     if (cars.has(id)) {
-      console.log("came here");
+      console.log('came here');
       return cars.delete(id);
     }
     return 'Not Found';
