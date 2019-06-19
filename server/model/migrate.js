@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import db from './db';
 import authUtil from '../util/authUtil';
 
@@ -13,7 +14,7 @@ const queryTable = async () => {
     // Queries to Create Tables
     const userTable = await db.query(`CREATE TABLE IF NOT EXISTS 
     users(
-        userId SERIAL UNIQUE PRIMARY KEY,
+        id SERIAL UNIQUE PRIMARY KEY,
         firstName VARCHAR(50) NOT NULL,
         lastNAme VARCHAR(50) NOT NULL,
         email VARCHAR(50) UNIQUE NOT NULL,
@@ -24,7 +25,7 @@ const queryTable = async () => {
 
     const carTable = await db.query(`CREATE TABLE IF NOT EXISTS 
     cars(
-        carId SERIAL UNIQUE PRIMARY KEY,
+        id SERIAL UNIQUE PRIMARY KEY,
         createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         state TEXT,
         status TEXT DEFAULT 'available',
@@ -32,26 +33,26 @@ const queryTable = async () => {
         manufacturer VARCHAR(50) NOT NULL,
         model VARCHAR(50) NOT NULL,
         bodyType VARCHAR(50) NOT NULL,
-        owner INTEGER REFERENCES users(userId) ON DELETE CASCADE
+        owner INTEGER REFERENCES users(id) ON DELETE CASCADE
     );`);
 
     const orderTable = await db.query(`CREATE TABLE IF NOT EXISTS 
     orders(
-        orderId SERIAL UNIQUE PRIMARY KEY,
+        id SERIAL UNIQUE PRIMARY KEY,
         createdOn DATE DEFAULT CURRENT_TIMESTAMP,
         amount NUMERIC NOT NULL,
         status TEXT DEFAULT 'pending',
-        buyer INTEGER REFERENCES users(userId) ON DELETE CASCADE,
-        carId INTEGER REFERENCES cars(carId)
+        buyer INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        carId INTEGER REFERENCES cars(id)
     );`);
 
     const flagTable = await db.query(`CREATE TABLE IF NOT EXISTS 
     flags(
-        flagId SERIAL UNIQUE PRIMARY KEY,
+        id SERIAL UNIQUE PRIMARY KEY,
         createdOn DATE DEFAULT CURRENT_TIMESTAMP,
         reason TEXT NOT NULL,
         description TEXT NOT NULL,
-        carId INTEGER REFERENCES cars(carId) ON DELETE CASCADE
+        carId INTEGER REFERENCES cars(id) ON DELETE CASCADE
     );`);
 
     const values = ['admin', 'admin', 'admin@auto-mart.com', authUtil.hashPassWord('admin'), '75 Bode-Thomas, Surulere, Lagos', 'true'];

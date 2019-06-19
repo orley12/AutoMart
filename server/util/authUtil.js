@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import authRepository from '../repository/authRepository';
+import ApiError from '../error/ApiError';
 
 export default class AuthUtil {
   static hashPassWord(password) {
@@ -28,8 +29,15 @@ export default class AuthUtil {
         errors.push(`${property} not provided`);
       }
     });
+    if (errors.length > 0) {
+      throw new ApiError(400, 'Bad Request', errors);
+    }
+  }
 
-    return errors;
+  static validateSignUpPasswords(password, confirmPassword) {
+    if (password !== confirmPassword) {
+      throw new ApiError(400, 'Bad Request', ['Passwords don\'t match']);
+    }
   }
 
   static validatePropsSignIn(obj) {
@@ -40,7 +48,8 @@ export default class AuthUtil {
         errors.push(`${property} not provided`);
       }
     });
-
-    return errors;
+    if (errors.length > 0) {
+      throw new ApiError(400, 'Bad Request', errors);
+    }
   }
 }

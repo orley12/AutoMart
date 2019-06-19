@@ -1,7 +1,5 @@
 import db from '../model/db';
-import { queryByEmail, createUser } from '../model/queries/authQueries';
-
-const users = new Map();
+import { queryByEmail, createUser, queryById } from '../model/queries/authQueries';
 
 export default class authRepository {
   static findByEmail(email) {
@@ -12,5 +10,7 @@ export default class authRepository {
     return db.query(createUser, user);
   }
 
-  static findById(id) { return users.get(id); }
+  static findById(id) {
+    return db.query(queryById, [id]);
+  }
 }
