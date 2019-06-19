@@ -3,6 +3,7 @@ import { queryByEmail, createUser, queryById } from '../model/queries/authQuerie
 
 export default class authRepository {
   static findByEmail(email) {
+    console.log(db.query(queryByEmail, [email]));
     return db.query(queryByEmail, [email]);
   }
 

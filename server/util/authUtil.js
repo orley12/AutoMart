@@ -8,14 +8,17 @@ export default class AuthUtil {
   }
 
   // eslint-disable-next-line consistent-return
-  static authenticate(email, password, callback) {
-    const user = authRepository.findByEmail(email);
-    if (!user) {
-      return callback(new Error('user not found'));
+  static async authenticate(email, password, callback) {
+    const emailQuery = await authRepository.findByEmail(email);
+    if (emailQuery.rows.length < 1) {
+      return callback(new ApiError(401, 'Unauthorized', ['Wrong email provided']));
     }
-    bcrypt.compare(password, user.password, (error, result) => {
+    bcrypt.compare(password, emailQuery.rows[0].password, (error, result) => {
+      if (result === false) {
+        return callback(new ApiError(401, 'Unauthorized', ['Wrong password provided']));
+      }
       if (result === true) {
-        return callback(null, user);
+        return callback(null, emailQuery.rows[0]);
       }
       return callback();
     });
