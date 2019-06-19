@@ -40,29 +40,25 @@ export default class AuthController {
     }
   }
 
-  // eslint-disable-next-line consistent-return
-  static signIn(req, res, next) {
+  static async signIn(req, res, next) {
+    const {
+      email, password,
+    } = req.body;
     try {
       authUtils.validatePropsSignIn(req.body);
-      authUtils.authenticate(req.body.email, req.body.password, (error, user) => {
-        try {
-          if (error || !user) {
-            throw new ApiError(401, 'Unauthorized', ['Wrong password or email']);
-          }
+      authUtils.authenticate(email, password, (error, user) => {
+        if (error || !user) {
+          next(error);
+        } else {
           const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '24h' });
           res.status(200).json({
             status: 200,
             message: `Welcome ${user.firstName} ${user.lastName}`,
             data: {
               token,
-              id: user.id, // user id
-              firstName: user.firstName,
-              lastName: user.lastName,
-              email: user.email,
+              ...user,
             },
           });
-        } catch (err) {
-          next(err);
         }
       });
     } catch (error) {
