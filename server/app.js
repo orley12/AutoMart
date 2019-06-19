@@ -22,6 +22,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 app.use((req, res, next) => {
   const err = new Error('Resource Not Found');
   err.status = 404;
+  err.errors = ['Resource Not Found'];
   next(err);
 });
 
