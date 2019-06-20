@@ -3,7 +3,6 @@ import { queryByEmail, createUser, queryById } from '../model/queries/authQuerie
 
 export default class authRepository {
   static findByEmail(email) {
-    console.log(db.query(queryByEmail, [email]));
     return db.query(queryByEmail, [email]);
   }
 
@@ -11,7 +10,8 @@ export default class authRepository {
     return db.query(createUser, user);
   }
 
-  static findById(id) {
-    return db.query(queryById, [id]);
+  static async findById(id) {
+    const result = await db.query(queryById, [id]);
+    return result;
   }
 }

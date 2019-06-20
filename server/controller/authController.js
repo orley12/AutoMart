@@ -10,7 +10,7 @@ dotenv.config();
 export default class AuthController {
   static async signUp(req, res, next) {
     const {
-      firstName, lastName, email, address, password, confirmPassword,
+      firstName, lastName, email, address, password, confirmPassword, phone,
     } = req.body;
 
     try {
@@ -18,7 +18,8 @@ export default class AuthController {
       authUtils.validateSignUpPasswords(password, confirmPassword);
 
       const hashedPassword = await authUtils.hashPassWord(password);
-      const userData = [firstName, lastName, email, hashedPassword, address];
+      const userData = [firstName, lastName, email, hashedPassword, phone, address];
+
       const result = await authRepository.save(userData);
       const user = result.rows[0];
 
@@ -26,7 +27,7 @@ export default class AuthController {
 
       res.status(201).json({
         status: 201,
-        message: `${user.firstName} ${user.lastName} Created`,
+        message: `${user.firstname} ${user.lastname} Created`,
         data: {
           token,
           ...user,

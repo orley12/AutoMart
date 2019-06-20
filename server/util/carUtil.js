@@ -1,4 +1,5 @@
 import cloudinary from 'cloudinary';
+import ApiError from '../error/ApiError';
 
 cloudinary.v2.config({
   cloud_name: 'automart-api',
@@ -15,8 +16,9 @@ export default class AuthUtil {
         errors.push(`${property} not provided`);
       }
     });
-
-    return errors;
+    if (errors.length > 0) {
+      throw new ApiError(400, 'Bad Request', errors);
+    }
   }
 
   static fileUploadPromises(files, filekeys) {
@@ -35,6 +37,9 @@ export default class AuthUtil {
 
         promises.push(promise);
       }
+    }
+    if (promises.length < 1 || promises.length > 3) {
+      throw new ApiError(400, 'Bad Request', ['Photos most be between 1 & 3']);
     }
     return promises;
   }

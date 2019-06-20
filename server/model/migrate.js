@@ -19,6 +19,7 @@ const queryTable = async () => {
         lastNAme VARCHAR(50) NOT NULL,
         email VARCHAR(50) UNIQUE NOT NULL,
         password TEXT NOT NULL,
+        phone TEXT NOT NULL,
         address VARCHAR(200) NOT NULL,
         isAdmin BOOLEAN DEFAULT FALSE
     );`);
@@ -33,6 +34,13 @@ const queryTable = async () => {
         manufacturer VARCHAR(50) NOT NULL,
         model VARCHAR(50) NOT NULL,
         bodyType VARCHAR(50) NOT NULL,
+        milage TEXT,
+        transmission TEXT,
+        year TEXT,
+        exteriorImg TEXT,
+        interiorImg TEXT,
+        engineImg TEXT,
+        ownerEmail VARCHAR(50) REFERENCES users(email) ON DELETE CASCADE,
         owner INTEGER REFERENCES users(id) ON DELETE CASCADE
     );`);
 
@@ -55,8 +63,8 @@ const queryTable = async () => {
         carId INTEGER REFERENCES cars(id) ON DELETE CASCADE
     );`);
 
-    const values = ['admin', 'admin', 'admin@auto-mart.com', authUtil.hashPassWord('admin'), '75 Bode-Thomas, Surulere, Lagos', 'true'];
-    const admin = await db.query('INSERT into users(firstName, lastName, email, password, address, isAdmin) VALUES($1,$2,$3,$4,$5,$6)', values);
+    const values = ['admin', 'admin', 'admin@auto-mart.com', authUtil.hashPassWord('admin'), '090555345674', '75 Bode-Thomas, Surulere, Lagos', 'true'];
+    const admin = await db.query('INSERT into users(firstName, lastName, email, password, phone, address, isAdmin) VALUES($1,$2,$3,$4,$5,$6,$7)', values);
   } catch (err) {
     console.log(err.stack);
     return err.stack;
