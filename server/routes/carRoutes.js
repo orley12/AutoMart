@@ -10,16 +10,16 @@ const router = express.Router();
 
 router.post('/', [multipartMiddleware, carMiddleWare.canWrite], carController.createCar);
 
-router.get('/', carController.getCars);
+router.get('/', carMiddleWare.isAdmin, carController.getCars);
 
-router.patch('/:id/status', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarStatus);
+// router.patch('/:id/status', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarStatus);
 
-router.patch('/:id/price', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarPrice);
+// router.patch('/:id/price', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarPrice);
 
-router.get('/:id', carMiddleWare.canWrite, carController.getCar);
+// router.get('/:id', carMiddleWare.canWrite, carController.getCar);
 
-router.delete('/:id', [carMiddleWare.canWrite, carMiddleWare.canDelete], carController.deleteCar);
+// router.delete('/:id', [carMiddleWare.canWrite, carMiddleWare.canDelete], carController.deleteCar);
 
-router.post('/:id/flag', carMiddleWare.canWrite, carController.flag);
+// router.post('/:id/flag', carMiddleWare.canWrite, carController.flag);
 
 export default router;
