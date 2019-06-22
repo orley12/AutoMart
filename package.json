@@ -12,7 +12,7 @@
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "migrate": "babel-node ./server/model/migrate",
     "seedTable": "babel-node ./server/model/seed",
-    "heroku-migrate": "babel-node build/model/migrate.js",
+    "heroku-migrate": "node build/model/migrate.js",
     "heroku-postbuild": "npm run build"
   },
   "keywords": [],

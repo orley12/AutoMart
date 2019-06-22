@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import '@babel/polyfill';
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';

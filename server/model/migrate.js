@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import '@babel/polyfill';
 import db from './db';
 import authUtil from '../util/authUtil';
 
