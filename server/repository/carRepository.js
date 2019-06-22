@@ -2,6 +2,8 @@
 import db from '../model/db';
 import {
   createCar,
+  queryAll,
+  queryAllUnsold,
 } from '../model/queries/carQueries';
 
 export default class carService {
@@ -24,25 +26,15 @@ export default class carService {
     return result;
   }
 
-  // static findAll() {
-  //   const allCars = [];
-  //   // eslint-disable-next-line no-unused-vars
-  //   cars.forEach((value, key) => {
-  //     allCars.push(value);
-  //   });
-  //   return allCars;
-  // }
+  static async findAll() {
+    const result = await db.query(queryAll);
+    return result;
+  }
 
-  // static findAllUnsold() {
-  //   const allUnsoldCars = [];
-  //   // eslint-disable-next-line no-unused-vars
-  //   cars.forEach((value, key) => {
-  //     if (value.status === 'unsold') {
-  //       allUnsoldCars.push(value);
-  //     }
-  //   });
-  //   return allUnsoldCars;
-  // }
+  static async findAllUnsold() {
+    const result = await db.query(queryAllUnsold, ['available']);
+    return result;
+  }
 
   // static findById(id) {
   //   return cars.get(id);
