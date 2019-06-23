@@ -23,15 +23,21 @@ describe('USER ROUTES TEST', () => {
           confirmPassword: 'hashedPassword',
           address: 'akmodojojfoj',
         }).end((err, res) => {
-          res.body.should.have.property('status').eql(201);
-          res.body.should.have.property('message');
-          res.body.should.have.property('data');
-          res.body.data.should.be.a('object');
-          res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
-          res.body.data.should.have.property('email');
-          res.body.data.should.have.property('address');
+          if (res.body.status === 201) {
+            res.body.should.have.property('status').eql(201);
+            res.body.should.have.property('message');
+            res.body.should.have.property('data');
+            res.body.data.should.be.a('object');
+            res.body.data.should.have.property('id');
+            res.body.data.should.have.property('firstname');
+            res.body.data.should.have.property('lastname');
+            res.body.data.should.have.property('email');
+            res.body.data.should.have.property('address');
+          } else {
+            res.body.should.have.property('status').eql(409);
+            res.body.should.have.property('message');
+            res.body.should.have.property('errors');
+          }
           done();
         });
     });
@@ -70,30 +76,6 @@ describe('USER ROUTES TEST', () => {
 
 
     describe('/POST signup', () => {
-      it('should correctly return a user data if sign up was successful', (done) => {
-        requester.post('/api/v1/auth/signup')
-          .send({
-            firstName: 'Ola',
-            lastName: 'Ola',
-            email: 'sole@yahoo.com',
-            phone: '09049908094',
-            password: 'hashedPassword',
-            confirmPassword: 'hashedPassword',
-            address: 'akmodojojfoj',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(201);
-            res.body.should.have.property('message');
-            res.body.should.have.property('data');
-            res.body.data.should.be.a('object');
-            res.body.data.should.have.property('id');
-            res.body.data.should.have.property('firstName');
-            res.body.data.should.have.property('lastName');
-            res.body.data.should.have.property('email');
-            res.body.data.should.have.property('address');
-            done();
-          });
-      });
-
       it('should correctly return a user data if sign in was successful', (done) => {
         requester.post('/api/v1/auth/signin')
           .send({
@@ -104,8 +86,8 @@ describe('USER ROUTES TEST', () => {
             res.body.should.have.property('data');
             res.body.data.should.be.a('object');
             res.body.data.should.have.property('id');
-            res.body.data.should.have.property('firstName');
-            res.body.data.should.have.property('lastName');
+            res.body.data.should.have.property('firstname');
+            res.body.data.should.have.property('lastname');
             res.body.data.should.have.property('email');
             done();
           });
