@@ -8,6 +8,7 @@ import {
   queryById,
   updateCarPrice,
   deletecar,
+  createFlag,
 } from '../model/queries/carQueries';
 
 export default class CarRepository {
@@ -57,6 +58,12 @@ export default class CarRepository {
 
   static async delete(carId) {
     const result = await db.query(deletecar, [carId]);
+    return result;
+  }
+
+  static async saveFlag(userId, carId, flagData) {
+    const carData = [flagData.reason, flagData.description, userId, carId];
+    const result = await db.query(createFlag, carData);
     return result;
   }
 

@@ -61,7 +61,8 @@ const queryTable = async () => {
         createdOn DATE DEFAULT CURRENT_TIMESTAMP,
         reason TEXT NOT NULL,
         description TEXT NOT NULL,
-        carId INTEGER REFERENCES cars(id) ON DELETE CASCADE
+        carId INTEGER REFERENCES cars(id) ON DELETE CASCADE,
+        userId INTEGER REFERENCES users(id) ON DELETE CASCADE
     );`);
 
     const values = ['admin', 'admin', 'admin@auto-mart.com', authUtil.hashPassWord('admin'), '090555345674', '75 Bode-Thomas, Surulere, Lagos', 'true'];
