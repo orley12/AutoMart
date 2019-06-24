@@ -132,6 +132,21 @@ export default class CarController {
     }).catch(error => console.log(error));
   }
 
+  static deleteCar(req, res, next) {
+    const deleteResult = carRepository.delete(Number(req.params.id));
+    deleteResult.then((result) => {
+      if (result.rowCount > 0) {
+        res.status(200).json({
+          status: 200,
+          message: 'Request Successful',
+          data: 'Car Ad successfully deleted',
+        });
+      } else {
+        next(new ApiError(403, 'Bad Request', ['Unable to delete AD']));
+      }
+    }).catch(error => console.log(error));
+  }
+  
   // static deleteCar(req, res, next) {
   //   const deletedCar = carRepository.delete(Number(req.params.id));
   //   if (deletedCar === true) {

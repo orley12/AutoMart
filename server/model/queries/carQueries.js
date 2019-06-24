@@ -13,6 +13,9 @@ const updateCarPrice = 'UPDATE cars SET price=$1 WHERE id=$2 RETURNING *';
 
 const queryById = 'SELECT * FROM cars WHERE id=$1';
 
+const deletecar = 'DELETE FROM cars WHERE id=$1';
+
+
 export {
   createCar,
   queryAll,
@@ -20,4 +23,5 @@ export {
   updateCarStatus,
   queryById,
   updateCarPrice,
+  deletecar,
 };
