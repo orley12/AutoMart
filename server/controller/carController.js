@@ -114,27 +114,23 @@ export default class CarController {
     }
   }
 
-  // static getCar(req, res, next) {
-  //   const car = carRepository.findById(Number(req.params.id));
-  //   if (car) {
-  //     res.status(200).json({
-  //       status: 200,
-  //       data: {
-  //         id: car.id,
-  //         owner: car.owner,
-  //         created_on: car.created_on,
-  //         state: car.state,
-  //         status: car.status,
-  //         price: car.price,
-  //         manufacturer: car.manufacturer,
-  //         model: car.model,
-  //         bodyType: car.bodyType,
-  //       },
-  //     });
-  //   } else {
-  //     next(new ApiError(400, 'Not Found', ['The car is not in our database']));
-  //   }
-  // }
+  static getCar(req, res, next) {
+    const queryResult = carRepository.findById(Number(req.params.id));
+    queryResult.then((result) => {
+      const car = result.rows[0];
+      if (car) {
+        res.status(200).json({
+          status: 200,
+          message: 'success',
+          data: {
+            ...car,
+          },
+        });
+      } else {
+        next(new ApiError(404, 'Not Found', ['The car is not in our database']));
+      }
+    }).catch(error => console.log(error));
+  }
 
   // static deleteCar(req, res, next) {
   //   const deletedCar = carRepository.delete(Number(req.params.id));
