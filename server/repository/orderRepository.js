@@ -1,8 +1,8 @@
 import db from '../model/db';
 import {
   createOrder,
-//   queryById,
-//   updateOrderPrice,
+  queryById,
+  updateOrderPrice,
 } from '../model/queries/orderQueries';
 
 export default class OrderRepository {
@@ -12,12 +12,11 @@ export default class OrderRepository {
     return result;
   }
 
-//   static findById(id) {
-//     return orders.get(id);
-//   }
+  static findById(id) {
+    return db.query(queryById, [id]);
+  }
 
-//   static update(order) {
-//     orders.set(order.id, order);
-//     return orders.get(order.id);
-//   }
+  static update(price, id) {
+    return db.query(updateOrderPrice, [price, id]);
+  }
 }

@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.post('/', orderMiddleWare.canWrite, orderController.createOrder);
 
-// router.patch('/:id/price', [orderMiddleWare.canWrite, orderMiddleWare.isOwner], orderController.updateOrder);
+router.patch('/:id/price', [orderMiddleWare.canWrite, orderMiddleWare.isOwner], orderController.updateOrder);
 
 export default router;

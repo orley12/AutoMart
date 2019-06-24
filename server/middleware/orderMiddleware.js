@@ -28,11 +28,14 @@ export default class OrderMiddleware {
     }
   }
 
-  static isOwner(req, res, next) {
+  static async isOwner(req, res, next) {
     const userId = JSON.parse(req.decoded.id);
-    const order = orderRepository.findById(Number(req.params.id));
+    const order = await orderRepository.findById(Number(req.params.id));
     try {
-      if (userId !== order.buyer) {
+      if (order.rows.length < 1) {
+        throw new ApiError(404, 'Not Found', ['Order not found']);
+      }
+      if (userId !== order.rows[0].buyer) {
         throw new ApiError(401, 'Unauthorizied', ['You do not have permission to perform this action']);
       }
       next();
