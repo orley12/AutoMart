@@ -171,36 +171,4 @@ export default class CarController {
       next(new ApiError(400, 'Bad Request', ['No reason provided or description']));
     }
   }
-  // static deleteCar(req, res, next) {
-  //   const deletedCar = carRepository.delete(Number(req.params.id));
-  //   if (deletedCar === true) {
-  //     res.status(200).json({
-  //       status: 200,
-  //       message: 'Request Successful',
-  //       data: 'Car Ad successfully deleted',
-  //     });
-  //   } else {
-  //     next(new ApiError(403, 'Bad Request', ['Unable to delete AD']));
-  //   }
-  // }
-
-  // static flag(req, res, next) {
-  //   if (req.body.reason) {
-  //     const user = authRepository.findById(Number(req.decoded.id));
-  //     const car = carRepository.findById(Number(req.params.id));
-  //     const flag = carRepository.saveFlag(user.id, car.id, req.body);
-  //     res.status(200).json({
-  //       status: 200,
-  //       message: 'Car flaged',
-  //       data: {
-  //         id: flag.id,
-  //         carId: flag.carId,
-  //         reason: flag.reason,
-  //         description: flag.description,
-  //       },
-  //     });
-  //   } else {
-  //     next(new ApiError(400, 'Bad Request', ['Request not success']));
-  //   }
-  // }
 }

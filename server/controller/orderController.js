@@ -1,36 +1,36 @@
-// /* eslint-disable max-len */
-// import orderUtils from '../util/orderUtils';
-// import ApiError from '../error/ApiError';
-// import orderRepository from '../repository/orderRepository';
-// import carRepository from '../repository/carRepository';
+/* eslint-disable no-unused-vars */
+import orderUtils from '../util/orderUtils';
+import ApiError from '../error/ApiError';
+import orderRepository from '../repository/orderRepository';
+import carRepository from '../repository/carRepository';
 
-// export default class CarController {
-//   static createOrder(req, res, next) {
-//     const buyer = JSON.parse(req.decoded.id);
-//     const car = carRepository.findById(Number(req.body.carId));
-//     const errors = orderUtils.validatePropsOrder(req.body);
-//     try {
-//       if (errors.length > 0) {
-//         throw new ApiError(400, 'Bad Request', errors);
-//       } else if (!car) {
-//         throw new ApiError(404, 'Not found', ['Car cannot be found']);
-//       }
-//       const order = orderRepository.save(Number(buyer), req.body, car.price);
-//       res.status(201).json({
-//         status: 201,
-//         data: {
-//           id: order.id,
-//           carId: order.carId,
-//           createdOn: order.createdOn,
-//           status: order.status,
-//           sellersPrice: order.sellersPrice,
-//           offeredPrice: order.offeredPrice,
-//         },
-//       });
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
+export default class CarController {
+  static createOrder(req, res, next) {
+    const buyer = JSON.parse(req.decoded.id);
+    try {
+      orderUtils.validatePropsOrder(req.body);
+      const carResult = carRepository.findById(Number(req.body.carId));
+      carResult.then((car) => {
+        const orderResult = orderRepository.save(Number(buyer), req.body);
+        orderResult.then((order) => {
+          const originalPrice = car.rows[0].price;
+          res.status(201).json({
+            status: 201,
+            data: {
+              ...order.rows[0],
+              originalPrice,
+            },
+          });
+        }).catch((error) => {
+          next(new ApiError(417, 'Expectation failed', ['Order could not be made']));
+        });
+      }).catch((error) => {
+        next(new ApiError(404, 'Not found', ['Car cannot be found']));
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
 //   static updateOrder(req, res, next) {
 //     const errors = orderUtils.validatePropsUpdateOrder(req.body);
@@ -57,4 +57,4 @@
 //       next(error);
 //     }
 //   }
-// }
+}
