@@ -97,6 +97,27 @@ export default class CarMiddleware {
     });
   }
 
+  static canDelete(req, res, next) {
+    const userId = JSON.parse(req.decoded.id);
+    const userQueryResult = authRepository.findById(Number(userId));
+    userQueryResult.then((userResult) => {
+      const carQueryResult = carRepository.findById(Number(req.params.id));
+      carQueryResult.then((carResult) => {
+        if (userId === carResult.rows[0].owner || userResult.rows[0].isadmin === true) {
+          next();
+        } else {
+          next(new ApiError(401, 'Unauthorizied', ['You do not have permission to perform this action']));
+        }
+      }).catch((error) => {
+        console.log(error);
+        next(new ApiError(404, 'Not Found', ['The car is not in our database']));
+      });
+    }).catch((error) => {
+      console.log(error);
+      next(new ApiError(404, 'Not Found', ['The user is not in our database']));
+    });
+  }
+
   // static canDelete(req, res, next) {
   //   const userId = JSON.parse(req.decoded.id);
   //   const user = authRepository.findById(Number(req.params.id));
