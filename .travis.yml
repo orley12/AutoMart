@@ -1,3 +1,6 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=a7ab9dcb5581a35bf244848f4151bde654fc9660c1973c042104c239b8f31ff8
 language: node_js
 node_js:
 - 10.15.3
@@ -17,6 +20,12 @@ services:
 before_script:
   - psql -c "CREATE DATABASE automart_test;" -U postgres
   - psql -c "CREATE USER orley WITH PASSWORD 'password';" -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - "npm run nyc"
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
