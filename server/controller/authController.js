@@ -46,6 +46,7 @@ export default class AuthController {
       email, password,
     } = req.body;
     try {
+      console.log("kkdkfk");
       authUtils.validatePropsSignIn(req.body);
       authUtils.authenticate(email, password, (error, user) => {
         if (error || !user) {

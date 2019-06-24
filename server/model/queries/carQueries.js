@@ -7,8 +7,14 @@ const queryAll = 'SELECT * FROM cars';
 
 const queryAllUnsold = 'SELECT * FROM cars WHERE status = $1';
 
+const updateCarStatus = 'UPDATE cars SET status=$1 WHERE id=$2 RETURNING *';
+
+const queryById = 'SELECT * FROM cars WHERE id=$1';
+
 export {
   createCar,
   queryAll,
   queryAllUnsold,
+  updateCarStatus,
+  queryById,
 };

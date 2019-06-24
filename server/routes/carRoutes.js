@@ -12,7 +12,7 @@ router.post('/', [multipartMiddleware, carMiddleWare.canWrite], carController.cr
 
 router.get('/', carMiddleWare.isAdmin, carController.getCars);
 
-// router.patch('/:id/status', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarStatus);
+router.patch('/:id/status', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarStatus);
 
 // router.patch('/:id/price', [carMiddleWare.canWrite, carMiddleWare.isOwner], carController.updateCarPrice);
 

@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`server running on port ${port}`));
 

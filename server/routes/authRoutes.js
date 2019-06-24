@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.post('/signup', authMiddleWare.loggedIn, authController.signUp);
 
-router.post('/signin', authMiddleWare.loggedIn, authController.signIn);
+router.post('/signin', /* authMiddleWare.loggedIn, */ authController.signIn);
 
 export default router;

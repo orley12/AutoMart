@@ -4,9 +4,11 @@ import {
   createCar,
   queryAll,
   queryAllUnsold,
+  updateCarStatus,
+  queryById,
 } from '../model/queries/carQueries';
 
-export default class carService {
+export default class CarRepository {
   static async save(car, user, files) {
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < files.length; i++) {
@@ -36,9 +38,15 @@ export default class carService {
     return result;
   }
 
-  // static findById(id) {
-  //   return cars.get(id);
-  // }
+  static async updateStatus(carId, status) {
+    const result = await db.query(updateCarStatus, [status, carId]);
+    return result;
+  }
+
+  static async findById(carId) {
+    const result = await db.query(queryById, [carId]);
+    return result;
+  }
 
   // static update(carId, status, price) {
   //   const car = cars.get(Number(carId));
