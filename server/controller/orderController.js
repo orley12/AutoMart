@@ -32,29 +32,33 @@ export default class CarController {
     }
   }
 
-//   static updateOrder(req, res, next) {
-//     const errors = orderUtils.validatePropsUpdateOrder(req.body);
-//     try {
-//       if (errors.length > 0) {
-//         throw new ApiError(400, 'Bad Request', errors);
-//       }
-//       const order = orderRepository.findById(Number(req.params.id));
-//       const oldPrice = order.offeredPrice;
-//       order.offeredPrice = req.body.offeredPrice;
-//       order.oldPrice = oldPrice;
-//       const updatedOrder = orderRepository.update(order);
-//       res.status(200).json({
-//         status: 200,
-//         data: {
-//           id: updatedOrder.id,
-//           carId: updatedOrder.carId,
-//           status: updatedOrder.status,
-//           oldOfferedPrice: updatedOrder.oldPrice,
-//           newOfferedPrice: updatedOrder.offeredPrice,
-//         },
-//       });
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
+  static async updateOrder(req, res, next) {
+    try {
+      orderUtils.validatePropsUpdateOrder(req.body);
+      const orderResult = await orderRepository.findById(Number(req.params.id));
+      const oldPrice = orderResult.rows[0].amount;
+      if (orderResult.rows[0].status === 'pending') {
+        const updatedOrder = await orderRepository.update(req.body.price, Number(req.params.id));
+        const {
+          id, createdon, amount: newPrice, status, buyer, carid,
+        } = updatedOrder.rows[0];
+        res.status(200).json({
+          status: 200,
+          data: {
+            id,
+            createdon,
+            status,
+            buyer,
+            carid,
+            newPrice,
+            oldPrice,
+          },
+        });
+      } else {
+        next(new ApiError(400, 'Bad Request', ['Your order as already been accepted']));
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }
