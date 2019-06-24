@@ -146,6 +146,31 @@ export default class CarController {
       }
     }).catch(error => console.log(error));
   }
+
+  static flag(req, res, next) {
+    if (req.body.reason && req.body.description) {
+      const carQueryResult = carRepository.findById(Number(req.params.id));
+      carQueryResult
+        .then(carResult => carRepository.saveFlag(Number(req.decoded.id), carResult.rows[0].id, req.body))
+        .then((saveResult) => {
+          const flag = saveResult.rows[0];
+          res.status(200).json({
+            status: 200,
+            message: 'Car flaged',
+            data: {
+              ...flag,
+            },
+          });
+        }).catch((error) => {
+          if (error.status === 404) {
+            next(error);
+          }
+          next(new ApiError(417, 'Expectation failed', ['Car could not be flagged']));
+        });
+    } else {
+      next(new ApiError(400, 'Bad Request', ['No reason provided or description']));
+    }
+  }
   // static deleteCar(req, res, next) {
   //   const deletedCar = carRepository.delete(Number(req.params.id));
   //   if (deletedCar === true) {
