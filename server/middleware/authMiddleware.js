@@ -7,8 +7,9 @@ export default class AuthMiddleware {
       const token = req.headers['x-access-token'];
       if (token) {
         throw new ApiError(403, 'Forbidden', ['You are already logged in']);
+      } else {
+        next();
       }
-      next();
     } catch (error) {
       next(error);
     }

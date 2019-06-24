@@ -8,7 +8,6 @@ import { queryById } from '../model/queries/authQueries';
 dotenv.config();
 
 export default class CarMiddleware {
-  // eslint-disable-next-line consistent-return
   static canWrite(req, res, next) {
     const token = req.headers['x-access-token'];
     try {
@@ -79,18 +78,24 @@ export default class CarMiddleware {
     }
   }
 
-  // static isOwner(req, res, next) {
-  //   const userId = JSON.parse(req.decoded.id);
-  //   const car = carRepository.findById(Number(req.params.id));
-  //   try {
-  //     if (userId !== car.owner) {
-  //       throw new ApiError(401, 'Unauthorizied', ['You do not have permission to perform this action']);
-  //     }
-  //     next();
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  static isOwner(req, res, next) {
+    const userId = JSON.parse(req.decoded.id);
+    const result = carRepository.findById(Number(req.params.id));
+    result.then((car) => {
+      console.log(car);
+      try {
+        if (userId !== car.rows[0].owner) {
+          throw new ApiError(401, 'Unauthorizied', ['You do not have permission to perform this action']);
+        }
+        next();
+      } catch (error) {
+        next(error);
+      }
+    }).catch((err) => {
+      console.log(err);
+      next(new ApiError(404, 'Not Found', ['User not found']));
+    });
+  }
 
   // static canDelete(req, res, next) {
   //   const userId = JSON.parse(req.decoded.id);

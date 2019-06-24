@@ -70,31 +70,27 @@ export default class CarController {
     }).catch(error => console.log(error));
   }
 
-  // static updateCarStatus(req, res, next) {
-  //   if (req.body.status) {
-  //     if (req.body.status.toLowerCase() === 'sold' || req.body.status.toLowerCase() === 'unsold') {
-  //       const updatedCar = carRepository.update(req.params.id, req.body.status, null /* price */);
-  //       res.json({
-  //         status: 200,
-  //         message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
-  //         data: {
-  //           id: updatedCar.id,
-  //           email: updatedCar.email,
-  //           createdOn: updatedCar.createdOn,
-  //           manufacturer: updatedCar.manufacturer,
-  //           model: updatedCar.model,
-  //           price: updatedCar.price,
-  //           state: updatedCar.state,
-  //           status: updatedCar.status,
-  //         },
-  //       });
-  //     } else {
-  //       next(new ApiError(400, 'Bad Request', ['Invalid status']));
-  //     }
-  //   } else {
-  //     next(new ApiError(400, 'Bad Request', ['No status provided']));
-  //   }
-  // }
+  static updateCarStatus(req, res, next) {
+    if (req.body.status) {
+      if (req.body.status.toLowerCase() === 'sold' || req.body.status.toLowerCase() === 'available') {
+        const updateResult = carRepository.updateStatus(Number(req.params.id), req.body.status);
+        updateResult.then((result) => {
+          const updatedCar = result.rows[0];
+          res.json({
+            status: 200,
+            message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
+            data: {
+              ...updatedCar,
+            },
+          });
+        }).catch(error => console.log(error));
+      } else {
+        next(new ApiError(400, 'Bad Request', ['Invalid status']));
+      }
+    } else {
+      next(new ApiError(400, 'Bad Request', ['No status provided']));
+    }
+  }
 
   // static updateCarPrice(req, res, next) {
   //   if (req.body.price) {

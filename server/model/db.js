@@ -11,31 +11,6 @@ if (process.env.NODE_ENV === 'test') {
   pool = new Pool({ connectionString: process.env.DATABASE_URL });
 }
 
-// export default class AuthRepository {
-//   static query(query) {
-// pool.query(query, (err, res) => {
-//   if (err) {
-//     console.log(err.stack);
-//   } else {
-//     console.log(res.rows[0]);
-//     // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
-//   }
-// });
-// //   }
-// // }
-
-// const db = {
-//   query: (text) => {
-//     pool.query(text, (err, res) => {
-//       if (err) {
-//         console.log(err.stack);
-//       } else {
-//         console.log(res.rows[0]);
-//       // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
-//       }
-//     });
-//   },
-// };
 types.setTypeParser(1700, val => parseFloat(val));
 
 const db = {
