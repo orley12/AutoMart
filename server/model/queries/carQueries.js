@@ -9,6 +9,8 @@ const queryAllUnsold = 'SELECT * FROM cars WHERE status = $1';
 
 const updateCarStatus = 'UPDATE cars SET status=$1 WHERE id=$2 RETURNING *';
 
+const updateCarPrice = 'UPDATE cars SET price=$1 WHERE id=$2 RETURNING *';
+
 const queryById = 'SELECT * FROM cars WHERE id=$1';
 
 export {
@@ -17,4 +19,5 @@ export {
   queryAllUnsold,
   updateCarStatus,
   queryById,
+  updateCarPrice,
 };

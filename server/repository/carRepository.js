@@ -6,6 +6,7 @@ import {
   queryAllUnsold,
   updateCarStatus,
   queryById,
+  updateCarPrice,
 } from '../model/queries/carQueries';
 
 export default class CarRepository {
@@ -45,6 +46,11 @@ export default class CarRepository {
 
   static async findById(carId) {
     const result = await db.query(queryById, [carId]);
+    return result;
+  }
+
+  static async updatePrice(carId, price) {
+    const result = await db.query(updateCarPrice, [price, carId]);
     return result;
   }
 
