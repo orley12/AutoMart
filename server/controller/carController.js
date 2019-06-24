@@ -146,7 +146,6 @@ export default class CarController {
       }
     }).catch(error => console.log(error));
   }
-  
   // static deleteCar(req, res, next) {
   //   const deletedCar = carRepository.delete(Number(req.params.id));
   //   if (deletedCar === true) {
