@@ -10,7 +10,6 @@ export default class AuthUtil {
   // eslint-disable-next-line consistent-return
   static async authenticate(email, password, callback) {
     const emailQuery = await authRepository.findByEmail(email);
-    console.log(emailQuery);
     if (emailQuery.rows.length < 1) {
       return callback(new ApiError(401, 'Unauthorized', ['Wrong email provided']));
     }

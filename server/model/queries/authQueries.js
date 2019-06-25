@@ -5,8 +5,12 @@ const queryByEmail = 'SELECT * FROM users WHERE email = $1';
 
 const queryById = 'SELECT * FROM users WHERE id=$1';
 
+const updatePassword = 'UPDATE users SET password=$1 WHERE id=$2 RETURNING *';
+
+
 export {
   createUser,
   queryByEmail,
   queryById,
+  updatePassword,
 };
