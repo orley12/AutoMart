@@ -57,7 +57,7 @@ export default class AuthController {
           const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '24h' });
           res.status(200).json({
             status: 200,
-            message: `Welcome ${user.firstName} ${user.lastName}`,
+            message: `Welcome ${user.firstname} ${user.lastname}`,
             data: {
               token,
               ...user,
