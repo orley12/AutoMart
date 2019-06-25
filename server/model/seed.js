@@ -14,7 +14,7 @@ const seedTable = async () => {
       INSERT INTO cars (state, price, manufacturer, model,
         bodyType, transmission, milage, year, exteriorImg, ownerEmail, owner)
         VALUES ('new', '750000', 'Benz', 'SLS', 'coupe', 'automatic', '5000', '2020', 'https://res.cloudinary.com/automart-api/image/upload/v1561297529/exterior/HHHNT6zcV3E1_zZezHKf4gDH.png', 'sam@gmail.com', 4),
-        ('used', '750000', 'Audi', 'maybach', 'coupe', 'manual', '5000', '1889', 'https://res.cloudinary.com/automart-api/image/upload/v1561297529/exterior/HHHNT6zcV3E1_zZezHKf4gDH.png', 'mannyjenson@gmail.com', 3);`);
+        ('new', '750000', 'Audi', 'maybach', 'coupe', 'manual', '5000', '1889', 'https://res.cloudinary.com/automart-api/image/upload/v1561297529/exterior/HHHNT6zcV3E1_zZezHKf4gDH.png', 'mannyjenson@gmail.com', 3);`);
 
 
     console.log(queryUser, queryCar);
