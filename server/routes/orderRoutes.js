@@ -1,13 +1,17 @@
 import express from 'express';
 
-// eslint-disable-next-line import/extensions
-import orderMiddleWare from '../middleware/orderMiddleware';
-import orderController from '../controller/orderController';
+import OrderMiddleWare from '../middleware/orderMiddleware';
+import OrderController from '../controller/orderController';
+
+const {
+  canWrite, isOwner, validateOrderProps, validateUpdateOrderProps,
+} = OrderMiddleWare;
+const { createOrder, updateOrder } = OrderController;
 
 const router = express.Router();
 
-router.post('/', orderMiddleWare.canWrite, orderController.createOrder);
+router.post('/', canWrite, validateOrderProps, createOrder);
 
-router.patch('/:id/price', [orderMiddleWare.canWrite, orderMiddleWare.isOwner], orderController.updateOrder);
+router.patch('/:id/price', [canWrite, isOwner, validateUpdateOrderProps], updateOrder);
 
 export default router;

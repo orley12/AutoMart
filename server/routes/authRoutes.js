@@ -1,16 +1,20 @@
 import express from 'express';
 
-// eslint-disable-next-line import/extensions
-import authMiddleWare from '../middleware/authMiddleware';
-import authController from '../controller/authController';
+import AuthValidator from '../middleware/authValidator';
+import AuthController from '../controller/authController';
 
 const router = express.Router();
+const { signUp, signIn, resetPassword } = AuthController;
+const {
+  loggedIn, validateSignUpProps, validateSignInProps, resetValidator,
+} = AuthValidator;
 
-router.post('/signup', authMiddleWare.loggedIn, authController.signUp);
 
-router.post('/signin', authMiddleWare.loggedIn, authController.signIn);
+router.post('/signup', [loggedIn, validateSignUpProps], signUp);
 
-router.post('/:email/resetPassword', authController.resetPassword);
+router.post('/signin', [loggedIn, validateSignInProps], signIn);
+
+router.post('/:email/resetPassword', resetValidator, resetPassword);
 
 
 export default router;

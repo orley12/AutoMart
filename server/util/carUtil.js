@@ -1,5 +1,6 @@
 import cloudinary from 'cloudinary';
 import ApiError from '../error/ApiError';
+import ErrorDetail from '../error/ErrorDetail';
 
 cloudinary.v2.config({
   cloud_name: 'automart-api',
@@ -8,12 +9,11 @@ cloudinary.v2.config({
 });
 
 export default class AuthUtil {
-  static validatePropsCreateCar(obj) {
-    const props = ['price', 'state', 'manufacturer', 'model', 'bodyType'];
+  static validatePropsCreateCar(obj, props) {
     const errors = [];
     props.forEach((property) => {
       if (!obj[property] || obj[property].trim() === '') {
-        errors.push(`${property} not provided`);
+        errors.push(new ErrorDetail('body', property, `${property} is required`, obj[property]));
       }
     });
     if (errors.length > 0) {
@@ -39,7 +39,7 @@ export default class AuthUtil {
       }
     }
     if (promises.length < 1 || promises.length > 3) {
-      throw new ApiError(400, 'Bad Request', ['Photos most be between 1 & 3']);
+      throw new ApiError(400, 'Bad Request', [new ErrorDetail('body', null, 'Photos must be between 1 & 3', null)]);
     }
     return promises;
   }

@@ -12,11 +12,13 @@ export default class OrderRepository {
     return result;
   }
 
-  static findById(id) {
-    return db.query(queryById, [id]);
+  static async findById(id) {
+    const result = await db.query(queryById, [id]);
+    return result;
   }
 
-  static update(price, id) {
-    return db.query(updateOrderPrice, [price, id]);
+  static async update(price, id) {
+    const result = await db.query(updateOrderPrice, [price, id]);
+    return result;
   }
 }

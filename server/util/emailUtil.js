@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import ApiError from '../error/ApiError';
-
+import ErrorDetail from '../error/ErrorDetail';
 
 dotenv.config();
 
