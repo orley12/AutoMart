@@ -1,36 +1,45 @@
 /* eslint-disable max-len */
-import carUtils from '../util/carUtil';
+import CarUtils from '../util/carUtil';
 import ApiError from '../error/ApiError';
-import carRepository from '../repository/carRepository';
-import authRepository from '../repository/authRepository';
+import CarRepository from '../repository/carRepository';
+import AuthRepository from '../repository/authRepository';
+import ErrorDetail from '../error/ErrorDetail';
+
+const { validatePropsCreateCar } = CarUtils;
 
 export default class CarController {
   // eslint-disable-next-line consistent-return
   static createCar(req, res, next) {
     const userId = req.decoded.id;
+    const props = ['price', 'state', 'manufacturer', 'model', 'bodyType'];
     try {
       const carProps = JSON.parse(req.body.data);
-      carUtils.validatePropsCreateCar(carProps);
+      validatePropsCreateCar(carProps, props);
 
       const filekeys = Object.keys(req.files);
-      const filePromises = carUtils.fileUploadPromises(req.files, filekeys);
+      const filePromises = CarUtils.fileUploadPromises(req.files, filekeys);
 
       Promise.all(filePromises).then((files) => {
-        const user = authRepository.findById(userId);
-        user.then(userData => carRepository.save(carProps, userData.rows[0], files))
-          .then((carData) => {
-            const car = carData.rows[0];
-            res.status(201).json({
-              status: 201,
-              message: `${car.manufacturer} ${car.model} Created`,
-              data: {
-                ...car,
-              },
-            });
+        AuthRepository.findById(userId)
+          .then((userData) => {
+            CarRepository.save(carProps, userData.rows[0], files)
+              .then((carData) => {
+                const car = carData.rows[0];
+                res.status(201).json({
+                  status: 201,
+                  message: `${car.manufacturer} ${car.model} Created`,
+                  data: {
+                    ...car,
+                  },
+                });
+              }).catch(() => {
+                next(new ApiError(500, 'Internal Server Error', [new ErrorDetail('body', 'Car Properties', 'Unable to save car', carProps)]));
+              });
+          }).catch(() => {
+            next(new ApiError(404, 'Not Found', [new ErrorDetail('header', 'x-accass-token', 'User not found', userId)]));
           });
-      // eslint-disable-next-line no-unused-vars
-      }).catch((error) => {
-        next(new ApiError(408, 'Request Timeout', 'Unable to upload Photos'));
+      }).catch(() => {
+        next(new ApiError(408, 'Request Timeout', [new ErrorDetail('body', 'Images', 'Unable to upload Photos', userId)]));
       });
     } catch (error) {
       next(error);
@@ -40,9 +49,9 @@ export default class CarController {
   static getCars(req, res) {
     let results = {};
     if (req.isAdmin === true) {
-      results = carRepository.findAll();
+      results = CarRepository.findAll();
     } else {
-      results = carRepository.findAllUnsold();
+      results = CarRepository.findAllUnsold();
     }
     results.then((cars) => {
       let carArray = cars.rows;
@@ -71,104 +80,87 @@ export default class CarController {
   }
 
   static updateCarStatus(req, res, next) {
-    if (req.body.status) {
-      if (req.body.status.toLowerCase() === 'sold' || req.body.status.toLowerCase() === 'available') {
-        const updateResult = carRepository.updateStatus(Number(req.params.id), req.body.status);
-        updateResult.then((result) => {
-          const updatedCar = result.rows[0];
-          res.json({
-            status: 200,
-            message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
-            data: {
-              ...updatedCar,
-            },
-          });
-        }).catch(error => console.log(error));
-      } else {
-        next(new ApiError(400, 'Bad Request', ['Invalid status']));
-      }
-    } else {
-      next(new ApiError(400, 'Bad Request', ['No status provided']));
-    }
+    CarRepository.updateStatus(Number(req.params.id), req.body.status)
+      .then((result) => {
+        const updatedCar = result.rows[0];
+        res.json({
+          status: 200,
+          message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
+          data: {
+            ...updatedCar,
+          },
+        });
+      }).catch(() => {
+        next(new ApiError(400, 'Bad Request', [new ErrorDetail('Params', 'CarId', 'Invalid carId', req.params.id)]));
+      });
   }
 
   static updateCarPrice(req, res, next) {
-    if (req.body.price) {
-      if (typeof (Number(req.body.price)) === 'number' || req.body.price !== '') {
-        const updateResult = carRepository.updatePrice(Number(req.params.id), req.body.price);
-        updateResult.then((result) => {
-          const updatedCar = result.rows[0];
-          res.json({
-            status: 200,
-            message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
-            data: {
-              ...updatedCar,
-            },
-          });
-        }).catch(error => console.log(error));
-      } else {
-        next(new ApiError(400, 'Bad Request', ['Invalid price']));
-      }
-    } else {
-      next(new ApiError(400, 'Bad Request', ['No price provided']));
-    }
+    CarRepository.updatePrice(Number(req.params.id), req.body.price)
+      .then((result) => {
+        const updatedCar = result.rows[0];
+        res.json({
+          status: 200,
+          message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
+          data: {
+            ...updatedCar,
+          },
+        });
+      }).catch(() => {
+        next(new ApiError(400, 'Bad Request', [new ErrorDetail('Params', 'CarId', 'Invalid carId', req.params.id)]));
+      });
   }
 
   static getCar(req, res, next) {
-    const queryResult = carRepository.findById(Number(req.params.id));
-    queryResult.then((result) => {
-      const car = result.rows[0];
-      if (car) {
-        res.status(200).json({
-          status: 200,
-          message: 'success',
-          data: {
-            ...car,
-          },
-        });
-      } else {
-        next(new ApiError(404, 'Not Found', ['The car is not in our database']));
-      }
-    }).catch(error => console.log(error));
+    CarRepository.findById(Number(req.params.id))
+      .then((result) => {
+        const car = result.rows[0];
+        if (car) {
+          res.status(200).json({
+            status: 200,
+            message: 'success',
+            data: {
+              ...result.rows[0],
+            },
+          });
+        } else {
+          next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.params.id)]));
+        }
+      }).catch(() => {
+        next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.params.id)]));
+      });
   }
 
   static deleteCar(req, res, next) {
-    const deleteResult = carRepository.delete(Number(req.params.id));
-    deleteResult.then((result) => {
-      if (result.rowCount > 0) {
+    CarRepository.delete(Number(req.params.id))
+      .then(() => {
         res.status(200).json({
           status: 200,
           message: 'Request Successful',
           data: 'Car Ad successfully deleted',
         });
-      } else {
-        next(new ApiError(403, 'Bad Request', ['Unable to delete AD']));
-      }
-    }).catch(error => console.log(error));
+      }).catch(() => {
+        next(new ApiError(500, 'Internal Server Error', [new ErrorDetail('Params', 'carId', 'Unable to delete AD', req.params.id)]));
+      });
   }
 
   static flag(req, res, next) {
-    if (req.body.reason && req.body.description) {
-      const carQueryResult = carRepository.findById(Number(req.params.id));
-      carQueryResult
-        .then(carResult => carRepository.saveFlag(Number(req.decoded.id), carResult.rows[0].id, req.body))
-        .then((saveResult) => {
-          const flag = saveResult.rows[0];
-          res.status(200).json({
-            status: 200,
-            message: 'Car flaged',
-            data: {
-              ...flag,
-            },
+    CarRepository.findById(Number(req.params.id))
+      .then((carResult) => {
+        CarRepository.saveFlag(Number(req.decoded.id), carResult.rows[0].id, req.body)
+          .then((saveResult) => {
+            res.status(200).json({
+              status: 200,
+              message: 'Car flaged',
+              data: {
+                ...saveResult.rows[0],
+              },
+            });
+          }).catch(() => {
+            next(new ApiError(500, 'Internal Server Error', [new ErrorDetail('Body', 'Flag Data', 'Car could not be flagged', req.body)]));
           });
-        }).catch((error) => {
-          if (error.status === 404) {
-            next(error);
-          }
-          next(new ApiError(417, 'Expectation failed', ['Car could not be flagged']));
-        });
-    } else {
-      next(new ApiError(400, 'Bad Request', ['No reason provided or description']));
-    }
+      }).catch(() => {
+        next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.params.id)]));
+      });
   }
 }

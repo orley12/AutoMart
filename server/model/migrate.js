@@ -65,6 +65,23 @@ const queryTable = async () => {
         userId INTEGER REFERENCES users(id) ON DELETE CASCADE
     );`);
 
+  //   const queryAllUnsold = await db.query(`CREATE OR REPLACE FUNCTION queryAllUnsold(bodyType text DEFAULT NULL:: text,
+  //     state text DEFAULT NULL:: text, manufacturer text DEFAULT NULL:: text,
+  //     maxPice integer DEFAULT NULL:: integer, minPrice integer DEFAULT NULL:: integer)
+  //     RETURNS cars
+  //     LANGUAGE plpgsql
+  //     AS $$
+  //  BEGIN
+  //  RETURN QUERY
+  //  SELECT * FROM cars WHERE
+  //  ($1 IS NULL OR bodyType = $1 )
+  //  AND ($2 IS NULL OR state = $2 ) 
+  //  AND ($3 IS NULL OR manufacturer = $3 )
+  //  AND ($4 IS NULL OR price <= $4 ) 
+  //  AND ($5 IS NULL OR price >= $5 );
+  //  END;
+  //  $$`);
+
     const values = ['admin', 'admin', 'admin@auto-mart.com', authUtil.hashPassWord('admin'), '090555345674', '75 Bode-Thomas, Surulere, Lagos', 'true'];
     const admin = await db.query('INSERT into users(firstName, lastName, email, password, phone, address, isAdmin) VALUES($1,$2,$3,$4,$5,$6,$7)', values);
   } catch (err) {

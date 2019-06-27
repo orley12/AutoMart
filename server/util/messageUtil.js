@@ -17,7 +17,7 @@ class MessageUtil {
     const body = `<p>
     Dear <em style="text-transform: capitalize">${firstname} ${lastname}</em>, <br>
   
-   <p>Click <a href="inite-garden-51728.herokuapp.com/api/v1/auth/${email}/resetPassword?token=${token}"> Here!</a> to reset your password</p>
+   <p>Click <a href="https://infinite-garden-51728.herokuapp.com/api/v1/auth/${email}/resetPassword?token=${token}"> Here!</a> to reset your password</p>
    <br>
    <p>Cheers!</p>
   

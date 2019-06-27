@@ -18,7 +18,7 @@ export default class authRepository {
   }
 
   static async updatePassword(id, password) {
-    const result = await db.query(updatePassword, [password, id]);
+    const result = db.query(updatePassword, [password, id]);
     return result;
   }
 }
