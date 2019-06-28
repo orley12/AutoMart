@@ -173,18 +173,19 @@ export default class AuthController {
           .then((data) => {
             if (process.env.NODE_ENV === 'test') {
               res.send(token);
-            }
-            const details = MessageUtil.resetPassword(data.rows[0], token);
-            EmailUtil.sendMailMethod(details);
+            } else {
+              const details = MessageUtil.resetPassword(data.rows[0], token);
+              EmailUtil.sendMailMethod(details);
 
-            res.status(204).json({
-              status: 204,
-              message: 'Success',
-              data: {
-                token,
-                message: 'Password reset successful',
-              },
-            });
+              res.status(204).json({
+                status: 204,
+                message: 'Success',
+                data: {
+                  token,
+                  message: 'Password reset successful',
+                },
+              });
+            }
           }).catch(() => {
             next(new ApiError(417, 'Expectation failed',
               [new ErrorDetail('updatePassword', 'userId & password', 'Password could not be updated try again', `${user.id} & *******`)]));
