@@ -17,7 +17,7 @@ const seedTable = async () => {
         ('new', '750000', 'Audi', 'maybach', 'coupe', 'manual', '5000', '1889', 'https://res.cloudinary.com/automart-api/image/upload/v1561297529/exterior/HHHNT6zcV3E1_zZezHKf4gDH.png', 'mannyjenson@gmail.com', 3);`);
 
 
-    console.log(queryUser, queryCar);
+    // console.log(queryUser, queryCar);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err.stack);

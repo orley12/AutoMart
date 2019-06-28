@@ -4,13 +4,13 @@ import OrderMiddleWare from '../middleware/orderMiddleware';
 import OrderController from '../controller/orderController';
 
 const {
-  canWrite, isOwner, validateOrderProps, validateUpdateOrderProps,
+  canWrite, isOwner, validateOrderProps, validateUpdateOrderProps, userExist,
 } = OrderMiddleWare;
 const { createOrder, updateOrder } = OrderController;
 
 const router = express.Router();
 
-router.post('/', canWrite, validateOrderProps, createOrder);
+router.post('/', [canWrite, userExist, validateOrderProps], createOrder);
 
 router.patch('/:id/price', [canWrite, isOwner, validateUpdateOrderProps], updateOrder);
 
