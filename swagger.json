@@ -60,14 +60,13 @@
                 "status": 201,
                 "message": "john doe Created",
                 "data": {
-                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTYxNDg3MDcxLCJleHAiOjE1NjE1NzM0NzF9.rwNj9SSeacOYp6fij8rbZIL-gaexYQO590d2F47ziEY",
-                  "id": 2,
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTYxNzU0NjI1LCJleHAiOjE1NjE4NDEwMjV9.rBeiIoq6WwnEfjhiidA0qCS3vIX1-9RXYPEhjxs4VBg",
+                  "id": 5,
                   "firstname": "john",
                   "lastname": "doe",
-                  "email": "solarintosin@yahoo.com",
+                  "email": "johndoe@yahoo.com",
                   "phone": "09049908094",
-                  "address": "some amazing place, in heaven",
-                  "isadmin": false
+                  "address": "some amazing place, in heaven"
                 }
               }
             },
@@ -86,15 +85,15 @@
               },
               "Content-Length": {
                 "type": "string",
-                "default": "356"
+                "default": "335"
               },
               "Etag": {
                 "type": "string",
-                "default": "W/\"164-+U7zl+H1lg/laSNY0EdnfO4mhbE\""
+                "default": "W/\"14f-G+Y2KgVuLE/eyPP9GdI6iKCCxfk\""
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 18:24:31 GMT"
+                "default": "Fri, 28 Jun 2019 20:43:45 GMT"
               },
               "Via": {
                 "type": "string",
@@ -146,15 +145,13 @@
                 "status": 200,
                 "message": "Welcome john doe",
                 "data": {
-                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTYxNDg4Njk2LCJleHAiOjE1NjE1NzUwOTZ9.HqUFZSo9G_DtByolvFsAyUX4_NVw-wUFG3k6gOZxsvM",
-                  "id": 2,
-                  "firstname": "john",
-                  "lastname": "doe",
-                  "email": "solarintosin@yahoo.com",
-                  "password": "$2b$10$i4IMYn3C8vBXhAvgFJJGy..lTIuAIsbR3oBMYi6Hl8wiLROiWmvvm",
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTYxNzU0NzA5LCJleHAiOjE1NjE4NDExMDl9.46qQqiQkl4d4mSMwoBt2DbZ6wuunOtEwNoWOog7uC7c",
+                  "id": 5,
+                  "firstName": "john",
+                  "lastName": "doe",
+                  "email": "johndoe@yahoo.com",
                   "phone": "09049908094",
-                  "address": "some amazing place, in heaven",
-                  "isadmin": false
+                  "address": "some amazing place, in heaven"
                 }
               }
             },
@@ -173,15 +170,15 @@
               },
               "Content-Length": {
                 "type": "string",
-                "default": "441"
+                "default": "335"
               },
               "Etag": {
                 "type": "string",
-                "default": "W/\"1b9-lX+eQ/6+VunbLLAgDEpXMsTzTds\""
+                "default": "W/\"14f-WtqmvZESxJgC1+g4ZOQf2s1sC6M\""
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 18:51:36 GMT"
+                "default": "Fri, 28 Jun 2019 20:45:09 GMT"
               },
               "Via": {
                 "type": "string",
@@ -195,14 +192,14 @@
     "/auth/solarintosin@yahoo.com/resetPassword": {
       "post": {
         "description": "POST with an empty body and a reset link will be sent to you",
-        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/solarintosin@yahoo.com/resetPassword",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/johndoe@yahoo.com/resetPassword",
         "tags": [
           "Authentication"
         ],
         "operationId": "AuthSolarintosinYahooComResetPasswordPost",
         "deprecated": false,
         "produces": [
-          "application/json"
+          "application/json; charset=utf-8"
         ],
         "parameters": [
           {
@@ -211,7 +208,7 @@
             "required": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1auth~1solarintosin%40yahoo.com~1resetPassword-Request"
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1auth~1johndoe%40yahoo.com~1resetPassword-Request"
             }
           },
           {
@@ -223,19 +220,25 @@
           }
         ],
         "responses": {
-          "204": {
+          "200": {
             "description": "",
             "schema": {
-              "type": "object"
+              "$ref": "#/definitions/http%3A~1~1localhost%3A8081~1api~1v1~1auth~1solarintosin%40yahoo.com~1resetPassword"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "status": 204,
+                "message": "No content",
+                "data": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicGFzc3dvcmQiOiIkMmIkMTAkUVYzUkc5VW9lZ3VScHpQZ0tvUTl6ZXJaa0pkRnFJYzE1RDlFUzg1UTNNcklsdldMMS5xOGEiLCJpYXQiOjE1NjE3NTQ3NTUsImV4cCI6MTU2MTg0MTE1NX0.5veqmcu5lh5fA_2m3l9zmbX4J4eF9-7J9_wiIP9BQTs",
+                  "message": "Password reset mail as been sent to you"
+                }
+              }
             },
             "headers": {
               "Server": {
                 "type": "string",
                 "default": "Cowboy"
-              },
-              "Content-Length": {
-                "type": "string",
-                "default": "0"
               },
               "Connection": {
                 "type": "string",
@@ -245,13 +248,17 @@
                 "type": "string",
                 "default": "Express"
               },
+              "Content-Length": {
+                "type": "string",
+                "default": "345"
+              },
               "Etag": {
                 "type": "string",
-                "default": "W/\"51-HLQCAf5maeRsnDR7mMjt8TctZIo\""
+                "default": "W/\"159-gLMIykyggTm2uSAuBbWCUIFaJVY\""
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 18:41:14 GMT"
+                "default": "Fri, 28 Jun 2019 20:45:55 GMT"
               },
               "Via": {
                 "type": "string",
@@ -264,7 +271,7 @@
     },
     "/car": {
       "get": {
-        "description": "GET all cars",
+        "description": "GET all cars.\nThe token is optional and only to identify Admin from random users.",
         "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/car",
         "tags": [
           "Car"
@@ -302,24 +309,6 @@
                 "message": "success",
                 "data": [
                   {
-                    "id": 1,
-                    "createdon": "2019-06-25T18:54:07.03Z",
-                    "state": "new",
-                    "status": "available",
-                    "price": 750000,
-                    "manufacturer": "aston-martin",
-                    "model": "stallion",
-                    "bodytype": "sedan",
-                    "milage": "5000",
-                    "transmission": "automatic",
-                    "year": "2018",
-                    "exteriorimg": null,
-                    "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561488846/interior/XygJ8XbUxERQmUMrdmeMFYFk.jpg",
-                    "engineimg": null,
-                    "owneremail": "solarintosin@yahoo.com",
-                    "owner": 2
-                  },
-                  {
                     "id": 2,
                     "createdon": "2019-06-25T18:55:31.526Z",
                     "state": "new",
@@ -355,15 +344,15 @@
               },
               "Content-Length": {
                 "type": "string",
-                "default": "887"
+                "default": "461"
               },
               "Etag": {
                 "type": "string",
-                "default": "W/\"377-ASuLlLZMMFiyITLUKC4wpxBZtRM\""
+                "default": "W/\"1cd-9GXqCqtFPgmGyEesNMMyQgKUSiM\""
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 18:56:04 GMT"
+                "default": "Fri, 28 Jun 2019 20:53:38 GMT"
               },
               "Via": {
                 "type": "string",
@@ -374,8 +363,8 @@
         }
       },
       "post": {
-        "description": "POST car advert",
-        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/car",
+        "description": "POST car advert.\nAt least one image must be added using tag interior, exterior, or engine.",
+        "summary": "https://infinite-garden-51728.herokuapp.com/api/v1/car.",
         "tags": [
           "Car"
         ],
@@ -427,24 +416,24 @@
             "examples": {
               "application/json; charset=utf-8": {
                 "status": 201,
-                "message": "aston-martin stallion Created",
+                "message": "Benz stallion Created",
                 "data": {
-                  "id": 1,
-                  "createdon": "2019-06-23T12:58:25.588Z",
+                  "id": 3,
+                  "createdon": "2019-06-28T20:56:07.11Z",
                   "state": "new",
                   "status": "available",
-                  "price": "750000",
-                  "manufacturer": "aston-martin",
+                  "price": 750000,
+                  "manufacturer": "Benz",
                   "model": "stallion",
                   "bodytype": "sedan",
                   "milage": "5000",
                   "transmission": "automatic",
                   "year": "2018",
                   "exteriorimg": null,
-                  "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561294705/interior/yxQEw5wJwI8Tcqay1DjKfGsO.jpg",
+                  "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561755366/interior/P11BBP4iRetZb6aANPF3xEz8.jpg",
                   "engineimg": null,
-                  "owneremail": "sol@yahoo.com",
-                  "owner": 2
+                  "owneremail": "johndoe@yahoo.com",
+                  "owner": 5
                 }
               }
             },
@@ -463,15 +452,15 @@
               },
               "Content-Length": {
                 "type": "string",
-                "default": "482"
+                "default": "468"
               },
               "Etag": {
                 "type": "string",
-                "default": "W/\"1e2-gtFVRVGN3VBphUloHbhuklMuUmA\""
+                "default": "W/\"1d4-5Wi6fVweudTMglRvvtonLN8XlnU\""
               },
               "Date": {
                 "type": "string",
-                "default": "Sun, 23 Jun 2019 12:58:25 GMT"
+                "default": "Fri, 28 Jun 2019 20:56:07 GMT"
               },
               "Via": {
                 "type": "string",
@@ -507,7 +496,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~111"
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~13"
             },
             "examples": {
               "application/json; charset=utf-8": {
@@ -539,7 +528,7 @@
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 19:24:25 GMT"
+                "default": "Fri, 28 Jun 2019 21:10:55 GMT"
               },
               "Via": {
                 "type": "string",
@@ -591,29 +580,29 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~11~1status"
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car1"
             },
             "examples": {
               "application/json; charset=utf-8": {
                 "status": 200,
-                "message": "aston-martin stallion Updated",
+                "message": "Benz stallion Updated",
                 "data": {
-                  "id": 1,
-                  "createdon": "2019-06-25T18:54:07.03Z",
+                  "id": 3,
+                  "createdon": "2019-06-28T20:56:07.11Z",
                   "state": "new",
-                  "status": "available",
+                  "status": "sold",
                   "price": 750000,
-                  "manufacturer": "aston-martin",
+                  "manufacturer": "Benz",
                   "model": "stallion",
                   "bodytype": "sedan",
                   "milage": "5000",
                   "transmission": "automatic",
                   "year": "2018",
                   "exteriorimg": null,
-                  "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561488846/interior/XygJ8XbUxERQmUMrdmeMFYFk.jpg",
+                  "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561755366/interior/P11BBP4iRetZb6aANPF3xEz8.jpg",
                   "engineimg": null,
-                  "owneremail": "solarintosin@yahoo.com",
-                  "owner": 2
+                  "owneremail": "johndoe@yahoo.com",
+                  "owner": 5
                 }
               }
             },
@@ -632,15 +621,15 @@
               },
               "Content-Length": {
                 "type": "string",
-                "default": "489"
+                "default": "463"
               },
               "Etag": {
                 "type": "string",
-                "default": "W/\"1e9-qfHwxqCXjuRGLwjHpPvEgDiECXc\""
+                "default": "W/\"1cf-z/rCe5paOt5xFrtAySYFS90ntBQ\""
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 19:17:47 GMT"
+                "default": "Fri, 28 Jun 2019 21:05:11 GMT"
               },
               "Via": {
                 "type": "string",
@@ -692,29 +681,29 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~11~1status"
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car1"
             },
             "examples": {
               "application/json; charset=utf-8": {
                 "status": 200,
-                "message": "aston-martin stallion Updated",
+                "message": "Benz stallion Updated",
                 "data": {
-                  "id": 1,
-                  "createdon": "2019-06-25T18:54:07.03Z",
+                  "id": 3,
+                  "createdon": "2019-06-28T20:56:07.11Z",
                   "state": "new",
                   "status": "available",
                   "price": 2000000,
-                  "manufacturer": "aston-martin",
+                  "manufacturer": "Benz",
                   "model": "stallion",
                   "bodytype": "sedan",
                   "milage": "5000",
                   "transmission": "automatic",
                   "year": "2018",
                   "exteriorimg": null,
-                  "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561488846/interior/XygJ8XbUxERQmUMrdmeMFYFk.jpg",
+                  "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561755366/interior/P11BBP4iRetZb6aANPF3xEz8.jpg",
                   "engineimg": null,
-                  "owneremail": "solarintosin@yahoo.com",
-                  "owner": 2
+                  "owneremail": "johndoe@yahoo.com",
+                  "owner": 5
                 }
               }
             },
@@ -733,15 +722,15 @@
               },
               "Content-Length": {
                 "type": "string",
-                "default": "490"
+                "default": "469"
               },
               "Etag": {
                 "type": "string",
-                "default": "W/\"1ea-2NfPCzc5Iw4ZsMlTjpg8R5carDw\""
+                "default": "W/\"1d5-eOcgshz4JYO7uodnPMBNWmYuntg\""
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 19:20:31 GMT"
+                "default": "Fri, 28 Jun 2019 21:07:13 GMT"
               },
               "Via": {
                 "type": "string",
@@ -793,19 +782,19 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~11~1flag"
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1car~13~1flag"
             },
             "examples": {
               "application/json; charset=utf-8": {
                 "status": 200,
                 "message": "Car flaged",
                 "data": {
-                  "id": 1,
-                  "createdon": "2019-06-25T00:00:00Z",
+                  "id": 2,
+                  "createdon": "2019-06-28T00:00:00Z",
                   "reason": "too expensive",
-                  "description": "ggvygigugiu",
-                  "carid": 1,
-                  "userid": 2
+                  "description": "tooooooooo expensive",
+                  "carid": 3,
+                  "userid": 5
                 }
               }
             },
@@ -824,15 +813,15 @@
               },
               "Content-Length": {
                 "type": "string",
-                "default": "166"
+                "default": "175"
               },
               "Etag": {
                 "type": "string",
-                "default": "W/\"a6-NyWZm8TsTrjMJ9pdoPcaCi6FPXc\""
+                "default": "W/\"af-/VtNv/NVcifCBk3XalyEF9eq7H8\""
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 19:22:28 GMT"
+                "default": "Fri, 28 Jun 2019 21:09:19 GMT"
               },
               "Via": {
                 "type": "string",
@@ -890,11 +879,11 @@
               "application/json; charset=utf-8": {
                 "status": 201,
                 "data": {
-                  "id": 3,
-                  "createdon": "2019-06-25T00:00:00Z",
+                  "id": 4,
+                  "createdon": "2019-06-28T00:00:00Z",
                   "amount": 700000,
                   "status": "pending",
-                  "buyer": 2,
+                  "buyer": 5,
                   "carid": 2,
                   "originalPrice": 750000
                 }
@@ -919,11 +908,11 @@
               },
               "Etag": {
                 "type": "string",
-                "default": "W/\"93-oqJzckrsn96Ub13int28lH+YHpc\""
+                "default": "W/\"93-ZfErzKvHTuSk1k48KFPJ7xGgt6M\""
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 19:29:32 GMT"
+                "default": "Fri, 28 Jun 2019 21:12:16 GMT"
               },
               "Via": {
                 "type": "string",
@@ -975,16 +964,16 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1order~13~1price"
+              "$ref": "#/definitions/https%3A~1~1infinite-garden-51728.herokuapp.com~1api~1v1~1order~14~1price"
             },
             "examples": {
               "application/json; charset=utf-8": {
                 "status": 200,
                 "data": {
-                  "id": 3,
-                  "createdon": "2019-06-25T00:00:00Z",
+                  "id": 4,
+                  "createdon": "2019-06-28T00:00:00Z",
                   "status": "pending",
-                  "buyer": 2,
+                  "buyer": 5,
                   "carid": 2,
                   "newPrice": 4000,
                   "oldPrice": 700000
@@ -1010,11 +999,11 @@
               },
               "Etag": {
                 "type": "string",
-                "default": "W/\"8e-80Rk+dGcsulhouvMi8SqJRd3UiU\""
+                "default": "W/\"8e-f1C1Lj2LOXps3f/ocVIhT/qPV50\""
               },
               "Date": {
                 "type": "string",
-                "default": "Tue, 25 Jun 2019 19:32:17 GMT"
+                "default": "Fri, 28 Jun 2019 21:14:11 GMT"
               },
               "Via": {
                 "type": "string",
@@ -1078,14 +1067,13 @@
         "status": 201,
         "message": "john doe Created",
         "data": {
-          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTYxNDg3MDcxLCJleHAiOjE1NjE1NzM0NzF9.rwNj9SSeacOYp6fij8rbZIL-gaexYQO590d2F47ziEY",
-          "id": 2,
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTYxNzU0NjI1LCJleHAiOjE1NjE4NDEwMjV9.rBeiIoq6WwnEfjhiidA0qCS3vIX1-9RXYPEhjxs4VBg",
+          "id": 5,
           "firstname": "john",
           "lastname": "doe",
-          "email": "solarintosin@yahoo.com",
+          "email": "johndoe@yahoo.com",
           "phone": "09049908094",
-          "address": "some amazing place, in heaven",
-          "isadmin": false
+          "address": "some amazing place, in heaven"
         }
       },
       "type": "object",
@@ -1110,14 +1098,13 @@
     "Data": {
       "title": "Data",
       "example": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTYxNDg3MDcxLCJleHAiOjE1NjE1NzM0NzF9.rwNj9SSeacOYp6fij8rbZIL-gaexYQO590d2F47ziEY",
-        "id": 2,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTYxNzU0NjI1LCJleHAiOjE1NjE4NDEwMjV9.rBeiIoq6WwnEfjhiidA0qCS3vIX1-9RXYPEhjxs4VBg",
+        "id": 5,
         "firstname": "john",
         "lastname": "doe",
-        "email": "solarintosin@yahoo.com",
+        "email": "johndoe@yahoo.com",
         "phone": "09049908094",
-        "address": "some amazing place, in heaven",
-        "isadmin": false
+        "address": "some amazing place, in heaven"
       },
       "type": "object",
       "properties": {
@@ -1142,9 +1129,6 @@
         },
         "address": {
           "type": "string"
-        },
-        "isadmin": {
-          "type": "boolean"
         }
       },
       "required": [
@@ -1154,8 +1138,7 @@
         "lastname",
         "email",
         "phone",
-        "address",
-        "isadmin"
+        "address"
       ]
     },
     "https://infinite-garden-51728.herokuapp.com/api/v1/auth/signin-request": {
@@ -1184,15 +1167,13 @@
         "status": 200,
         "message": "Welcome john doe",
         "data": {
-          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTYxNDg4Njk2LCJleHAiOjE1NjE1NzUwOTZ9.HqUFZSo9G_DtByolvFsAyUX4_NVw-wUFG3k6gOZxsvM",
-          "id": 2,
-          "firstname": "john",
-          "lastname": "doe",
-          "email": "solarintosin@yahoo.com",
-          "password": "$2b$10$i4IMYn3C8vBXhAvgFJJGy..lTIuAIsbR3oBMYi6Hl8wiLROiWmvvm",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTYxNzU0NzA5LCJleHAiOjE1NjE4NDExMDl9.46qQqiQkl4d4mSMwoBt2DbZ6wuunOtEwNoWOog7uC7c",
+          "id": 5,
+          "firstName": "john",
+          "lastName": "doe",
+          "email": "johndoe@yahoo.com",
           "phone": "09049908094",
-          "address": "some amazing place, in heaven",
-          "isadmin": false
+          "address": "some amazing place, in heaven"
         }
       },
       "type": "object",
@@ -1217,15 +1198,13 @@
     "Data1": {
       "title": "Data1",
       "example": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTYxNDg4Njk2LCJleHAiOjE1NjE1NzUwOTZ9.HqUFZSo9G_DtByolvFsAyUX4_NVw-wUFG3k6gOZxsvM",
-        "id": 2,
-        "firstname": "john",
-        "lastname": "doe",
-        "email": "solarintosin@yahoo.com",
-        "password": "$2b$10$i4IMYn3C8vBXhAvgFJJGy..lTIuAIsbR3oBMYi6Hl8wiLROiWmvvm",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTYxNzU0NzA5LCJleHAiOjE1NjE4NDExMDl9.46qQqiQkl4d4mSMwoBt2DbZ6wuunOtEwNoWOog7uC7c",
+        "id": 5,
+        "firstName": "john",
+        "lastName": "doe",
+        "email": "johndoe@yahoo.com",
         "phone": "09049908094",
-        "address": "some amazing place, in heaven",
-        "isadmin": false
+        "address": "some amazing place, in heaven"
       },
       "type": "object",
       "properties": {
@@ -1236,16 +1215,13 @@
           "type": "integer",
           "format": "int32"
         },
-        "firstname": {
+        "firstName": {
           "type": "string"
         },
-        "lastname": {
+        "lastName": {
           "type": "string"
         },
         "email": {
-          "type": "string"
-        },
-        "password": {
           "type": "string"
         },
         "phone": {
@@ -1253,25 +1229,20 @@
         },
         "address": {
           "type": "string"
-        },
-        "isadmin": {
-          "type": "boolean"
         }
       },
       "required": [
         "token",
         "id",
-        "firstname",
-        "lastname",
+        "firstName",
+        "lastName",
         "email",
-        "password",
         "phone",
-        "address",
-        "isadmin"
+        "address"
       ]
     },
-    "https://infinite-garden-51728.herokuapp.com/api/v1/auth/solarintosin@yahoo.com/resetPassword-Request": {
-      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/solarintosin@yahoo.com/resetPassword-Request",
+    "https://infinite-garden-51728.herokuapp.com/api/v1/auth/johndoe@yahoo.com/resetPassword-Request": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/johndoe@yahoo.com/resetPassword-Request",
       "example": {
         "password": "glory",
         "newPassword": "amenamen"
@@ -1290,13 +1261,14 @@
         "newPassword"
       ]
     },
-    "https://infinite-garden-51728.herokuapp.com/api/v1/auth/solarintosin@yahoo.com/resetPassword?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwicGFzc3dvcmQiOiIkMmIkMTAkYThEaW4yNDVoUVdWTlF2bmxYRk1WZWNpVUhRZU5iMkp0RTlXYWo3MkYwOHFabkVOT2JtcnkiLCJpYXQiOjE1NjE0ODgwNzQsImV4cCI6MTU2MTU3NDQ3NH0.m9T4QtK4xrkmRIZe8krK2NMhAsOdUVcjU8Wxm--8Agg": {
-      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/auth/solarintosin@yahoo.com/resetPassword?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwicGFzc3dvcmQiOiIkMmIkMTAkYThEaW4yNDVoUVdWTlF2bmxYRk1WZWNpVUhRZU5iMkp0RTlXYWo3MkYwOHFabkVOT2JtcnkiLCJpYXQiOjE1NjE0ODgwNzQsImV4cCI6MTU2MTU3NDQ3NH0.m9T4QtK4xrkmRIZe8krK2NMhAsOdUVcjU8Wxm--8Agg",
+    "http://localhost:8081/api/v1/auth/solarintosin@yahoo.com/resetPassword": {
+      "title": "http://localhost:8081/api/v1/auth/solarintosin@yahoo.com/resetPassword",
       "example": {
-        "status": 200,
-        "message": "Success",
+        "status": 204,
+        "message": "No content",
         "data": {
-          "message": "Password reset successful"
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicGFzc3dvcmQiOiIkMmIkMTAkUVYzUkc5VW9lZ3VScHpQZ0tvUTl6ZXJaa0pkRnFJYzE1RDlFUzg1UTNNcklsdldMMS5xOGEiLCJpYXQiOjE1NjE3NTQ3NTUsImV4cCI6MTU2MTg0MTE1NX0.5veqmcu5lh5fA_2m3l9zmbX4J4eF9-7J9_wiIP9BQTs",
+          "message": "Password reset mail as been sent to you"
         }
       },
       "type": "object",
@@ -1321,20 +1293,25 @@
     "Data2": {
       "title": "Data2",
       "example": {
-        "message": "Password reset successful"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicGFzc3dvcmQiOiIkMmIkMTAkUVYzUkc5VW9lZ3VScHpQZ0tvUTl6ZXJaa0pkRnFJYzE1RDlFUzg1UTNNcklsdldMMS5xOGEiLCJpYXQiOjE1NjE3NTQ3NTUsImV4cCI6MTU2MTg0MTE1NX0.5veqmcu5lh5fA_2m3l9zmbX4J4eF9-7J9_wiIP9BQTs",
+        "message": "Password reset mail as been sent to you"
       },
       "type": "object",
       "properties": {
+        "token": {
+          "type": "string"
+        },
         "message": {
           "type": "string"
         }
       },
       "required": [
+        "token",
         "message"
       ]
     },
-    "http://localhost:8081/api/v1/auth/solarintosin@yahoo.com/resetPassword": {
-      "title": "http://localhost:8081/api/v1/auth/solarintosin@yahoo.com/resetPassword",
+    "http://localhost:8081/api/v1/auth/solarintosin@yahoo.com/resetPassword1": {
+      "title": "http://localhost:8081/api/v1/auth/solarintosin@yahoo.com/resetPassword1",
       "example": {
         "status": 200,
         "message": "Success",
@@ -1352,7 +1329,7 @@
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/Data2"
+          "$ref": "#/definitions/Data3"
         }
       },
       "required": [
@@ -1361,30 +1338,27 @@
         "data"
       ]
     },
+    "Data3": {
+      "title": "Data3",
+      "example": {
+        "message": "Password reset successful"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
     "https://infinite-garden-51728.herokuapp.com/api/v1/car": {
       "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car",
       "example": {
         "status": 200,
         "message": "success",
         "data": [
-          {
-            "id": 1,
-            "createdon": "2019-06-25T18:54:07.03Z",
-            "state": "new",
-            "status": "available",
-            "price": 750000,
-            "manufacturer": "aston-martin",
-            "model": "stallion",
-            "bodytype": "sedan",
-            "milage": "5000",
-            "transmission": "automatic",
-            "year": "2018",
-            "exteriorimg": null,
-            "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561488846/interior/XygJ8XbUxERQmUMrdmeMFYFk.jpg",
-            "engineimg": null,
-            "owneremail": "solarintosin@yahoo.com",
-            "owner": 2
-          },
           {
             "id": 2,
             "createdon": "2019-06-25T18:55:31.526Z",
@@ -1417,7 +1391,7 @@
         "data": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Data4"
+            "$ref": "#/definitions/Data5"
           }
         }
       },
@@ -1427,22 +1401,22 @@
         "data"
       ]
     },
-    "Data4": {
-      "title": "Data4",
+    "Data5": {
+      "title": "Data5",
       "example": {
-        "id": 1,
-        "createdon": "2019-06-25T18:54:07.03Z",
+        "id": 2,
+        "createdon": "2019-06-25T18:55:31.526Z",
         "state": "new",
         "status": "available",
         "price": 750000,
-        "manufacturer": "aston-martin",
+        "manufacturer": "Benz",
         "model": "stallion",
         "bodytype": "sedan",
         "milage": "5000",
         "transmission": "automatic",
         "year": "2018",
         "exteriorimg": null,
-        "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561488846/interior/XygJ8XbUxERQmUMrdmeMFYFk.jpg",
+        "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561488931/interior/xne383H63kbh0WlQJW4qqPG0.jpg",
         "engineimg": null,
         "owneremail": "solarintosin@yahoo.com",
         "owner": 2
@@ -1518,8 +1492,8 @@
         "owner"
       ]
     },
-    "data5": {
-      "title": "data5",
+    "data6": {
+      "title": "data6",
       "example": {
         "manufacturer": "aston-martin",
         "model": "stallion",
@@ -1572,24 +1546,24 @@
       "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car1",
       "example": {
         "status": 201,
-        "message": "aston-martin stallion Created",
+        "message": "Benz stallion Created",
         "data": {
-          "id": 1,
-          "createdon": "2019-06-23T12:58:25.588Z",
+          "id": 3,
+          "createdon": "2019-06-28T20:56:07.11Z",
           "state": "new",
           "status": "available",
-          "price": "750000",
-          "manufacturer": "aston-martin",
+          "price": 750000,
+          "manufacturer": "Benz",
           "model": "stallion",
           "bodytype": "sedan",
           "milage": "5000",
           "transmission": "automatic",
           "year": "2018",
           "exteriorimg": null,
-          "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561294705/interior/yxQEw5wJwI8Tcqay1DjKfGsO.jpg",
+          "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561755366/interior/P11BBP4iRetZb6aANPF3xEz8.jpg",
           "engineimg": null,
-          "owneremail": "sol@yahoo.com",
-          "owner": 2
+          "owneremail": "johndoe@yahoo.com",
+          "owner": 5
         }
       },
       "type": "object",
@@ -1602,7 +1576,7 @@
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/Data6"
+          "$ref": "#/definitions/Data5"
         }
       },
       "required": [
@@ -1611,98 +1585,8 @@
         "data"
       ]
     },
-    "Data6": {
-      "title": "Data6",
-      "example": {
-        "id": 1,
-        "createdon": "2019-06-23T12:58:25.588Z",
-        "state": "new",
-        "status": "available",
-        "price": "750000",
-        "manufacturer": "aston-martin",
-        "model": "stallion",
-        "bodytype": "sedan",
-        "milage": "5000",
-        "transmission": "automatic",
-        "year": "2018",
-        "exteriorimg": null,
-        "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561294705/interior/yxQEw5wJwI8Tcqay1DjKfGsO.jpg",
-        "engineimg": null,
-        "owneremail": "sol@yahoo.com",
-        "owner": 2
-      },
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "createdon": {
-          "type": "string"
-        },
-        "state": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "price": {
-          "type": "string"
-        },
-        "manufacturer": {
-          "type": "string"
-        },
-        "model": {
-          "type": "string"
-        },
-        "bodytype": {
-          "type": "string"
-        },
-        "milage": {
-          "type": "string"
-        },
-        "transmission": {
-          "type": "string"
-        },
-        "year": {
-          "type": "string"
-        },
-        "exteriorimg": {
-          "type": "string"
-        },
-        "interiorimg": {
-          "type": "string"
-        },
-        "engineimg": {
-          "type": "string"
-        },
-        "owneremail": {
-          "type": "string"
-        },
-        "owner": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "required": [
-        "id",
-        "createdon",
-        "state",
-        "status",
-        "price",
-        "manufacturer",
-        "model",
-        "bodytype",
-        "milage",
-        "transmission",
-        "year",
-        "interiorimg",
-        "owneremail",
-        "owner"
-      ]
-    },
-    "https://infinite-garden-51728.herokuapp.com/api/v1/car/11": {
-      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/11",
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car/3": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/3",
       "example": {
         "status": 200,
         "message": "Request Successful",
@@ -1742,49 +1626,6 @@
         "status"
       ]
     },
-    "https://infinite-garden-51728.herokuapp.com/api/v1/car/1/status": {
-      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/1/status",
-      "example": {
-        "status": 200,
-        "message": "aston-martin stallion Updated",
-        "data": {
-          "id": 1,
-          "createdon": "2019-06-25T18:54:07.03Z",
-          "state": "new",
-          "status": "available",
-          "price": 750000,
-          "manufacturer": "aston-martin",
-          "model": "stallion",
-          "bodytype": "sedan",
-          "milage": "5000",
-          "transmission": "automatic",
-          "year": "2018",
-          "exteriorimg": null,
-          "interiorimg": "https://res.cloudinary.com/automart-api/image/upload/v1561488846/interior/XygJ8XbUxERQmUMrdmeMFYFk.jpg",
-          "engineimg": null,
-          "owneremail": "solarintosin@yahoo.com",
-          "owner": 2
-        }
-      },
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "data": {
-          "$ref": "#/definitions/Data4"
-        }
-      },
-      "required": [
-        "status",
-        "message",
-        "data"
-      ]
-    },
     "https://infinite-garden-51728.herokuapp.com/api/v1/car/1/price-request": {
       "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/1/price-request",
       "example": {
@@ -1820,18 +1661,18 @@
         "description"
       ]
     },
-    "https://infinite-garden-51728.herokuapp.com/api/v1/car/1/flag": {
-      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/1/flag",
+    "https://infinite-garden-51728.herokuapp.com/api/v1/car/3/flag": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/car/3/flag",
       "example": {
         "status": 200,
         "message": "Car flaged",
         "data": {
-          "id": 1,
-          "createdon": "2019-06-25T00:00:00Z",
+          "id": 2,
+          "createdon": "2019-06-28T00:00:00Z",
           "reason": "too expensive",
-          "description": "ggvygigugiu",
-          "carid": 1,
-          "userid": 2
+          "description": "tooooooooo expensive",
+          "carid": 3,
+          "userid": 5
         }
       },
       "type": "object",
@@ -1844,7 +1685,7 @@
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/Data13"
+          "$ref": "#/definitions/Data14"
         }
       },
       "required": [
@@ -1853,15 +1694,15 @@
         "data"
       ]
     },
-    "Data13": {
-      "title": "Data13",
+    "Data14": {
+      "title": "Data14",
       "example": {
-        "id": 1,
-        "createdon": "2019-06-25T00:00:00Z",
+        "id": 2,
+        "createdon": "2019-06-28T00:00:00Z",
         "reason": "too expensive",
-        "description": "ggvygigugiu",
-        "carid": 1,
-        "userid": 2
+        "description": "tooooooooo expensive",
+        "carid": 3,
+        "userid": 5
       },
       "type": "object",
       "properties": {
@@ -1921,11 +1762,11 @@
       "example": {
         "status": 201,
         "data": {
-          "id": 3,
-          "createdon": "2019-06-25T00:00:00Z",
+          "id": 4,
+          "createdon": "2019-06-28T00:00:00Z",
           "amount": 700000,
           "status": "pending",
-          "buyer": 2,
+          "buyer": 5,
           "carid": 2,
           "originalPrice": 750000
         }
@@ -1937,7 +1778,7 @@
           "format": "int32"
         },
         "data": {
-          "$ref": "#/definitions/Data14"
+          "$ref": "#/definitions/Data15"
         }
       },
       "required": [
@@ -1945,14 +1786,14 @@
         "data"
       ]
     },
-    "Data14": {
-      "title": "Data14",
+    "Data15": {
+      "title": "Data15",
       "example": {
-        "id": 3,
-        "createdon": "2019-06-25T00:00:00Z",
+        "id": 4,
+        "createdon": "2019-06-28T00:00:00Z",
         "amount": 700000,
         "status": "pending",
-        "buyer": 2,
+        "buyer": 5,
         "carid": 2,
         "originalPrice": 750000
       },
@@ -1995,15 +1836,15 @@
         "originalPrice"
       ]
     },
-    "https://infinite-garden-51728.herokuapp.com/api/v1/order/3/price": {
-      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/order/3/price",
+    "https://infinite-garden-51728.herokuapp.com/api/v1/order/4/price": {
+      "title": "https://infinite-garden-51728.herokuapp.com/api/v1/order/4/price",
       "example": {
         "status": 200,
         "data": {
-          "id": 3,
-          "createdon": "2019-06-25T00:00:00Z",
+          "id": 4,
+          "createdon": "2019-06-28T00:00:00Z",
           "status": "pending",
-          "buyer": 2,
+          "buyer": 5,
           "carid": 2,
           "newPrice": 4000,
           "oldPrice": 700000
@@ -2016,7 +1857,7 @@
           "format": "int32"
         },
         "data": {
-          "$ref": "#/definitions/Data15"
+          "$ref": "#/definitions/Data16"
         }
       },
       "required": [
@@ -2024,13 +1865,13 @@
         "data"
       ]
     },
-    "Data15": {
-      "title": "Data15",
+    "Data16": {
+      "title": "Data16",
       "example": {
-        "id": 3,
-        "createdon": "2019-06-25T00:00:00Z",
+        "id": 4,
+        "createdon": "2019-06-28T00:00:00Z",
         "status": "pending",
-        "buyer": 2,
+        "buyer": 5,
         "carid": 2,
         "newPrice": 4000,
         "oldPrice": 700000
