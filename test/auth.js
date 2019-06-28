@@ -387,7 +387,12 @@ describe('USER ROUTES TEST', () => {
       it('should return reset token when endpoint is called with no body', (done) => {
         requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
           .send().end((err, res) => {
-            resetToken = res.text;
+            res.body.should.have.property('status').eql(204);
+            res.body.should.have.property('message');
+            res.body.should.have.property('data');
+            res.body.data.should.have.property('message');
+            res.body.data.should.have.property('token');
+            resetToken = res.body.data.token;
             done();
           });
       });

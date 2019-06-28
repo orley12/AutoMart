@@ -171,18 +171,15 @@ export default class AuthController {
 
         AuthRepository.updatePassword(user.id, hashedPassword)
           .then((data) => {
-            if (process.env.NODE_ENV === 'test') {
-              res.send(token);
-            }
             const details = MessageUtil.resetPassword(data.rows[0], token);
             EmailUtil.sendMailMethod(details);
 
-            res.status(204).json({
+            res.status(200).json({
               status: 204,
-              message: 'Success',
+              message: 'No content',
               data: {
                 token,
-                message: 'Password reset successful',
+                message: 'Password reset mail as been sent to you',
               },
             });
           }).catch(() => {
