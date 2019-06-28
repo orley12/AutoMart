@@ -1,13 +1,13 @@
 import express from 'express';
 
-import AuthValidator from '../middleware/authValidator';
+import AuthMiddleware from '../middleware/authMiddleware';
 import AuthController from '../controller/authController';
 
 const router = express.Router();
 const { signUp, signIn, resetPassword } = AuthController;
 const {
   loggedIn, validateSignUpProps, validateSignInProps, resetValidator,
-} = AuthValidator;
+} = AuthMiddleware;
 
 
 router.post('/signup', [loggedIn, validateSignUpProps], signUp);

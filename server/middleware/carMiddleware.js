@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import ApiError from '../error/ApiError';
-import carRepository from '../repository/carRepository';
-import authRepository from '../repository/authRepository';
-import { queryById } from '../model/queries/authQueries';
+import CarRepository from '../repository/carRepository';
+import AuthRepository from '../repository/authRepository';
 import ErrorDetail from '../error/ErrorDetail';
 
 dotenv.config();
@@ -87,45 +85,38 @@ export default class CarMiddleware {
 
   static hasToken(req, res, next) {
     const token = req.headers['x-access-token'];
-    try {
-      if (!token) {
-        next();
-      }
+    if (!token) {
+      next();
+    } else {
       jwt.verify(token, process.env.SECRET, (error, decoded) => {
-        try {
-          if (error) {
-            next();
-          }
+        if (decoded) {
           req.decoded = decoded;
           next();
-        } catch (err) {
-          next(err);
+        } else {
+          next();
         }
       });
-    } catch (error) {
-      next(error);
     }
   }
 
   static isAdmin(req, res, next) {
     req.isAdmin = false;
-    const token = req.headers['x-access-token'];
-    if (token) {
-      jwt.verify(token, process.env.SECRET, (error, decoded) => {
-        authRepository.findById(decoded.id, queryById)
-          .then((result) => {
+    if (req.decoded) {
+      AuthRepository.findById(req.decoded.id)
+        .then((result) => {
+          if (result.rows[0]) {
             if (result.rows[0].isadmin === true) {
               req.isAdmin = true;
-              req.decoded = decoded;
               next();
             } else {
-              req.decoded = decoded;
               next();
             }
-          }).catch((err) => {
+          } else {
             next(new ApiError(404, 'Not Found', [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]));
-          });
-      });
+          }
+        }).catch(() => {
+          next(new ApiError(404, 'Not Found', [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]));
+        });
     } else {
       next();
     }
@@ -133,34 +124,34 @@ export default class CarMiddleware {
 
   static isOwner(req, res, next) {
     const userId = JSON.parse(req.decoded.id);
-    const result = carRepository.findById(Number(req.params.id));
+    const result = CarRepository.findById(Number(req.params.id));
     result.then((car) => {
       if (userId !== car.rows[0].owner) {
         next(new ApiError(401, 'Unauthorizied', [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]));
       } else {
         next();
       }
-    }).catch((err) => {
+    }).catch(() => {
       next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.params.id)]));
     });
   }
 
   static canDelete(req, res, next) {
     const userId = JSON.parse(req.decoded.id);
-    const userQueryResult = authRepository.findById(Number(userId));
-    userQueryResult.then((userResult) => {
-      const carQueryResult = carRepository.findById(Number(req.params.id));
-      carQueryResult.then((carResult) => {
-        if (userId === carResult.rows[0].owner || userResult.rows[0].isadmin === true) {
-          next();
-        } else {
-          next(new ApiError(401, 'Unauthorizied', [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]));
-        }
-      }).catch((error) => {
-        next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.params.id)]));
+    AuthRepository.findById(Number(userId))
+      .then((userResult) => {
+        CarRepository.findById(Number(req.params.id))
+          .then((carResult) => {
+            if (userId === carResult.rows[0].owner || userResult.rows[0].isadmin === true) {
+              next();
+            } else {
+              next(new ApiError(401, 'Unauthorizied', [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]));
+            }
+          }).catch(() => {
+            next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.params.id)]));
+          });
+      }).catch(() => {
+        next(new ApiError(404, 'Not Found', [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]));
       });
-    }).catch((error) => {
-      next(new ApiError(404, 'Not Found', [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]));
-    });
   }
 }

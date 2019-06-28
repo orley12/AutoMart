@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import ApiError from '../error/ApiError';
 import OrderRepository from '../repository/orderRepository';
+import AuthRepository from '../repository/authRepository';
 import ErrorDetail from '../error/ErrorDetail';
 
 dotenv.config();
@@ -30,13 +31,6 @@ export default class OrderMiddleware {
   }
 
   static validateUpdateOrderProps(req, res, next) {
-    req
-      .checkBody('carId')
-      .notEmpty()
-      .withMessage('CarId field is required')
-      .isInt()
-      .withMessage('CarId should be a number');
-
     req
       .checkBody('price')
       .notEmpty()
@@ -85,5 +79,20 @@ export default class OrderMiddleware {
     }).catch(() => {
       next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'orderId', 'order is not in our database', req.params.id)]));
     });
+  }
+
+  static userExist(req, res, next) {
+    const userId = JSON.parse(req.decoded.id);
+    AuthRepository.findById(Number(userId))
+      .then((data) => {
+        if (data.rows.length > 0) {
+          req.userExist = true;
+          next();
+        } else {
+          next(new ApiError(404, 'Not Found', [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]));
+        }
+      }).catch(() => {
+        next(new ApiError(404, 'Not Found', [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]));
+      });
   }
 }

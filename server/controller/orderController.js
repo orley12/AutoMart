@@ -21,11 +21,13 @@ export default class CarController {
                 },
               });
             }).catch(() => {
-              next(new ApiError(500, 'Internal Server Error', [new ErrorDetail('body', 'Order Properties', 'Unable to make order', req.body)]));
+              next(new ApiError(500, 'Internal Server Error', [new ErrorDetail('Body', 'Order Properties', 'Unable to make order', req.body)]));
             });
+        } else {
+          next(new ApiError(404, 'Not Found', [new ErrorDetail('Body', 'carId', 'Car is not in our database', req.body.carId)]));
         }
       }).catch(() => {
-        next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.body.carId)]));
+        next(new ApiError(404, 'Not Found', [new ErrorDetail('Body', 'carId', 'Car is not in our database', req.body.carId)]));
       });
   }
 

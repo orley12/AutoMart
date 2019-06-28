@@ -6,7 +6,14 @@ import carMiddleWare from '../middleware/carMiddleware';
 import carController from '../controller/carController';
 
 const {
-  canWrite, isOwner, validateUpdateStatusProps, validateUpdatePriceProps, canDelete, isAdmin,
+  canWrite,
+  isOwner,
+  validateUpdateStatusProps,
+  validateUpdatePriceProps,
+  validateFlagProps,
+  canDelete,
+  isAdmin,
+  hasToken,
 } = carMiddleWare;
 const {
   createCar, getCars, updateCarStatus, updateCarPrice, getCar, deleteCar, flag,
@@ -18,7 +25,7 @@ const router = express.Router();
 
 router.post('/', [multipartMiddleware, canWrite], createCar);
 
-router.get('/', isAdmin, getCars);
+router.get('/', [hasToken, isAdmin], getCars);
 
 router.patch('/:id/status', [canWrite, isOwner, validateUpdateStatusProps], updateCarStatus);
 
@@ -28,6 +35,6 @@ router.get('/:id', canWrite, getCar);
 
 router.delete('/:id', [canWrite, canDelete], deleteCar);
 
-router.post('/:id/flag', canWrite, flag);
+router.post('/:id/flag', [canWrite, validateFlagProps], flag);
 
 export default router;
