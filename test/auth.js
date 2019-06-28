@@ -384,20 +384,49 @@ describe('USER ROUTES TEST', () => {
     describe('/POST reset password', () => {
       let resetToken = '';
 
-      it('should return error if email is not found', (done) => {
-        requester.post('/api/v1/auth/johnnydoe@gmail.com/resetPassword')
-          .send().end((err, res) => {
-            res.body.should.have.property('status').eql(404);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
-
       it('should return reset token when endpoint is called with no body', (done) => {
         requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
           .send().end((err, res) => {
             resetToken = res.text;
+            done();
+          });
+      });
+
+      it('should return reset success message', (done) => {
+        requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
+          .query({ token: resetToken })
+          .send({
+            password: 'newpass',
+            confirmPassword: 'newpass',
+          }).end((err, res) => {
+            res.body.should.have.property('status').eql(200);
+            res.body.should.have.property('message').eql('Success');
+            res.body.should.have.property('data');
+            res.body.data.should.have.property('message');
+            done();
+          });
+      });
+
+      it('should return 200 status and success message when password is reset', (done) => {
+        requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
+          .send({
+            password: 'newpass',
+            newPassword: 'password',
+          }).end((err, res) => {
+            res.body.should.have.property('status').eql(200);
+            res.body.should.have.property('message').eql('Success');
+            res.body.should.have.property('data');
+            res.body.data.should.have.property('message');
+            done();
+          });
+      });
+
+      it('should return error if email is not found', (done) => {
+        requester.post('/api/v1/auth/johnnydoe@gmail.com/resetPassword')
+          .send({}).end((err, res) => {
+            res.body.should.have.property('status').eql(404);
+            res.body.should.have.property('message');
+            res.body.should.have.property('errors');
             done();
           });
       });
@@ -430,21 +459,6 @@ describe('USER ROUTES TEST', () => {
           });
       });
 
-      it('should return reset success message', (done) => {
-        requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
-          .query({ token: resetToken })
-          .send({
-            password: 'newpass',
-            confirmPassword: 'newpass',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(200);
-            res.body.should.have.property('message').eql('Success');
-            res.body.should.have.property('data');
-            res.body.data.should.have.property('message');
-            done();
-          });
-      });
-
       it('should return error responds if email is not found', (done) => {
         requester.post('/api/v1/auth/johnnnydoe@gmail.com/resetPassword')
           .send({
@@ -467,20 +481,6 @@ describe('USER ROUTES TEST', () => {
             res.body.should.have.property('status').eql(401);
             res.body.should.have.property('message');
             res.body.should.have.property('errors');
-            done();
-          });
-      });
-
-      it('should return 200 status and success message when password is reset', (done) => {
-        requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
-          .send({
-            password: 'newpass',
-            newPassword: 'password',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(200);
-            res.body.should.have.property('message').eql('Success');
-            res.body.should.have.property('data');
-            res.body.data.should.have.property('message');
             done();
           });
       });
