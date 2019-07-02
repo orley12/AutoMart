@@ -40,15 +40,14 @@ body {
 }
 
 div.notification{
-    /* position: -webkit-sticky; */
-    /* position: sticky; */
     top: 0;
     padding: 5px;
     background-color: #cae8ca;
     border: 2px solid #4caf50;
     text-align: center;
     font-size: 25px;
-    display: none;
+    max-height: 100px;
+    /* display: none; */
 }
 
 .title-vehicles, .search-section, .about-div , .collection-section h1{
@@ -371,6 +370,11 @@ img {
 
 .col-12 {
     width: 100%;
+} 
+
+.col-flex-12 {
+    display: flex;
+    width: 83.333%;
 } 
 
 .nav-bar {
