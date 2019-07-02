@@ -39,6 +39,7 @@ export default class AuthUtil {
       }
     }
     if (promises.length < 1 || promises.length > 3) {
+      console.log('PROMISE');
       throw new ApiError(400, 'Bad Request', [new ErrorDetail('body', null, 'Photos must be between 1 & 3', null)]);
     }
     return promises;

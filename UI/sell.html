@@ -7,12 +7,17 @@
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript"
             src="js/script.js"
+            async></script>
+    <script type="text/javascript"
+            src="js/sell.js"
             async></script> 
     <title>Document</title>
 </head>
 <body>
     <div class="bg-image-sell">
-        <div class="notification">I am stiky</div>
+        <div class="notification">
+            <ul class="notification-list"></ul>
+        </div>
         <div class="row nav-bar">
             <div class="col-8">
                 <h1>AutoMart</h1>
@@ -69,7 +74,7 @@
                 <h5>YOUR CAR DETAILS</h5>
             </div>
             <div class="col-12 form-div-sell">
-                <form action="">
+                <form action="" method="POST" id="sell-form" enctype="multipart/form-data">
                     <div class="row veh-form">
                         <div class="col-12">
                             Make<br>
@@ -162,7 +167,7 @@
                         </div>
                         <div class="col-12 photo-input-2">
                             Interior<br>
-                            <input id="exterior-img" type="file" name="interior" accept="image/png, image/jpeg"/>
+                            <input id="interior-img" type="file" name="interior" accept="image/png, image/jpeg"/>
                         </div>
                         <div class="col-12 photo-input-3">
                             Engine<br>
@@ -172,7 +177,6 @@
                             <input class="col-3 sell-button" type="submit" value="Post AD">
                         </div>
                     </div>
-                    
                 </form>
             </div>
         </div>

@@ -46,7 +46,7 @@ div.notification{
     border: 2px solid #4caf50;
     text-align: center;
     font-size: 25px;
-    max-height: 100px;
+    max-height: 500px;
     /* display: none; */
 }
 
