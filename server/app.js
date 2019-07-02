@@ -3,6 +3,7 @@ import '@babel/polyfill';
 import express from 'express';
 
 import logger from 'morgan';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import swaggerUI from 'swagger-ui-express';
 import authRoutes from './routes/authRoutes';
@@ -15,6 +16,7 @@ const expressValidator = require('express-validator');
 const app = express();
 
 app.use(logger('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
