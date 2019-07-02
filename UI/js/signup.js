@@ -1,13 +1,26 @@
-const url = 'http://localhost:8081/api/v1/auth/signin';
+const url = 'http://localhost:8081/api/v1/auth/signup';
 
-const email = document.querySelector('#email-sign-in');
-const password = document.querySelector('#password-sign-in');
-const signupForm = document.querySelector('#sign-in-form');
+const firstName = document.querySelector('#first-name-sign-up');
+const lastName = document.querySelector('#last-name-sign-up');
+const email = document.querySelector('#email-sign-up');
+const phone = document.querySelector('#phone-sign-up');
+const password = document.querySelector('#password-sign-up');
+const confirmPassword = document.querySelector('#confirm-password-sign-up');
+const address = document.querySelector('#address-sign-up');
+const signupForm = document.querySelector('#sign-up-form');
 const unorderedlist = document.querySelector('.notification-list');
 const notification = document.querySelector('.notification');
 notification.style.display = 'none';
 
-const getInputs = () => ({ email: email.value, password: password.value });
+const getInputs = () => ({
+  firstName: firstName.value,
+  lastName: lastName.value,
+  email: email.value,
+  phone: phone.value,
+  password: password.value,
+  confirmPassword: confirmPassword.value,
+  address: address.value,
+});
 
 const postsigninData = userInfo => fetch(url, {
   method: 'post',
@@ -19,6 +32,7 @@ const postsigninData = userInfo => fetch(url, {
 });
 
 const successFlashMessage = (message) => {
+  console.log(message);
   const listItem = document.createElement('li');
   const text = document.createTextNode(message);
   listItem.appendChild(text);
@@ -39,11 +53,10 @@ const errorFlashMessage = (messages) => {
     unorderedlist.appendChild(listItem);
   });
 };
-
 const displayData = (data) => {
   data.then(respose => respose.json())
     .then((responseJson) => {
-      if (responseJson.status === 200) {
+      if (responseJson.status <= 300) {
         setTimeout(() => {
           window.location = 'index.html';
         }, 15000);

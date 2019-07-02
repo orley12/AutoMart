@@ -14,6 +14,8 @@ export default class CarController {
     const props = ['price', 'state', 'manufacturer', 'model', 'bodyType'];
     try {
       const carProps = JSON.parse(req.body.data);
+      console.log(carProps);
+      console.log(req.files);
       validatePropsCreateCar(carProps, props);
 
       const filekeys = Object.keys(req.files);

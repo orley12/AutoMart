@@ -47,7 +47,7 @@ export default class AuthController {
       });
     } catch (error) {
       if (error.routine === '_bt_check_unique') {
-        next(new ApiError(409, 'Resource Conflict', ['User already exist']));
+        next(new ApiError(409, 'Resource Conflict', [new ErrorDetail('body', 'user data', 'User already exist', req.body)]));
       }
       next(error);
     }
