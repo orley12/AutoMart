@@ -87,7 +87,7 @@ const displayData = (data) => {
       if (responseJson.status === 200) {
         insertData(responseJson.data);
       } else {
-        const message = 'Error getting cars';
+        const message = 'Error getting cars please try again';
         notification.style.display = 'block';
         errorFlashMessage(message);
       }
