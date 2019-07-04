@@ -93,6 +93,8 @@ export default class CarController {
           },
         });
       }).catch(() => {
+        console.log('HERRRRRRRE');
+        
         next(new ApiError(400, 'Bad Request', [new ErrorDetail('Params', 'CarId', 'Invalid carId', req.params.id)]));
       });
   }
