@@ -71,7 +71,7 @@ const createCard = (data) => {
 
   cardHolder.addEventListener('click', () => {
     window.location = 'details.html';
-    localStorage.setItem('carIdDetails', JSON.stringify(data.id));
+    localStorage.setItem('carId', JSON.stringify(data.id));
   });
 };
 
