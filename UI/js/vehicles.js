@@ -1,4 +1,25 @@
-const url = 'http://localhost:8081/api/v1/car';
+/* eslint-disable no-plusplus */
+let url = 'http://localhost:8081/api/v1/car';
+
+const createQuery = (queryArray) => {
+  let query;
+  for (let i = 0; i < queryArray.length; i++) {
+    if (queryArray[queryArray.length - 1]) {
+      query = `${url}?${queryArray[i]}`;
+    } else {
+      query = `${url}?${queryArray[i]}&`;
+    }
+  }
+  localStorage.removeItem('query');
+  return query;
+};
+
+if (localStorage.getItem('query')) {
+  const queryJson = localStorage.getItem('query');
+  const queryArray = JSON.parse(queryJson);
+  url = createQuery(queryArray);
+  console.log(url);
+}
 
 const carCollection = document.querySelector('.collection-section');
 const unorderedlist = document.querySelector('.notification-list');
