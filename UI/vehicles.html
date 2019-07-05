@@ -73,13 +73,20 @@
                 <h1>Get your <br> dream car</h1>
             </div>
             <div class="col-12 search-section">
-                <form action="">
+                <form action="" id="search-form" method="GET">
                     <div class="row search-form">
                         <div class="col-12 search-price">
                             Price<br>
-                            <input class="col-10" class="col-5 select-price" type="text" name="price"/>
+                            <select class="col-10 select-price">
+                                <option disabled selected value >Select Price Range</option>
+                                <option value="100000|500000">100000 > 500000</option>
+                                <option value="500000|1000000">500000 > 1000000</option>
+                                <option value="1000000|3000000">1000000 > 3000000</option>
+                                <option value="3000000|5000000">3000000 > 5000000</option>
+                                <option value="5000000|10000000">5000000 > 10000000</option>
+                                <option value="10000000">10000000 > Above</option>
+                            </select>                        
                         </div>
-                            
                         <div class="col-12 search-state">
                             State<br>
                             <select class="col-10 select-state">
@@ -132,7 +139,7 @@
                                 <option value="bus">Bus</option>
                                 <option value="cabriolet">Cabriolet</option>
                                 <option value="estate">Estate</option>
-                                <option value="hatchback"Hatchback</option>
+                                <option value="hatchback">Hatchback</option>
                                 <option value="sedan">Sedan</option>
                                 <option value="roadstar">Roadstar</option>
                                 <option value="suv">SUV</option>
@@ -142,7 +149,7 @@
                             </select>
                         </div>
                     </div>
-                    <input type="submit" value="Search" id="check"/>
+                    <input type="submit" value="Search"/>
                 </form>
             </div>
         </div>
