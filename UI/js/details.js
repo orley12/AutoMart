@@ -71,8 +71,9 @@ const displayData = (data) => {
 
 flag.addEventListener('click', () => {
   flagImg.src = './img/scam.svg';
+  localStorage.setItem('carId', JSON.stringify(carId));
   flag.removeEventListener('click', () => {});
-  window.location.assign('file:///C:/Users/SOLARIN%20O.%20OLUBAYODE/VisualStudioCodeProjects/AutoMart/UI/index.html#contact-form');
+  window.location = 'index.html#contact-form';
 });
 
 deleteButton.addEventListener('click', () => {
