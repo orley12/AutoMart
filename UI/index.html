@@ -15,7 +15,9 @@
 </head>
 <body>
     <div class="bg-image">
-        <div class="notification">I am stiky</div>
+        <div class="notification">
+            <ul class="notification-list"></ul>
+        </div>
         <div class="row nav-bar">
             <div class="col-8">
                 <h1>AutoMart</h1>
@@ -68,7 +70,7 @@
 
         <div id="search" class="box">
             <div class="index-search-make">
-                <select class="" >
+                <select class="index-make" >
                     <option disabled selected value >Make</option>
                     <option value="toyota">Toyota</option>
                     <option value="chevrolet">Chevrolet</option>
@@ -104,7 +106,7 @@
                 </select>
             </div>
             <div class="index-search-body">
-                <select class="">
+                <select class="index-body">
                     <option disabled selected value >Body</option>
                     <option value="bus">Bus</option>
                     <option value="cabriolet">Cabriolet</option>
@@ -119,13 +121,13 @@
                 </select>
             </div>
             <div class="index-search-state">
-                <select class="">
+                <select class="index-state">
                     <option disabled selected value >State</option>
                     <option value="used">Used</option>
                     <option value="new">New</option>
                 </select>
             </div>
-                <input type="submit" value="search" id="search">
+                <button type="submit" value="search" id="search-button">submit</button>
         </div>
     </div>
     <div class="row">
