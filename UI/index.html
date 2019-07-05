@@ -363,7 +363,7 @@
             <p>You want advice, information on buying or selling a vehicle. Our team of advisers are vehicle experts</p>
         </div>
         <div id="contact" class="col-12 contact-form" id="contact-form" name="contact-form">
-            <form action="">
+            <form action="" method="POST" id="form-contact">
                     <div class="col-12">
                         Name *<br>
                         <input class="col-10" id="name-contact" type="text" name="name"/>
@@ -372,12 +372,12 @@
                     
                     <div class="col-12">
                         Title *<br>
-                        <input class="col-10" id="email-contact" type="email" name="email"/>
+                        <input class="col-10" id="title-contact" type="text" name="title"/>
                         <br>
                     </div>
 
                     Message *<br>
-                    <textarea class="col-10" placeholder="Message"></textarea>
+                    <textarea class="col-10" id="message-contact" placeholder="Message"></textarea>
                     
                     <br>
                     <input class="col-3" type="submit" value="Submit">
