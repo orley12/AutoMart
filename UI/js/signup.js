@@ -32,7 +32,6 @@ const postsigninData = userInfo => fetch(url, {
 });
 
 const successFlashMessage = (message) => {
-  console.log(message);
   const listItem = document.createElement('li');
   const text = document.createTextNode(message);
   listItem.appendChild(text);

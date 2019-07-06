@@ -13,11 +13,11 @@ const interiorImg = document.querySelector('.interior-img-thumb');
 const engineImg = document.querySelector('.engine-img-thumb');
 const deleteButton = document.querySelector('.delete');
 const editButton = document.querySelector('.edit');
-const soldButton = document.querySelector('#sold');
+const buyButton = document.querySelector('#button-buy');
 const ownerControls = document.querySelector('.owner-controls');
 ownerControls.style.display = 'none';
 
-const getCar = method => fetch(url, {
+const sendRequest = method => fetch(url, {
   method,
   mode: 'cors',
   headers: {
@@ -69,6 +69,13 @@ const displayData = (data) => {
     });
 };
 
+// const getOrderData = () => ({ carId,  });
+
+buyButton.addEventListener('click', () => {
+  localStorage.setItem('carId', JSON.stringify(carId));
+  window.location = 'checkout.html';
+});
+
 flag.addEventListener('click', () => {
   flagImg.src = './img/scam.svg';
   localStorage.setItem('carId', JSON.stringify(carId));
@@ -77,7 +84,7 @@ flag.addEventListener('click', () => {
 });
 
 deleteButton.addEventListener('click', () => {
-  getCar('delete');
+  sendRequest('delete');
 });
 
 editButton.addEventListener('click', () => {
@@ -86,7 +93,7 @@ editButton.addEventListener('click', () => {
 });
 
 const makeRequest = () => {
-  const Car = getCar('get');
+  const Car = sendRequest('get');
   displayData(Car);
 };
 
