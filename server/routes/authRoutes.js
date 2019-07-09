@@ -4,9 +4,19 @@ import AuthMiddleware from '../middleware/authMiddleware';
 import AuthController from '../controller/authController';
 
 const router = express.Router();
-const { signUp, signIn, resetPassword } = AuthController;
 const {
-  loggedIn, validateSignUpProps, validateSignInProps, resetValidator,
+  signUp,
+  signIn,
+  // getUsers,
+  resetPassword,
+  // updateStatus,
+} = AuthController;
+const {
+  loggedIn,
+  validateSignUpProps,
+  validateSignInProps,
+  resetMapper,
+  // isAdmin,
 } = AuthMiddleware;
 
 
@@ -14,7 +24,11 @@ router.post('/signup', [loggedIn, validateSignUpProps], signUp);
 
 router.post('/signin', [loggedIn, validateSignInProps], signIn);
 
-router.post('/:email/resetPassword', resetValidator, resetPassword);
+// router.post('/users', isAdmin, getUsers);
+
+// router.post('/:id/status', isAdmin, updateStatus);
+
+router.post('/:email/resetPassword', resetMapper, resetPassword);
 
 
 export default router;

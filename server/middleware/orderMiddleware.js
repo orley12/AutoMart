@@ -67,32 +67,39 @@ export default class OrderMiddleware {
     }
   }
 
-  static isOwner(req, res, next) {
-    const userId = JSON.parse(req.decoded.id);
-    const result = OrderRepository.findById(Number(req.params.id));
-    result.then((order) => {
-      if (userId !== order.rows[0].buyer) {
-        next(new ApiError(401, 'Unauthorizied', [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]));
+  static async isOwner(req, res, next) {
+    try {
+      const userId = req.decoded.id;
+
+      const { rows } = await OrderRepository.findById(Number(req.params.id));
+      if (rows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('Params', 'orderId', 'order is not in our database', req.params.id)]);
+      }
+
+      if (userId !== rows[0].buyer) {
+        throw new ApiError(401, 'Unauthorizied',
+          [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]);
       } else {
         next();
       }
-    }).catch(() => {
-      next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'orderId', 'order is not in our database', req.params.id)]));
-    });
+    } catch (error) {
+      next(error);
+    }
   }
 
-  static userExist(req, res, next) {
-    const userId = JSON.parse(req.decoded.id);
-    AuthRepository.findById(Number(userId))
-      .then((data) => {
-        if (data.rows.length > 0) {
-          req.userExist = true;
-          next();
-        } else {
-          next(new ApiError(404, 'Not Found', [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]));
-        }
-      }).catch(() => {
-        next(new ApiError(404, 'Not Found', [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]));
-      });
+  static async userExist(req, res, next) {
+    try {
+      const userId = JSON.parse(req.decoded.id);
+      const { rows } = await AuthRepository.findById(Number(userId));
+      if (rows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]);
+      }
+      req.userExist = true;
+      next();
+    } catch (error) {
+      next(error);
+    }
   }
 }

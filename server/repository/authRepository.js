@@ -1,24 +1,66 @@
 import db from '../model/db';
+import ApiError from '../error/ApiError';
+import ErrorDetail from '../error/ErrorDetail';
 import {
-  queryByEmail, createUser, queryById, updatePassword,
+  // queryAll,
+  queryByEmail,
+  createUser,
+  queryById,
+  updatePassword,
+  // updateStatus,
 } from '../model/queries/authQueries';
 
 export default class authRepository {
   static findByEmail(email) {
-    return db.query(queryByEmail, [email]);
+    try {
+      return db.query(queryByEmail, [email]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal server error',
+        [new ErrorDetail('body', 'email', 'User not found', email)]);
+    }
   }
 
   static save(user) {
-    return db.query(createUser, user);
+    try {
+      return db.query(createUser, user);
+    } catch (error) {
+      throw error;
+    }
   }
 
-  static async findById(id) {
-    const result = await db.query(queryById, [id]);
-    return result;
+  // static findAll() {
+  //   try {
+  //     return db.query(queryAll);
+  //   } catch (error) {
+  //     throw new ApiError(500, 'Internal Server Error',
+  //       [new ErrorDetail('findAll', 'null', 'Unable to get all users', 'null')]);
+  //   }
+  // }
+
+  static findById(id) {
+    try {
+      return db.query(queryById, [id]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal server error',
+        [new ErrorDetail('findById', 'user id', `Error finding user with id ${id} `, id)]);
+    }
   }
 
-  static async updatePassword(id, password) {
-    const result = db.query(updatePassword, [password, id]);
-    return result;
+  // static updateStatus(userId, isAdmin) {
+  //   try {
+  //     return db.query(updateStatus, [isAdmin, userId]);
+  //   } catch (error) {
+  //     throw new ApiError(500, 'Internal Server Error',
+  //       [new ErrorDetail('updateStatus', 'user id & status', 'Unable to update user', `${isAdmin} & ${userId}`)]);
+  //   }
+  // }
+
+  static updatePassword(id, password) {
+    try {
+      return db.query(updatePassword, [password, id]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal server error',
+        [new ErrorDetail('updatePassword', 'user id & password', 'Password could not be updated try again', `${id} & ${password}`)]);
+    }
   }
 }

@@ -4,21 +4,35 @@ import {
   queryById,
   updateOrderPrice,
 } from '../model/queries/orderQueries';
+import ApiError from '../error/ApiError';
+import ErrorDetail from '../error/ErrorDetail';
 
 export default class OrderRepository {
-  static async save(buyer, order) {
-    const orderData = [order.price, buyer, order.carId];
-    const result = await db.query(createOrder, orderData);
-    return result;
+  static save(buyer, order, price) {
+    const orderData = [order.price, buyer, price, order.carId];
+    try {
+      return db.query(createOrder, orderData);
+    } catch (error) {
+      throw new ApiError(500, 'Internal Server Error',
+        [new ErrorDetail('body', 'order Properties', 'Unable to save order', orderData)]);
+    }
   }
 
-  static async findById(id) {
-    const result = await db.query(queryById, [id]);
-    return result;
+  static findById(id) {
+    try {
+      return db.query(queryById, [id]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal Server Error',
+        [new ErrorDetail('findById', 'order id', 'Unable to find order by id', id)]);
+    }
   }
 
-  static async update(price, id) {
-    const result = await db.query(updateOrderPrice, [price, id]);
-    return result;
+  static update(price, id) {
+    try {
+      return db.query(updateOrderPrice, [price, id]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal Server Error',
+        [new ErrorDetail('update', 'order id & price', 'Unable to update order', `${price} & ${id}`)]);
+    }
   }
 }

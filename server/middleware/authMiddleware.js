@@ -1,4 +1,7 @@
+import jwt from 'jsonwebtoken';
 import ApiError from '../error/ApiError';
+import ErrorDetail from '../error/ErrorDetail';
+import AuthRepository from '../repository/authRepository';
 
 export default class AuthMiddleware {
   static validateSignUpProps(req, res, next) {
@@ -107,16 +110,60 @@ export default class AuthMiddleware {
     next();
   }
 
-  static resetValidator(req, res, next) {
+  static resetMapper(req, res, next) {
     if (req.body.password && req.body.newPassword) {
       req.resetPath = 2;
       next();
     } else if (req.query.token && req.body.password && req.body.confirmPassword) {
       req.resetPath = 1;
       next();
-    } else {
+    } else if (!req.query.token
+      && !req.body.password
+      && !req.body.confirmPassword
+      && !req.body.newPassword) {
       req.resetPath = 0;
+      next();
+    } else {
+      req.resetPath = null;
       next();
     }
   }
+
+  // static hasToken(req, res, next) {
+  //   const token = req.headers['x-access-token'];
+  //   if (!token) {
+  //     next();
+  //   } else {
+  //     jwt.verify(token, process.env.SECRET, (error, decoded) => {
+  //       if (decoded) {
+  //         req.decoded = decoded;
+  //         next();
+  //       } else {
+  //         next();
+  //       }
+  //     });
+  //   }
+  // }
+
+  // static async isAdmin(req, res, next) {
+  //   try {
+  //     req.isAdmin = false;
+  //     if (req.decoded) {
+  //       const { rows } = await AuthRepository.findById(req.decoded.id);
+  //       if (rows.length > 0) {
+  //         if (rows[0].is_admin === true) {
+  //           req.isAdmin = true;
+  //           next();
+  //         } else {
+  //           throw new ApiError(401, 'Unauthorizied',
+  //             [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]);
+  //         }
+  //       }
+  //     } else {
+  //       next();
+  //     }
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }
