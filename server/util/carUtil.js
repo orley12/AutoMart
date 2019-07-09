@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import cloudinary from 'cloudinary';
 import ApiError from '../error/ApiError';
 import ErrorDetail from '../error/ErrorDetail';
@@ -23,23 +24,13 @@ export default class AuthUtil {
 
   static fileUploadPromises(files, filekeys) {
     const promises = [];
-    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < filekeys.length; i++) {
       if (files[filekeys[i]]) {
-        const promise = cloudinary.v2.uploader.upload(
-          files[filekeys[i]].path,
-          {
-            folder: `${filekeys[i]}/`,
-            use_filename: true,
-            unique_filename: false,
-          },
-        );
-
+        const promise = cloudinary.v2.uploader.upload(files[filekeys[i]].path, { folder: `${filekeys[i]}/`, use_filename: true, unique_filename: false });
         promises.push(promise);
       }
     }
     if (promises.length < 1 || promises.length > 3) {
-      console.log('PROMISE');
       throw new ApiError(400, 'Bad Request', [new ErrorDetail('body', null, 'Photos must be between 1 & 3', null)]);
     }
     return promises;

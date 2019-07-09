@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
+/* eslint-disable camelcase */
 import dotenv from 'dotenv';
 
-import AuthUtils from '../util/authUtil';
+import AuthUtil from '../util/authUtil';
 import ApiError from '../error/ApiError';
 import AuthRepository from '../repository/authRepository';
 import EmailUtil from '../util/emailUtil';
@@ -29,22 +29,26 @@ export default class AuthController {
     } = req.body;
 
     try {
-      const hashedPassword = await AuthUtils.hashPassWord(password);
+      const hashedPassword = await AuthUtil.hashPassWord(password);
+
       const userData = [firstName, lastName, email, hashedPassword, phone, address];
-
       const result = await AuthRepository.save(userData);
-      const user = result.rows[0];
+      if (result.rows[0]) {
+        const user = result.rows[0];
 
-      const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '24h' });
+        const token = AuthUtil.generateToken({ id: user.id });
 
-      res.status(201).json({
-        status: 201,
-        message: `${user.firstname} ${user.lastname} Created`,
-        data: {
-          token,
-          ...user,
-        },
-      });
+        res.status(201).json({
+          status: 201,
+          message: `${user.first_name} ${user.last_name} Created`,
+          data: {
+            token,
+            ...user,
+          },
+        });
+      } else {
+        throw new ApiError(500, 'Internal Server Error', [new ErrorDetail('save', 'user data', 'no return value from save operation', req.body)]);
+      }
     } catch (error) {
       if (error.routine === '_bt_check_unique') {
         next(new ApiError(409, 'Resource Conflict', [new ErrorDetail('body', 'user data', 'User already exist', req.body)]));
@@ -61,39 +65,44 @@ export default class AuthController {
    * @returns {object} JSON API Response
    */
   static async signIn(req, res, next) {
-    const {
-      email: userEmail, password,
-    } = req.body;
+    const { email: userEmail, password } = req.body;
+
     try {
-      AuthUtils.authenticate(userEmail, password, (error, user) => {
-        if (error || !user) {
-          next(error);
-        } else {
-          const {
-            id, firstname: firstName, lastname: lastName, email, phone, address,
-          } = user;
+      const user = await AuthUtil.authenticate(userEmail, password);
 
-          const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '24h' });
+      const {
+        id, first_name, last_name, email, phone, address, is_admin,
+      } = user;
 
-          res.status(200).json({
-            status: 200,
-            message: `Welcome ${firstName} ${lastName}`,
-            data: {
-              token,
-              id,
-              firstName,
-              lastName,
-              email,
-              phone,
-              address,
-            },
-          });
-        }
+      const token = await AuthUtil.generateToken({ id });
+
+      res.status(200).json({
+        status: 200,
+        message: `Welcome ${first_name} ${last_name}`,
+        data: {
+          token, first_name, last_name, email, phone, address, is_admin,
+        },
       });
     } catch (error) {
       next(error);
     }
   }
+
+  // static async getUsers(req, res, next) {
+  //   try {
+  //     const { rows } = await AuthRepository.findAll();
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
+
+  // static async updateStatus(req, res, next) {
+  //   try {
+  //     const { rows } = await AuthRepository.updateStatus();
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
   /**
    * @method resetPassword
@@ -104,91 +113,74 @@ export default class AuthController {
    * @returns {object} JSON API Response
    */
   static async resetPassword(req, res, next) {
-    if (req.resetPath === 1) {
-      const { password, confirmPassword } = req.body;
-      try {
-        AuthUtils.passwordMatch(password, confirmPassword);
+    try {
+      if (req.resetPath === 1) {
+        const { password, confirmPassword } = req.body;
+        AuthUtil.passwordMatch(password, confirmPassword);
 
-        AuthUtils.authenticate(req.params.email, req.query.token, (error, user) => {
-          if (error || !user) {
-            next(error);
-          } else {
-            const hashedPassword = AuthUtils.hashPassWord(req.body.password);
+        const user = await AuthUtil.authenticate(req.params.email, req.query.token);
 
-            AuthRepository.updatePassword(user.id, hashedPassword)
-              .then((result) => {
-                const details = MessageUtil.resetSuccess(result.rows[0]);
-                EmailUtil.sendMailMethod(details);
-                res.status(200).json({
-                  status: 200,
-                  message: 'Success',
-                  data: {
-                    message: 'Password reset successful',
-                  },
-                });
-              }).catch(() => {
-                next(new ApiError(417, 'Expectation failed',
-                  [new ErrorDetail('updatePassword', 'userId & password', 'Password could not be updated try again', `${user.id} & *******`)]));
-              });
-          }
+        const hashedPassword = await AuthUtil.hashPassWord(password);
+
+        AuthRepository.updatePassword(user.id, hashedPassword);
+        const details = MessageUtil.resetSuccess(user);
+        EmailUtil.sendMailMethod(details);
+        res.status(200).json({
+          status: 200,
+          message: 'Success',
+          data: {
+            message: 'Password reset successful',
+          },
         });
-      } catch (error) {
-        next(error);
-      }
-    } else if (req.resetPath === 2) {
-      const { password, newPassword } = req.body;
+      } else if (req.resetPath === 2) {
+        const { password, newPassword } = req.body;
 
-      AuthUtils.authenticate(req.params.email, password, (error, user) => {
-        if (error || !user) {
-          next(error);
-        } else {
-          const hashedPassword = AuthUtils.hashPassWord(newPassword);
+        const user = await AuthUtil.authenticate(req.params.email, password);
 
-          AuthRepository.updatePassword(user.id, hashedPassword)
-            .then((result) => {
-              const details = MessageUtil.resetSuccess(result.rows[0]);
-              EmailUtil.sendMailMethod(details);
-              res.status(200).json({
-                status: 200,
-                message: 'Success',
-                data: {
-                  message: 'Password reset successful',
-                },
-              });
-            }).catch(() => {
-              next(new ApiError(417, 'Expectation failed',
-                [new ErrorDetail('updatePassword', 'userId & password', 'Password could not be updated try again', `${user.id} & *******`)]));
-            });
+        const hashedPassword = await AuthUtil.hashPassWord(newPassword);
+
+        AuthRepository.updatePassword(user.id, hashedPassword);
+        const details = MessageUtil.resetSuccess(user);
+        EmailUtil.sendMailMethod(details);
+        res.status(200).json({
+          status: 200,
+          message: 'Success',
+          data: {
+            message: 'Password reset successful',
+          },
+        });
+      } else if (req.resetPath === 0) {
+        const { rows } = await AuthRepository.findByEmail(req.params.email);
+        if (rows.length < 1) {
+          throw new ApiError(404, 'Not user found', [new ErrorDetail('body', 'email', 'User not found', req.params.email)]);
         }
-      });
-    } else {
-      const emailQuery = await AuthRepository.findByEmail(req.params.email);
-      if (emailQuery.rows.length > 0) {
-        const user = emailQuery.rows[0];
+        const user = rows[0];
 
-        const token = jwt.sign({ id: user.id, password: user.password }, process.env.SECRET, { expiresIn: '24h' });
-        const hashedPassword = await AuthUtils.hashPassWord(token);
+        const token = AuthUtil.generateToken({ id: user.id, password: user.password });
+        const hashedPassword = await AuthUtil.hashPassWord(token);
 
-        AuthRepository.updatePassword(user.id, hashedPassword)
-          .then((data) => {
-            const details = MessageUtil.resetPassword(data.rows[0], token);
-            EmailUtil.sendMailMethod(details);
+        const { rows: updatedUser } = await AuthRepository.updatePassword(user.id, hashedPassword);
+        const details = MessageUtil.resetPassword(updatedUser, token);
+        EmailUtil.sendMailMethod(details);
 
-            res.status(200).json({
-              status: 204,
-              message: 'No content',
-              data: {
-                token,
-                message: 'Password reset mail as been sent to you',
-              },
-            });
-          }).catch(() => {
-            next(new ApiError(417, 'Expectation failed',
-              [new ErrorDetail('updatePassword', 'userId & password', 'Password could not be updated try again', `${user.id} & *******`)]));
-          });
+        res.status(200).json({
+          status: 204,
+          message: 'No content',
+          data: {
+            token,
+            message: 'Password reset mail as been sent to you',
+          },
+        });
       } else {
-        next(new ApiError(404, 'Not Found', ['User not found']));
+        throw new ApiError(400, 'Bad request', [
+          new ErrorDetail('updatePassword', 'reset data', 'Request not properly formatted',
+            ['token & password & confirmPassword',
+              'no token & password & newPassword',
+              'no token & no password & no newPassword, no confirmPassword']),
+        ]);
       }
+    } catch (error) {
+      next(error);
     }
   }
 }

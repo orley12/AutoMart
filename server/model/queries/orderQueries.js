@@ -1,5 +1,5 @@
-const createOrder = `INSERT INTO orders(amount, buyer, carId)
- VALUES($1,$2,$3) RETURNING *`;
+const createOrder = `INSERT INTO orders(amount, buyer, original_price, car_id)
+ VALUES($1,$2,$3,$4) RETURNING *`;
 
 const updateOrderPrice = 'UPDATE orders SET amount=$1 WHERE id=$2 RETURNING *';
 

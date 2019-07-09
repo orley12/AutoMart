@@ -1,64 +1,106 @@
+/* eslint-disable max-len */
+/* eslint-disable camelcase */
 import ApiError from '../error/ApiError';
 import OrderRepository from '../repository/orderRepository';
 import CarRepository from '../repository/carRepository';
 import ErrorDetail from '../error/ErrorDetail';
 
 export default class CarController {
-  static createOrder(req, res, next) {
-    const buyer = JSON.parse(req.decoded.id);
-    CarRepository.findById(Number(req.body.carId))
-      .then((carData) => {
-        const car = carData.rows[0];
-        if (car) {
-          OrderRepository.save(Number(buyer), req.body)
-            .then((order) => {
-              const originalPrice = car.price;
-              res.status(201).json({
-                status: 201,
-                data: {
-                  ...order.rows[0],
-                  originalPrice,
-                },
-              });
-            }).catch(() => {
-              next(new ApiError(500, 'Internal Server Error', [new ErrorDetail('Body', 'Order Properties', 'Unable to make order', req.body)]));
-            });
-        } else {
-          next(new ApiError(404, 'Not Found', [new ErrorDetail('Body', 'carId', 'Car is not in our database', req.body.carId)]));
-        }
-      }).catch(() => {
-        next(new ApiError(404, 'Not Found', [new ErrorDetail('Body', 'carId', 'Car is not in our database', req.body.carId)]));
+  static async createOrder(req, res, next) {
+    try {
+      const buyerId = JSON.parse(req.decoded.id);
+      const { rows } = await CarRepository.findById(Number(req.body.carId));
+      if (rows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.body.carId)]);
+      }
+
+      const { rows: order } = await OrderRepository.save(Number(buyerId), req.body, rows[0].price);
+      if (order.length < 1) {
+        throw new ApiError(500, 'Internal Server Error',
+          [new ErrorDetail('save', 'order data', 'no return value from save operation', req.body)]);
+      }
+
+
+      const {
+        id, created_on, amount: price_offered, status, original_price: price, buyer, car_id,
+      } = order[0];
+
+      res.status(201).json({
+        status: 201,
+        data: {
+          id,
+          created_on,
+          buyer,
+          car_id,
+          status,
+          price,
+          price_offered,
+        },
       });
+    } catch (error) {
+      next(error);
+    }
   }
 
-  static updateOrder(req, res, next) {
-    OrderRepository.findById(Number(req.params.id))
-      .then((order) => {
-        const oldPrice = order.rows[0].amount;
-        if (order.rows[0].status === 'pending') {
-          OrderRepository.update(req.body.price, Number(req.params.id))
-            .then((updatedOrder) => {
-              const {
-                id, createdon, amount: newPrice, status, buyer, carid,
-              } = updatedOrder.rows[0];
-              res.status(200).json({
-                status: 200,
-                data: {
-                  id,
-                  createdon,
-                  status,
-                  buyer,
-                  carid,
-                  newPrice,
-                  oldPrice,
-                },
-              });
-            });
-        } else {
-          next(new ApiError(400, 'Bad Request', [new ErrorDetail('Params', 'orderId', 'Order as already been accepted', req.params.id)]));
-        }
-      }).catch(() => {
-        next(new ApiError(404, 'Not Found', [new ErrorDetail('Params', 'orderId', 'Order is not in our database', req.params.id)]));
+  static async updateOrder(req, res, next) {    
+    const { rows } = await OrderRepository.findById(Number(req.params.id));
+    try {
+      if (rows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('Params', 'orderId', 'Order is not in our database', req.params.id)]);
+      }
+      const old_price_offered = rows[0].amount;
+
+      if (rows[0].status !== 'pending') {
+        throw new ApiError(400, 'Bad Request',
+          [new ErrorDetail('Params', 'orderId', 'Order as already been accepted', req.params.id)]);
+      }
+
+      const { rows: updatedRows } = await OrderRepository.update(req.body.price, Number(req.params.id));
+      if (updatedRows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('Params', 'orderId', 'Order is not in our database', req.params.id)]);
+      }
+
+      const {
+        id, created_on, amount: new_price_offered, status, buyer, car_id,
+      } = updatedRows[0];
+      res.status(200).json({
+        status: 200,
+        data: {
+          id,
+          created_on,
+          status,
+          buyer,
+          car_id,
+          new_price_offered,
+          old_price_offered,
+        },
       });
+    } catch (error) {
+      next(error);
+    }
   }
+
+  // static async getByOwner(req, res, next) {    
+  //   try {
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
+
+  // static async getByCarId(req, res, next) { 
+  //   try {
+  //   } catch (error) {
+  //     next(error);
+  //   }   
+  // }
+
+  // static async updateStatus(req, res, next) {    
+  //   try {
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }
