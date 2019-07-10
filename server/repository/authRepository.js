@@ -7,7 +7,7 @@ import {
   createUser,
   queryById,
   updatePassword,
-  // updateStatus,
+  updateStatus,
 } from '../model/queries/authQueries';
 
 export default class authRepository {
@@ -46,14 +46,14 @@ export default class authRepository {
     }
   }
 
-  // static updateStatus(userId, isAdmin) {
-  //   try {
-  //     return db.query(updateStatus, [isAdmin, userId]);
-  //   } catch (error) {
-  //     throw new ApiError(500, 'Internal Server Error',
-  //       [new ErrorDetail('updateStatus', 'user id & status', 'Unable to update user', `${isAdmin} & ${userId}`)]);
-  //   }
-  // }
+  static updateStatus(userId, isAdmin) {
+    try {
+      return db.query(updateStatus, [isAdmin, userId]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal Server Error',
+        [new ErrorDetail('updateStatus', 'user id & status', 'Unable to update user', `${isAdmin} & ${userId}`)]);
+    }
+  }
 
   static updatePassword(id, password) {
     try {

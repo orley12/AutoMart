@@ -9,7 +9,7 @@ const {
   signIn,
   getUsers,
   resetPassword,
-  // updateStatus,
+  updateStatus,
 } = AuthController;
 const {
   loggedIn,
@@ -27,7 +27,7 @@ router.post('/signin', [loggedIn, validateSignInProps], signIn);
 
 router.get('/users', canWrite, isAdmin, getUsers);
 
-// router.post('/:id/status', isAdmin, updateStatus);
+router.patch('/:id/status', canWrite, isAdmin, updateStatus);
 
 router.post('/:email/resetPassword', resetMapper, resetPassword);
 
