@@ -1,8 +1,10 @@
+/* eslint-disable camelcase */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import ApiError from '../error/ApiError';
 import OrderRepository from '../repository/orderRepository';
 import AuthRepository from '../repository/authRepository';
+import CarRepository from '../repository/carRepository';
 import ErrorDetail from '../error/ErrorDetail';
 
 dotenv.config();
@@ -83,6 +85,34 @@ export default class OrderMiddleware {
       } else {
         next();
       }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async canAccept(req, res, next) {
+    try {
+      const { rows: orderRows } = await OrderRepository.findById(Number(req.params.id));
+      if (orderRows.length < 1) {
+        throw new ApiError(500, 'Internal Server Error',
+          [new ErrorDetail('updateStatus', 'order id', 'no return value from update operation', req.params.id)]);
+      }
+
+      const { car_id } = orderRows[0];
+
+      const { rows: carRows } = await CarRepository.findById(car_id);
+      if (carRows.length < 1) {
+        throw new ApiError(500, 'Internal Server Error',
+          [new ErrorDetail('updateStatus', 'order id', 'no return value from update operation', req.params.id)]);
+      }
+      const { owner } = carRows[0];
+
+      if (owner !== req.decoded.id) {
+        throw new ApiError(401, 'Unauthorizied',
+          [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]);
+      }
+
+      next();
     } catch (error) {
       next(error);
     }

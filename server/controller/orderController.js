@@ -43,7 +43,7 @@ export default class CarController {
     }
   }
 
-  static async updateOrder(req, res, next) {
+  static async updatePrice(req, res, next) {
     const { rows } = await OrderRepository.findById(Number(req.params.id));
     try {
       if (rows.length < 1) {
@@ -52,12 +52,12 @@ export default class CarController {
       }
       const old_price_offered = rows[0].amount;
 
-      if (rows[0].status !== 'pending') {
+      if (rows[0].status === 'accepted') {
         throw new ApiError(400, 'Bad Request',
           [new ErrorDetail('Params', 'orderId', 'Order as already been accepted', req.params.id)]);
       }
 
-      const { rows: updatedRows } = await OrderRepository.update(req.body.price, Number(req.params.id));
+      const { rows: updatedRows } = await OrderRepository.updatePrice(req.body.price, Number(req.params.id));
       if (updatedRows.length < 1) {
         throw new ApiError(404, 'Not Found',
           [new ErrorDetail('Params', 'orderId', 'Order is not in our database', req.params.id)]);
@@ -101,10 +101,44 @@ export default class CarController {
     }
   }
 
-  // static async updateStatus(req, res, next) {
-  //   try {
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  static async getOrder(req, res, next) {
+    try {
+      const { rows } = await OrderRepository.findById(Number(req.params.id));
+      if (rows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('param', 'order id', 'order not found', req.params.id)]);
+      }
+
+      res.status(200).json({
+        status: 200,
+        data: {
+          ...rows[0],
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async updateStatus(req, res, next) {
+    const { status } = req.body;
+    try {
+      const { rows } = await OrderRepository.updateStatus(status.toLowerCase(), Number(req.params.id));
+      if (rows.length < 1) {
+        throw new ApiError(500, 'Internal Server Error',
+          [new ErrorDetail('updateStatus', 'order id', 'no return value from update operation', req.params.id)]);
+      }
+
+      const updatedCar = rows[0];
+      res.json({
+        status: 200,
+        message: 'Order Updated',
+        data: {
+          ...updatedCar,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

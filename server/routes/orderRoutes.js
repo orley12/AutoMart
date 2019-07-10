@@ -4,23 +4,26 @@ import OrderMiddleWare from '../middleware/orderMiddleware';
 import OrderController from '../controller/orderController';
 
 const {
-  canWrite, isOwner, validateOrderProps, validateUpdateOrderProps, userExist,
+  canWrite, isOwner, validateOrderProps, validateUpdateOrderProps, userExist, canAccept,
 } = OrderMiddleWare;
 const {
   createOrder,
-  updateOrder,
+  updatePrice,
   getByOwner,
-  // updateStatus,
+  getOrder,
+  updateStatus,
 } = OrderController;
 
 const router = express.Router();
 
 router.post('/', [canWrite, userExist, validateOrderProps], createOrder);
 
-router.patch('/:id/price', [canWrite, isOwner, validateUpdateOrderProps], updateOrder);
-
 router.get('/', canWrite, getByOwner);
 
-// router.patch('/:id/status', updateStatus);
+router.get('/:id', [isOwner, canWrite], getOrder);
+
+router.patch('/:id/price', [canWrite, isOwner, validateUpdateOrderProps], updatePrice);
+
+router.patch('/:id/status', [canWrite, canAccept], updateStatus);
 
 export default router;

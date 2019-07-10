@@ -5,6 +5,7 @@ import {
   queryByOwner,
   queryByCarId,
   updateOrderPrice,
+  updateOrderStatus,
 } from '../model/queries/orderQueries';
 import ApiError from '../error/ApiError';
 import ErrorDetail from '../error/ErrorDetail';
@@ -47,12 +48,21 @@ export default class OrderRepository {
     }
   }
 
-  static update(price, id) {
+  static updatePrice(price, id) {
     try {
-      return db.query(updateOrderPrice, [price, id]);
+      return db.query(updateOrderPrice, [price, 'pending', id]);
     } catch (error) {
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('update', 'order id & price', 'Unable to update order', `${price} & ${id}`)]);
+    }
+  }
+
+  static updateStatus(status, id) {
+    try {
+      return db.query(updateOrderStatus, [status, id]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal Server Error',
+        [new ErrorDetail('update', 'order id & price', 'Unable to update order', `${status} & ${id}`)]);
     }
   }
 }
