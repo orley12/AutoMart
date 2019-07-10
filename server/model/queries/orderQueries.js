@@ -7,9 +7,13 @@ const queryById = 'SELECT * FROM orders WHERE id=$1';
 
 const queryByOwner = 'SELECT * FROM orders WHERE buyer=$1';
 
+const queryByCarId = 'SELECT * FROM orders WHERE car_id=$1';
+
+
 export {
   createOrder,
   updateOrderPrice,
   queryById,
   queryByOwner,
+  queryByCarId,
 };

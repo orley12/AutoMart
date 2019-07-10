@@ -16,7 +16,8 @@ const {
   hasToken,
 } = carMiddleWare;
 const {
-  createCar, getCars, updateCarStatus, updateCarPrice, getCar, deleteCar, flag,
+  createCar, getCars, updateCarStatus, updateCarPrice, getCar, deleteCar, flag, getOrderByCarId,
+
 } = carController;
 
 
@@ -36,5 +37,7 @@ router.get('/:id', canWrite, getCar);
 router.delete('/:id', [canWrite, canDelete], deleteCar);
 
 router.post('/:id/flag', [canWrite, validateFlagProps], flag);
+
+router.get('/:id/orders', [canWrite, isOwner], getOrderByCarId);
 
 export default router;

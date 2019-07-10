@@ -3,6 +3,7 @@ import {
   createOrder,
   queryById,
   queryByOwner,
+  queryByCarId,
   updateOrderPrice,
 } from '../model/queries/orderQueries';
 import ApiError from '../error/ApiError';
@@ -34,6 +35,15 @@ export default class OrderRepository {
     } catch (error) {
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('findByOwner', 'order owner', 'Unable to find order by owner', owner)]);
+    }
+  }
+
+  static findBycarId(carId) {
+    try {
+      return db.query(queryByCarId, [carId]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal Server Error',
+        [new ErrorDetail('findBycarId', 'order carId', 'Unable to find order by carId', carId)]);
     }
   }
 

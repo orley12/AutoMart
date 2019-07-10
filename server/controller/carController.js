@@ -3,6 +3,7 @@ import CarUtil from '../util/carUtil';
 import ApiError from '../error/ApiError';
 import CarRepository from '../repository/carRepository';
 import AuthRepository from '../repository/authRepository';
+import OrderRepository from '../repository/orderRepository';
 import ErrorDetail from '../error/ErrorDetail';
 
 const { validatePropsCreateCar } = CarUtil;
@@ -24,7 +25,7 @@ export default class CarController {
       const filekeys = Object.keys(req.files);
       const filePromises = CarUtil.fileUploadPromises(req.files, filekeys);
 
-      Promise.all(filePromises).then(async (files) => {        
+      Promise.all(filePromises).then(async (files) => {
         try {
           const { rows: carRows } = await CarRepository.save(carProps, userRows[0], files);
           if (userRows.length < 1) {
@@ -182,13 +183,30 @@ export default class CarController {
           [new ErrorDetail('saveFlag', 'car id', 'no return value from flag operation', req.body.id)]);
       }
 
-
       res.status(200).json({
         status: 200,
         message: 'Car flaged',
         data: {
           ...flagRows[0],
         },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getOrderByCarId(req, res, next) {
+    const carId = Number(req.params.id);
+    try {
+      const { rows } = await OrderRepository.findBycarId(carId);
+      if (rows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('param', 'car id', 'car as not been ordered yet', carId)]);
+      }
+
+      res.status(200).json({
+        status: 200,
+        data: rows,
       });
     } catch (error) {
       next(error);
