@@ -2,6 +2,7 @@ import db from '../model/db';
 import {
   createOrder,
   queryById,
+  queryByOwner,
   updateOrderPrice,
 } from '../model/queries/orderQueries';
 import ApiError from '../error/ApiError';
@@ -24,6 +25,15 @@ export default class OrderRepository {
     } catch (error) {
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('findById', 'order id', 'Unable to find order by id', id)]);
+    }
+  }
+
+  static findByOwner(owner) {
+    try {
+      return db.query(queryByOwner, [owner]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal Server Error',
+        [new ErrorDetail('findByOwner', 'order owner', 'Unable to find order by owner', owner)]);
     }
   }
 

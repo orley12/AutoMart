@@ -5,8 +5,11 @@ const updateOrderPrice = 'UPDATE orders SET amount=$1 WHERE id=$2 RETURNING *';
 
 const queryById = 'SELECT * FROM orders WHERE id=$1';
 
+const queryByOwner = 'SELECT * FROM orders WHERE buyer=$1';
+
 export {
   createOrder,
   updateOrderPrice,
   queryById,
+  queryByOwner,
 };
