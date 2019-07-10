@@ -7,7 +7,7 @@ const router = express.Router();
 const {
   signUp,
   signIn,
-  // getUsers,
+  getUsers,
   resetPassword,
   // updateStatus,
 } = AuthController;
@@ -16,7 +16,8 @@ const {
   validateSignUpProps,
   validateSignInProps,
   resetMapper,
-  // isAdmin,
+  canWrite,
+  isAdmin,
 } = AuthMiddleware;
 
 
@@ -24,7 +25,7 @@ router.post('/signup', [loggedIn, validateSignUpProps], signUp);
 
 router.post('/signin', [loggedIn, validateSignInProps], signIn);
 
-// router.post('/users', isAdmin, getUsers);
+router.get('/users', canWrite, isAdmin, getUsers);
 
 // router.post('/:id/status', isAdmin, updateStatus);
 

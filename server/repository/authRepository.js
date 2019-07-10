@@ -2,7 +2,7 @@ import db from '../model/db';
 import ApiError from '../error/ApiError';
 import ErrorDetail from '../error/ErrorDetail';
 import {
-  // queryAll,
+  queryAll,
   queryByEmail,
   createUser,
   queryById,
@@ -28,14 +28,14 @@ export default class authRepository {
     }
   }
 
-  // static findAll() {
-  //   try {
-  //     return db.query(queryAll);
-  //   } catch (error) {
-  //     throw new ApiError(500, 'Internal Server Error',
-  //       [new ErrorDetail('findAll', 'null', 'Unable to get all users', 'null')]);
-  //   }
-  // }
+  static findAll() {
+    try {
+      return db.query(queryAll);
+    } catch (error) {
+      throw new ApiError(500, 'Internal Server Error',
+        [new ErrorDetail('findAll', 'null', 'Unable to get all users', 'null')]);
+    }
+  }
 
   static findById(id) {
     try {

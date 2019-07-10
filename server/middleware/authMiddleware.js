@@ -129,41 +129,51 @@ export default class AuthMiddleware {
     }
   }
 
-  // static hasToken(req, res, next) {
-  //   const token = req.headers['x-access-token'];
-  //   if (!token) {
-  //     next();
-  //   } else {
-  //     jwt.verify(token, process.env.SECRET, (error, decoded) => {
-  //       if (decoded) {
-  //         req.decoded = decoded;
-  //         next();
-  //       } else {
-  //         next();
-  //       }
-  //     });
-  //   }
-  // }
+  static canWrite(req, res, next) {
+    const token = req.headers['x-access-token'];
+    try {
+      if (!token) {
+        throw new ApiError(400, 'Bad Request',
+          [new ErrorDetail('headers', 'x-access-token', 'No token was provided', null)]);
+      }
+      jwt.verify(token, process.env.SECRET, (error, decoded) => {
+        try {
+          if (error) {
+            throw new ApiError(401, 'Unauthorized',
+              [new ErrorDetail('headers', 'x-access-token', 'Failed to authenticate token', token)]);
+          }
+          req.decoded = decoded;
+          next();
+        } catch (err) {
+          next(err);
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
-  // static async isAdmin(req, res, next) {
-  //   try {
-  //     req.isAdmin = false;
-  //     if (req.decoded) {
-  //       const { rows } = await AuthRepository.findById(req.decoded.id);
-  //       if (rows.length > 0) {
-  //         if (rows[0].is_admin === true) {
-  //           req.isAdmin = true;
-  //           next();
-  //         } else {
-  //           throw new ApiError(401, 'Unauthorizied',
-  //             [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]);
-  //         }
-  //       }
-  //     } else {
-  //       next();
-  //     }
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+
+  static async isAdmin(req, res, next) {
+    try {
+      req.isAdmin = false;
+      if (req.decoded) {
+        const { rows } = await AuthRepository.findById(req.decoded.id);
+        if (rows.length > 0) {
+          if (rows[0].is_admin === true) {
+            req.isAdmin = true;
+            next();
+          } else {
+            throw new ApiError(401, 'Unauthorizied',
+              [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]);
+          }
+        }
+      } else {
+        throw new ApiError(400, 'Bad Request',
+          [new ErrorDetail('headers', 'x-access-token', 'No token was provided', null)]);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }

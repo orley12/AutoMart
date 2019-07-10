@@ -1,7 +1,7 @@
 const createUser = `INSERT INTO users(first_name, last_name, email, password, phone, address)
 VALUES($1,$2,$3,$4,$5,$6) RETURNING id, first_name, last_name, email, phone, address`;
 
-const queryAll = 'SELECT * FROM users';
+const queryAll = 'SELECT first_name, last_name, email, phone, address, is_admin FROM users';
 
 const queryByEmail = 'SELECT * FROM users WHERE email = $1';
 

@@ -88,13 +88,23 @@ export default class AuthController {
     }
   }
 
-  // static async getUsers(req, res, next) {
-  //   try {
-  //     const { rows } = await AuthRepository.findAll();
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  static async getUsers(req, res, next) {
+    try {
+      const { rows } = await AuthRepository.findAll();
+      if (rows.length < 1) {
+        throw new ApiError(404, 'Not found',
+          [new ErrorDetail('null', 'query', 'No user are in the database yet', null)]);
+      }
+
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: rows,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // static async updateStatus(req, res, next) {
   //   try {
