@@ -122,6 +122,11 @@ export default class CarController {
 
   static async updateStatus(req, res, next) {
     const { status } = req.body;
+
+    if (status.toLowerCase() !== 'accepted' || status.toLowerCase() !== 'rejected') {
+      throw new ApiError(400, 'Bad Request',
+        [new ErrorDetail('body', 'status', 'invalid status', status)]);
+    }
     try {
       const { rows } = await OrderRepository.updateStatus(status.toLowerCase(), Number(req.params.id));
       if (rows.length < 1) {
