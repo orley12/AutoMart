@@ -3,6 +3,7 @@ import CarUtil from '../util/carUtil';
 import ApiError from '../error/ApiError';
 import CarRepository from '../repository/carRepository';
 import AuthRepository from '../repository/authRepository';
+import OrderRepository from '../repository/orderRepository';
 import ErrorDetail from '../error/ErrorDetail';
 
 const { validatePropsCreateCar } = CarUtil;
@@ -189,6 +190,24 @@ export default class CarController {
         data: {
           ...flagRows[0],
         },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getOrderByCarId(req, res, next) {
+    const carId = Number(req.params.id);
+    try {      
+      const { rows } = await OrderRepository.findBycarId(carId);
+      if (rows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('param', 'car id', 'car as not been ordered yet', carId)]);
+      }
+
+      res.status(200).json({
+        status: 200,
+        data: rows,
       });
     } catch (error) {
       next(error);

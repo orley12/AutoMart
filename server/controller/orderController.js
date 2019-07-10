@@ -4,7 +4,6 @@ import ApiError from '../error/ApiError';
 import OrderRepository from '../repository/orderRepository';
 import CarRepository from '../repository/carRepository';
 import ErrorDetail from '../error/ErrorDetail';
-import AuthRepository from '../repository/authRepository';
 
 export default class CarController {
   static async createOrder(req, res, next) {
@@ -101,13 +100,6 @@ export default class CarController {
       next(error);
     }
   }
-
-  // static async getByCarId(req, res, next) {
-  //   try {
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
 
   // static async updateStatus(req, res, next) {
   //   try {
