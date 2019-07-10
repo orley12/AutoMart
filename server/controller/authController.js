@@ -106,13 +106,25 @@ export default class AuthController {
     }
   }
 
-  // static async updateStatus(req, res, next) {
-  //   try {
-  //     const { rows } = await AuthRepository.updateStatus();
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  static async updateStatus(req, res, next) {
+    try {
+      const { rows } = await AuthRepository.updateStatus(req.params.id, req.body.status);
+      if (rows.length < 1) {
+        throw new ApiError(500, 'Internal Server Error',
+          [new ErrorDetail('updateStatus', 'user id', 'no return value from update operation', req.params.id)]);
+      }
+
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: {
+          ...rows[0],
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   /**
    * @method resetPassword
