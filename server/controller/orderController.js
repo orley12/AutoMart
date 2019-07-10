@@ -4,6 +4,7 @@ import ApiError from '../error/ApiError';
 import OrderRepository from '../repository/orderRepository';
 import CarRepository from '../repository/carRepository';
 import ErrorDetail from '../error/ErrorDetail';
+import AuthRepository from '../repository/authRepository';
 
 export default class CarController {
   static async createOrder(req, res, next) {
@@ -43,7 +44,7 @@ export default class CarController {
     }
   }
 
-  static async updateOrder(req, res, next) {    
+  static async updateOrder(req, res, next) {
     const { rows } = await OrderRepository.findById(Number(req.params.id));
     try {
       if (rows.length < 1) {
@@ -83,21 +84,32 @@ export default class CarController {
     }
   }
 
-  // static async getByOwner(req, res, next) {    
+  static async getByOwner(req, res, next) {
+    const ownerId = JSON.parse(req.decoded.id);
+    try {
+      const { rows } = await OrderRepository.findByOwner(Number(ownerId));
+      if (rows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('header', 'ownerId', 'user as order nothing yet', ownerId)]);
+      }
+
+      res.status(200).json({
+        status: 200,
+        data: rows,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // static async getByCarId(req, res, next) {
   //   try {
   //   } catch (error) {
   //     next(error);
   //   }
   // }
 
-  // static async getByCarId(req, res, next) { 
-  //   try {
-  //   } catch (error) {
-  //     next(error);
-  //   }   
-  // }
-
-  // static async updateStatus(req, res, next) {    
+  // static async updateStatus(req, res, next) {
   //   try {
   //   } catch (error) {
   //     next(error);

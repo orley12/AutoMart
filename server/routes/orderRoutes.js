@@ -9,7 +9,7 @@ const {
 const {
   createOrder,
   updateOrder,
-  // getByOwner,
+  getByOwner,
   // getByCarId,
   // updateStatus,
 } = OrderController;
@@ -19,6 +19,8 @@ const router = express.Router();
 router.post('/', [canWrite, userExist, validateOrderProps], createOrder);
 
 router.patch('/:id/price', [canWrite, isOwner, validateUpdateOrderProps], updateOrder);
+
+router.get('/', canWrite, getByOwner);
 
 // router.get('/:owner', getByOwner);
 
