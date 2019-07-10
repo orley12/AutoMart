@@ -108,6 +108,11 @@ export default class AuthController {
 
   static async updateStatus(req, res, next) {
     try {
+      if (req.body.status !== true || req.body.status !== false) {
+        throw new ApiError(400, 'Bad Request',
+          [new ErrorDetail('body', 'status', 'invalid status', req.body.status)]);
+      }
+
       const { rows } = await AuthRepository.updateStatus(req.params.id, req.body.status);
       if (rows.length < 1) {
         throw new ApiError(500, 'Internal Server Error',
