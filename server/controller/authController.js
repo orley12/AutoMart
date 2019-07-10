@@ -80,7 +80,7 @@ export default class AuthController {
         status: 200,
         message: `Welcome ${first_name} ${last_name}`,
         data: {
-          token, first_name, last_name, email, phone, address, is_admin,
+          id, token, first_name, last_name, email, phone, address, is_admin,
         },
       });
     } catch (error) {
@@ -106,9 +106,22 @@ export default class AuthController {
     }
   }
 
+  static async deleteUser(req, res, next) {
+    try {
+      const { rows } = await AuthRepository.delete(req.decoded.id);
+      res.status(200).json({
+        status: 200,
+        message: 'Request Successful',
+        data: 'Car Ad successfully deleted',
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async updateStatus(req, res, next) {
     try {
-      if (req.body.status !== true || req.body.status !== false) {
+      if (req.body.status !== true && req.body.status !== false) {
         throw new ApiError(400, 'Bad Request',
           [new ErrorDetail('body', 'status', 'invalid status', req.body.status)]);
       }

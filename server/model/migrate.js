@@ -53,7 +53,7 @@ const queryTable = async () => {
         status TEXT DEFAULT 'pending',
         original_price NUMERIC NOT NULL,
         buyer INTEGER REFERENCES users(id) ON DELETE CASCADE,
-        car_id INTEGER REFERENCES cars(id)
+        car_id INTEGER REFERENCES cars(id) ON DELETE CASCADE
     );`);
 
     const flagTable = await db.query(`CREATE TABLE IF NOT EXISTS 

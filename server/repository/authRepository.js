@@ -8,6 +8,7 @@ import {
   queryById,
   updatePassword,
   updateStatus,
+  deleteUser,
 } from '../model/queries/authQueries';
 
 export default class authRepository {
@@ -61,6 +62,15 @@ export default class authRepository {
     } catch (error) {
       throw new ApiError(500, 'Internal server error',
         [new ErrorDetail('updatePassword', 'user id & password', 'Password could not be updated try again', `${id} & ${password}`)]);
+    }
+  }
+
+  static delete(userId) {
+    try {
+      return db.query(deleteUser, [userId]);
+    } catch (error) {
+      throw new ApiError(500, 'Internal Server Error',
+        [new ErrorDetail('Params', 'user id', 'Unable to delete user', userId)]);
     }
   }
 }

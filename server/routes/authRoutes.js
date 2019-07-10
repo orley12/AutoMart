@@ -10,13 +10,16 @@ const {
   getUsers,
   resetPassword,
   updateStatus,
+  deleteUser,
 } = AuthController;
+
 const {
   loggedIn,
   validateSignUpProps,
   validateSignInProps,
   resetMapper,
   canWrite,
+  canDelete,
   isAdmin,
 } = AuthMiddleware;
 
@@ -30,6 +33,8 @@ router.get('/users', canWrite, isAdmin, getUsers);
 router.patch('/:id/status', canWrite, isAdmin, updateStatus);
 
 router.post('/:email/resetPassword', resetMapper, resetPassword);
+
+router.delete('/', [canWrite, canDelete], deleteUser);
 
 
 export default router;

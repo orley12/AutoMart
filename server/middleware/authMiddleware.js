@@ -160,6 +160,7 @@ export default class AuthMiddleware {
       if (req.decoded) {
         const { rows } = await AuthRepository.findById(req.decoded.id);
         if (rows.length > 0) {
+          // console.log(rows[0].is_admin);
           if (rows[0].is_admin === true) {
             req.isAdmin = true;
             next();
@@ -171,6 +172,28 @@ export default class AuthMiddleware {
       } else {
         throw new ApiError(400, 'Bad Request',
           [new ErrorDetail('headers', 'x-access-token', 'No token was provided', null)]);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async canDelete(req, res, next) {
+    try {
+    //   // next();
+      const userId = JSON.parse(req.decoded.id);
+
+      const { rows: userRows } = await AuthRepository.findById(Number(userId));
+      if (userRows.length < 1) {
+        throw new ApiError(404, 'Not Found',
+          [new ErrorDetail('Headers', 'x-access-token', 'User is not in our database', req.decoded.id)]);
+      }
+
+      if (userId === userRows[0].id || userRows[0].is_admin === true) {
+        next();
+      } else {
+        throw new ApiError(401, 'Unauthorizied',
+          [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]);
       }
     } catch (error) {
       next(error);

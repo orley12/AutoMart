@@ -27,8 +27,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('phone');
           res.body.data.should.have.property('address');
@@ -45,7 +45,7 @@ describe('CAR ROUTES TEST', () => {
       // .attach('interior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
       // .attach('engine', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
         .field('data', JSON.stringify({
-          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img',
+          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img', location: '75 Bode Thomas Surulere',
         }))
         .end((err, res) => {
           res.body.should.have.property('status').eql(201);
@@ -54,18 +54,17 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('id');
           res.body.data.should.have.property('owner');
-          res.body.data.should.have.property('owneremail');
           res.body.data.should.have.property('manufacturer');
           res.body.data.should.have.property('price');
           res.body.data.should.have.property('state');
           res.body.data.should.have.property('status');
-          res.body.data.should.have.property('bodytype');
+          res.body.data.should.have.property('body_type');
           res.body.data.should.have.property('milage');
           res.body.data.should.have.property('year');
-          res.body.data.should.have.property('exteriorimg');
-          res.body.data.should.have.property('interiorimg');
-          res.body.data.should.have.property('engineimg');
-          res.body.data.should.have.property('createdon');
+          res.body.data.should.have.property('exterior_img');
+          res.body.data.should.have.property('interior_img');
+          res.body.data.should.have.property('engine_img');
+          res.body.data.should.have.property('created_on');
           res.body.data.should.have.property('model');
           res.body.data.should.have.property('transmission');
 
@@ -80,7 +79,7 @@ describe('CAR ROUTES TEST', () => {
         .attach('interior', fs.readFileSync('./test/img/coupe.JPEG'), 'coupe.JPEG')
         .attach('engine', fs.readFileSync('./test/img/coupe.JPEG'), 'coupe.JPEG')
         .field('data', JSON.stringify({
-          manufacturer: 'aston-martin', model: 'stallion', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img',
+          manufacturer: 'aston-martin', model: 'stallion', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img', location: '75 Bode Thomas Surulere',
         }))
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
@@ -111,7 +110,7 @@ describe('CAR ROUTES TEST', () => {
         .attach('interior', fs.readFileSync('./test/img/coupe.JPEG'), 'coupe.JPEG')
         .attach('engine', fs.readFileSync('./test/img/coupe.JPEG'), 'coupe.JPEG')
         .field('data', JSON.stringify({
-          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img',
+          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img', location: '75 Bode Thomas Surulere',
         }))
         .end((err, res) => {
           res.body.should.have.property('status').eql(401);
@@ -151,8 +150,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('phone');
           res.body.data.should.have.property('address');
@@ -219,7 +218,7 @@ describe('CAR ROUTES TEST', () => {
 
     it('should return an empty array of cars, when bodyType query param is not found', (done) => {
       requester.get('/api/v1/car')
-        .query({ bodytype: 'bus' })
+        .query({ body_type: 'bus' })
         .end((err, res) => {
           res.body.should.have.property('status').eql(200);
           res.body.should.have.property('message').eql('success');
@@ -231,7 +230,7 @@ describe('CAR ROUTES TEST', () => {
 
     it('should return an array of cars, when bodyType query param is found', (done) => {
       requester.get('/api/v1/car')
-        .query({ bodytype: 'coupe' })
+        .query({ body_type: 'coupe' })
         .end((err, res) => {
           res.body.should.have.property('status').eql(200);
           res.body.should.have.property('message').eql('success');
@@ -242,7 +241,7 @@ describe('CAR ROUTES TEST', () => {
 
     it('should return an empty array of cars, when minPrice query param is not found', (done) => {
       requester.get('/api/v1/car')
-        .query({ minPrice: 1200000 })
+        .query({ min_price: 1200000 })
         .end((err, res) => {
           res.body.should.have.property('status').eql(200);
           res.body.should.have.property('message').eql('success');
@@ -277,7 +276,7 @@ describe('CAR ROUTES TEST', () => {
 
     it('should return an empty array of cars, when maxPrice query param is not found', (done) => {
       requester.get('/api/v1/car')
-        .query({ maxPrice: 120000 })
+        .query({ max_price: 120000 })
         .end((err, res) => {
           res.body.should.have.property('status').eql(200);
           res.body.should.have.property('message').eql('success');
@@ -302,8 +301,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('phone');
           res.body.data.should.have.property('address');
@@ -322,23 +321,20 @@ describe('CAR ROUTES TEST', () => {
           res.body.should.have.property('message');
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('owneremail');
           res.body.data.should.have.property('owner');
-          res.body.data.should.have.property('createdon');
+          res.body.data.should.have.property('created_on');
           res.body.data.should.have.property('manufacturer');
           res.body.data.should.have.property('model');
           res.body.data.should.have.property('status');
           res.body.data.should.have.property('price');
           res.body.data.should.have.property('state');
-          res.body.data.should.have.property('bodytype');
+          res.body.data.should.have.property('body_type');
           res.body.data.should.have.property('milage');
           res.body.data.should.have.property('transmission');
           res.body.data.should.have.property('year');
-          res.body.data.should.have.property('exteriorimg');
-          res.body.data.should.have.property('interiorimg');
-          res.body.data.should.have.property('engineimg');
-          res.body.data.should.have.property('owneremail');
-          res.body.data.should.have.property('owner');
+          res.body.data.should.have.property('exterior_img');
+          res.body.data.should.have.property('interior_img');
+          res.body.data.should.have.property('engine_img');
           done();
         });
     });
@@ -391,8 +387,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('phone');
           res.body.data.should.have.property('address');
@@ -411,8 +407,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('phone');
           res.body.data.should.have.property('address');
@@ -433,23 +429,20 @@ describe('CAR ROUTES TEST', () => {
           res.body.should.have.property('message');
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('owneremail');
           res.body.data.should.have.property('owner');
-          res.body.data.should.have.property('createdon');
+          res.body.data.should.have.property('created_on');
           res.body.data.should.have.property('manufacturer');
           res.body.data.should.have.property('model');
           res.body.data.should.have.property('status');
           res.body.data.should.have.property('price');
           res.body.data.should.have.property('state');
-          res.body.data.should.have.property('bodytype');
+          res.body.data.should.have.property('body_type');
           res.body.data.should.have.property('milage');
           res.body.data.should.have.property('transmission');
           res.body.data.should.have.property('year');
-          res.body.data.should.have.property('exteriorimg');
-          res.body.data.should.have.property('interiorimg');
-          res.body.data.should.have.property('engineimg');
-          res.body.data.should.have.property('owneremail');
-          res.body.data.should.have.property('owner');
+          res.body.data.should.have.property('exterior_img');
+          res.body.data.should.have.property('interior_img');
+          res.body.data.should.have.property('engine_img');
           done();
         });
     });
@@ -545,8 +538,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('phone');
           res.body.data.should.have.property('address');
@@ -565,8 +558,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('phone');
           res.body.data.should.have.property('address');
@@ -587,23 +580,20 @@ describe('CAR ROUTES TEST', () => {
           res.body.should.have.property('message');
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('owneremail');
           res.body.data.should.have.property('owner');
-          res.body.data.should.have.property('createdon');
+          res.body.data.should.have.property('created_on');
           res.body.data.should.have.property('manufacturer');
           res.body.data.should.have.property('model');
           res.body.data.should.have.property('status');
           res.body.data.should.have.property('price');
           res.body.data.should.have.property('state');
-          res.body.data.should.have.property('bodytype');
+          res.body.data.should.have.property('body_type');
           res.body.data.should.have.property('milage');
           res.body.data.should.have.property('transmission');
           res.body.data.should.have.property('year');
-          res.body.data.should.have.property('exteriorimg');
-          res.body.data.should.have.property('interiorimg');
-          res.body.data.should.have.property('engineimg');
-          res.body.data.should.have.property('owneremail');
-          res.body.data.should.have.property('owner');
+          res.body.data.should.have.property('exterior_img');
+          res.body.data.should.have.property('interior_img');
+          res.body.data.should.have.property('engine_img');
           done();
         });
     });
@@ -698,8 +688,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('phone');
           res.body.data.should.have.property('address');
@@ -713,15 +703,16 @@ describe('CAR ROUTES TEST', () => {
       requester.post('/api/v1/car/1/flag')
         .set('x-access-token', token)
         .send({
+          carId: '1',
           reason: 'weird demands',
           description: 'asdf;lkjaojocjojoajocjocjojiohjosjd',
         })
         .end((err, res) => {
           res.body.should.have.property('status').eql(200);
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('createdon');
-          res.body.data.should.have.property('carid');
-          res.body.data.should.have.property('userid');
+          res.body.data.should.have.property('created_on');
+          res.body.data.should.have.property('car_id');
+          res.body.data.should.have.property('user_id');
           res.body.data.should.have.property('reason');
           res.body.data.should.have.property('description');
           done();
@@ -732,6 +723,7 @@ describe('CAR ROUTES TEST', () => {
       requester.post('/api/v1/car/100/flag')
         .set('x-access-token', token)
         .send({
+          carId: '100',
           reason: 'weird demands',
           description: 'asdf;lkjaojocjojoajocjocjojiohjosjd',
         })
@@ -844,8 +836,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.should.have.property('data');
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           // eslint-disable-next-line prefer-destructuring
           token = res.body.data.token;
@@ -862,8 +854,8 @@ describe('CAR ROUTES TEST', () => {
           res.body.data.should.be.a('object');
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('id');
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('phone');
           res.body.data.should.have.property('address');

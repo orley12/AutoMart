@@ -4,6 +4,7 @@ import app from '../server/app';
 
 // eslint-disable-next-line no-unused-vars
 const should = chai.should();
+const { expect } = chai;
 
 chai.use(chaiHttp);
 
@@ -30,8 +31,8 @@ describe('USER ROUTES TEST', () => {
             res.body.data.should.be.a('object');
             res.body.data.should.have.property('token');
             res.body.data.should.have.property('id');
-            res.body.data.should.have.property('firstname');
-            res.body.data.should.have.property('lastname');
+            res.body.data.should.have.property('first_name');
+            res.body.data.should.have.property('last_name');
             res.body.data.should.have.property('email');
             res.body.data.should.have.property('phone');
             res.body.data.should.have.property('address');
@@ -380,214 +381,429 @@ describe('USER ROUTES TEST', () => {
           done();
         });
     });
+  }); // END
 
-    describe('/POST reset password', () => {
-      let resetToken = '';
+  describe('/POST reset password', () => {
+    let resetToken = '';
 
-      it('should return reset token when endpoint is called with no body', (done) => {
-        requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
-          .send().end((err, res) => {
-            res.body.should.have.property('status').eql(204);
-            res.body.should.have.property('message');
-            res.body.should.have.property('data');
-            res.body.data.should.have.property('message');
-            res.body.data.should.have.property('token');
-            resetToken = res.body.data.token;
-            done();
-          });
-      });
-
-      it('should return reset success message', (done) => {
-        requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
-          .query({ token: resetToken })
-          .send({
-            password: 'newpass',
-            confirmPassword: 'newpass',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(200);
-            res.body.should.have.property('message').eql('Success');
-            res.body.should.have.property('data');
-            res.body.data.should.have.property('message');
-            done();
-          });
-      });
-
-      it('should return 200 status and success message when password is reset', (done) => {
-        requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
-          .send({
-            password: 'newpass',
-            newPassword: 'password',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(200);
-            res.body.should.have.property('message').eql('Success');
-            res.body.should.have.property('data');
-            res.body.data.should.have.property('message');
-            done();
-          });
-      });
-
-      it('should return error if email is not found', (done) => {
-        requester.post('/api/v1/auth/johnnydoe@gmail.com/resetPassword')
-          .send({}).end((err, res) => {
-            res.body.should.have.property('status').eql(404);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
-
-      it('should return error if email is not found', (done) => {
-        requester.post('/api/v1/auth/johnnydoe@gmail.com/resetPassword')
-          .query({ token: resetToken })
-          .send({
-            password: 'newpass',
-            confirmPassword: 'newpass',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(401);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
-
-      it('should return error if invalid token is sent', (done) => {
-        requester.post('/api/v1/auth/johnnydoe@gmail.com/resetPassword')
-          .query({ token: resetToken + 22 })
-          .send({
-            password: 'newpass',
-            confirmPassword: 'newpass',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(401);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
-
-      it('should return error responds if email is not found', (done) => {
-        requester.post('/api/v1/auth/johnnnydoe@gmail.com/resetPassword')
-          .send({
-            password: 'newpass',
-            newPassword: 'password',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(401);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
-
-      it('should return error responds if password is wrong', (done) => {
-        requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
-          .send({
-            password: 'newpasss',
-            newPassword: 'password',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(401);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
+    it('should return reset token when endpoint is called with no body', (done) => {
+      requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
+        .send().end((err, res) => {
+          res.body.should.have.property('status').eql(204);
+          res.body.should.have.property('message');
+          res.body.should.have.property('data');
+          res.body.data.should.have.property('message');
+          res.body.data.should.have.property('token');
+          resetToken = res.body.data.token;
+          done();
+        });
     });
 
-    describe('/POST signin', () => {
-      it('should correctly return a user data if sign in was successful', (done) => {
-        requester.post('/api/v1/auth/signin')
-          .send({
-            email: 'sole@yahoo.com',
-            password: 'hashedPassword',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(200);
-            res.body.should.have.property('data');
-            res.body.data.should.be.a('object');
-            res.body.data.should.have.property('token');
-            res.body.data.should.have.property('id');
-            res.body.data.should.have.property('firstName');
-            res.body.data.should.have.property('lastName');
-            res.body.data.should.have.property('email');
-            res.body.data.should.have.property('phone');
-            res.body.data.should.have.property('address');
-            done();
-          });
-      });
-      it('should return an error in the responds body, when sign up lacks email', (done) => {
-        requester.post('/api/v1/auth/signin')
-          .send({
-            password: 'hashedPassword',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(400);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
+    it('should return reset success message', (done) => {
+      requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
+        .query({ token: resetToken })
+        .send({
+          password: 'newpass',
+          confirmPassword: 'newpass',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message').eql('Success');
+          res.body.should.have.property('data');
+          res.body.data.should.have.property('message');
+          done();
+        });
+    });
 
-      it('should return an error in the responds body, when invalid is entered email', (done) => {
-        requester.post('/api/v1/auth/signin')
-          .send({
-            email: 'soleyahoo.com',
-            password: 'hashedPassword',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(400);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
+    it('should return 200 status and success message when password is reset', (done) => {
+      requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
+        .send({
+          password: 'newpass',
+          newPassword: 'password',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message').eql('Success');
+          res.body.should.have.property('data');
+          res.body.data.should.have.property('message');
+          done();
+        });
+    });
 
-      it('should return an error in the responds body, when no password is entered', (done) => {
-        requester.post('/api/v1/auth/signin')
-          .send({
-            email: 'sol@yahoo.com',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(400);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
+    it('should return error if email is not found', (done) => {
+      requester.post('/api/v1/auth/johnnydoe@gmail.com/resetPassword')
+        .send({}).end((err, res) => {
+          res.body.should.have.property('status').eql(404);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
 
-      it('should return an error in the responds body, when user enters wrong email', (done) => {
-        requester.post('/api/v1/auth/signin')
-          .send({
-            email: 'sol@yahoo.com',
-            password: 'hashedPassword',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(401);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
+    it('should return error if email is not found', (done) => {
+      requester.post('/api/v1/auth/johnnydoe@gmail.com/resetPassword')
+        .query({ token: resetToken })
+        .send({
+          password: 'newpass',
+          confirmPassword: 'newpass',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(404);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
 
-      it('should return an error in the responds body, when user enters wrong password', (done) => {
-        requester.post('/api/v1/auth/signin')
-          .send({
-            email: 'sole@yahoo.com',
-            password: 'hashedPasswor',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(401);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
+    it('should return error if invalid token is sent', (done) => {
+      requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
+        .query({ token: resetToken + 22 })
+        .send({
+          password: 'newpass',
+          confirmPassword: 'newpass',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(400);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
 
-      it(`should return an error in the responds body, 
+    it('should return error responds if email is not found', (done) => {
+      requester.post('/api/v1/auth/johnnnydoe@gmail.com/resetPassword')
+        .send({
+          password: 'newpass',
+          newPassword: 'password',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(404);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+
+    it('should return error responds if password is wrong', (done) => {
+      requester.post('/api/v1/auth/johndoe@gmail.com/resetPassword')
+        .send({
+          password: 'newpasss',
+          newPassword: 'password',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(400);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+  }); // END
+
+  describe('/POST signin', () => {
+    it('should correctly return a user data if sign in was successful', (done) => {
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'sole@yahoo.com',
+          password: 'hashedPassword',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('token');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('phone');
+          res.body.data.should.have.property('address');
+          done();
+        });
+    });
+    it('should return an error in the responds body, when sign up lacks email', (done) => {
+      requester.post('/api/v1/auth/signin')
+        .send({
+          password: 'hashedPassword',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(400);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+
+    it('should return an error in the responds body, when invalid is entered email', (done) => {
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'soleyahoo.com',
+          password: 'hashedPassword',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(400);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+
+    it('should return an error in the responds body, when no password is entered', (done) => {
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'sol@yahoo.com',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(400);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+
+    it('should return an error in the responds body, when user enters wrong email', (done) => {
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'sol@yahoo.com',
+          password: 'hashedPassword',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(404);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+
+    it('should return an error in the responds body, when user enters wrong password', (done) => {
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'sole@yahoo.com',
+          password: 'hashedPasswor',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(400);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+
+    it(`should return an error in the responds body, 
       when signed in user is trying to access the signin route`, (done) => {
-        requester.post('/api/v1/auth/signin')
-          .set('x-access-token', 1234584)
-          .send({
-            email: 'sole@yahoo.com',
-            password: 'hashedPassword',
-          }).end((err, res) => {
-            res.body.should.have.property('status').eql(400);
-            res.body.should.have.property('message');
-            res.body.should.have.property('errors');
-            done();
-          });
-      });
+      requester.post('/api/v1/auth/signin')
+        .set('x-access-token', 1234584)
+        .send({
+          email: 'sole@yahoo.com',
+          password: 'hashedPassword',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(400);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
     });
-  });
+  }); // END
+
+  describe('/GET users', () => {
+    let token = '';
+    let otherToken = '';
+    let thirdToken = '';
+    before((done) => {
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'admin@auto-mart.com',
+          password: 'admin',
+        }).end((_err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('token');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('phone');
+          res.body.data.should.have.property('address');
+          // eslint-disable-next-line prefer-destructuring
+          token = res.body.data.token;
+        });
+
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'johndoe@gmail.com',
+          password: 'password',
+        }).end((_err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('token');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('phone');
+          res.body.data.should.have.property('address');
+          otherToken = res.body.data.token;
+        });
+
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'mannyjenson@gmail.com',
+          password: 'password',
+        }).end((_err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('token');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('phone');
+          res.body.data.should.have.property('address');
+          thirdToken = res.body.data.token;
+          done();
+        });
+    });
+
+    it('should return an array of users, with a status and message field', (done) => {
+      requester.get('/api/v1/auth/users')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message').eql('success');
+          res.body.data.should.be.a('array');
+          expect(res.body.data).to.have.lengthOf.at.least(1);
+          done();
+        });
+    });
+
+    it('should return error if non admin tries accessing this route', (done) => {
+      requester.get('/api/v1/auth/users')
+        .set('x-access-token', otherToken)
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(401);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+
+    it('should return success message when delete is successful', (done) => {
+      requester.delete('/api/v1/auth')
+        .set('x-access-token', thirdToken)
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message').eql('Request Successful');
+          res.body.should.have.property('data').eql('Car Ad successfully deleted');
+          done();
+        });
+    });
+
+    it('should return success message when delete is successful', (done) => {
+      requester.delete('/api/v1/auth')
+        .set('x-access-token', thirdToken)
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(404);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+  }); // END
+
+  describe('/ PATCH update user status', () => {
+    let token = '';
+    // let otherToken = '';
+    let thirdToken = '';
+    before((done) => {
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'admin@auto-mart.com',
+          password: 'admin',
+        }).end((_err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('token');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('phone');
+          res.body.data.should.have.property('address');
+          // eslint-disable-next-line prefer-destructuring
+          token = res.body.data.token;
+          // done();
+        });
+
+      // requester.post('/api/v1/auth/signin')
+      //   .send({
+      //     email: 'johndoe@gmail.com',
+      //     password: 'password',
+      //   }).end((_err, res) => {
+      //     res.body.should.have.property('status').eql(200);
+      //     res.body.should.have.property('message');
+      //     res.body.should.have.property('data');
+      //     res.body.data.should.be.a('object');
+      //     res.body.data.should.have.property('token');
+      //     res.body.data.should.have.property('id');
+      //     res.body.data.should.have.property('first_name');
+      //     res.body.data.should.have.property('last_name');
+      //     res.body.data.should.have.property('email');
+      //     res.body.data.should.have.property('phone');
+      //     res.body.data.should.have.property('address');
+      //     otherToken = res.body.data.token;
+      //     done();
+      //   });
+
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'sam@gmail.com',
+          password: 'password',
+        }).end((_err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('token');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('phone');
+          res.body.data.should.have.property('address');
+          thirdToken = res.body.data.token;
+          done();
+        });
+    });
+
+    it('should return user data if update is successful', (done) => {
+      requester.patch('/api/v1/auth/2/status')
+        .set('x-access-token', token)
+        .send({
+          status: true,
+        })
+        .end((err, res) => {
+          console.log(res);
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('phone');
+          res.body.data.should.have.property('address');
+          done();
+        });
+    });
+
+    it('should return error if non admin tries accessing this route', (done) => {
+      requester.patch('/api/v1/auth/2/status')
+        .set('x-access-token', thirdToken)
+        .send({
+          status: true,
+        })
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(401);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+  }); // END
 });
