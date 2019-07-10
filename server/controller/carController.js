@@ -25,7 +25,7 @@ export default class CarController {
       const filekeys = Object.keys(req.files);
       const filePromises = CarUtil.fileUploadPromises(req.files, filekeys);
 
-      Promise.all(filePromises).then(async (files) => {        
+      Promise.all(filePromises).then(async (files) => {
         try {
           const { rows: carRows } = await CarRepository.save(carProps, userRows[0], files);
           if (userRows.length < 1) {
@@ -183,7 +183,6 @@ export default class CarController {
           [new ErrorDetail('saveFlag', 'car id', 'no return value from flag operation', req.body.id)]);
       }
 
-
       res.status(200).json({
         status: 200,
         message: 'Car flaged',
@@ -198,7 +197,7 @@ export default class CarController {
 
   static async getOrderByCarId(req, res, next) {
     const carId = Number(req.params.id);
-    try {      
+    try {
       const { rows } = await OrderRepository.findBycarId(carId);
       if (rows.length < 1) {
         throw new ApiError(404, 'Not Found',
