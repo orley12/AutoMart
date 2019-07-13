@@ -77,5 +77,5 @@ signupForm.addEventListener('submit', (e) => {
   notification.style.display = 'block';
   const userInfo = getInputs();
   const resposeData = postsigninData(userInfo);
-  displayData(resposeData);
+  displayOrders(resposeData);
 });

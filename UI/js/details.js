@@ -28,17 +28,19 @@ const sendRequest = method => fetch(url, {
 
 const insertData = (data) => {
   price.innerHTML = `Price: #${data.price}`;
-  manufacturer.innerHTML = `${data.manufacturer}(${data.bodytype})`;
+  manufacturer.innerHTML = `${data.manufacturer}(${data.body_type})`;
   model.innerHTML = `Model: ${data.model}`;
-  info.innerHTML = `A ${data.state} ${data.manufacturer} ${data.model} ${data.bodytype} ${data.year},
+  info.innerHTML = `A ${data.state} ${data.manufacturer} ${data.model} ${data.body_type} ${data.year},
    costing ${data.price}, located at {location} .`;
-  carImg.src = data.exteriorimg;
-  if (data.exteriorimg) {
-    exteriorImg.src = data.exteriorimg;
-  } else if (data.interiorimg) {
-    interiorImg.src = data.interiorimg;
-  } else if (data.engineimg) {
-    engineImg.src = data.engineimg;
+  carImg.src = data.exterior_img;
+  if (data.exterior_img) {
+    exteriorImg.src = data.exterior_img;
+  }
+  if (data.interior_img) {
+    interiorImg.src = data.interior_img;
+  }
+  if (data.engine_img) {
+    engineImg.src = data.engine_img;
   }
 };
 
@@ -54,7 +56,7 @@ const displayData = (data) => {
   data.then(respose => respose.json())
     .then((responseJson) => {
       if (responseJson.status === 200) {
-        console.log(responseJson.data.owner);
+        // console.log(responseJson.data.owner);
         isOwner(responseJson.data.owner);
         insertData(responseJson.data);
       } else {
@@ -94,7 +96,7 @@ editButton.addEventListener('click', () => {
 
 const makeRequest = () => {
   const Car = sendRequest('get');
-  displayData(Car);
+  displayOrders(Car);
 };
 
 makeRequest();

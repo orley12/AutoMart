@@ -8,6 +8,7 @@ const state = document.querySelector('#state');
 const transmission = document.querySelector('#transmission');
 const price = document.querySelector('#price');
 const year = document.querySelector('#year');
+const locationP = document.querySelector('#location');
 const interiorImage = document.querySelector('#interior-img');
 const exteriorImage = document.querySelector('#exterior-img');
 const engineImage = document.querySelector('#engine-img');
@@ -17,6 +18,8 @@ const notification = document.querySelector('.notification');
 notification.style.display = 'none';
 
 const getInputs = () => {
+  console.log(locationP.value);
+
   const formData = new FormData();
   formData.append('data', JSON.stringify({
     manufacturer: make.options[make.selectedIndex].value,
@@ -27,6 +30,7 @@ const getInputs = () => {
     transmission: transmission.options[state.selectedIndex].value,
     price: price.value,
     year: year.value,
+    location: locationP.value,
   }));
   formData.append('interior', interiorImage.files[0]);
   formData.append('exterior', exteriorImage.files[0]);
@@ -34,16 +38,14 @@ const getInputs = () => {
   return formData;
 };
 
-const postsigninData = (userInfo) => {
-  return fetch(url, {
-    method: 'post',
-    mode: 'cors',
-    body: userInfo,
-    headers: {
-      'x-access-token': localStorage.getItem('token'),
-    },
-  });
-};
+const postsigninData = userInfo => fetch(url, {
+  method: 'post',
+  mode: 'cors',
+  body: userInfo,
+  headers: {
+    'x-access-token': localStorage.getItem('token'),
+  },
+});
 
 const successFlashMessage = (message) => {
   console.log(message);

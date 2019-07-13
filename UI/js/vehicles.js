@@ -50,7 +50,7 @@ const createCard = (data) => {
   cardHolder.appendChild(card);
 
   const image = document.createElement('img');
-  image.src = data.exteriorimg;
+  image.src = data.exterior_img;
   image.alt = `${data.manufacturer} ${data.model}`;
   card.appendChild(image);
 
@@ -78,7 +78,7 @@ const createCard = (data) => {
   carinfo.appendChild(carPrice);
 
   const carLocation = document.createElement('h5');
-  const textLocation = document.createTextNode('Ikorodu, Lagos');
+  const textLocation = document.createTextNode(data.location);
   carLocation.appendChild(textLocation);
   carinfo.appendChild(carLocation);
 
@@ -155,10 +155,10 @@ const createQueryParam = (
     queryParam.push(`manufacturer=${makeParam}`);
   }
   if (minPrice) {
-    queryParam.push(`minPrice=${minPrice}`);
+    queryParam.push(`min_price=${minPrice}`);
   }
   if (maxPrice) {
-    queryParam.push(`maxPrice=${maxPrice}`);
+    queryParam.push(`max_price=${maxPrice}`);
   }
   return queryParam;
 };

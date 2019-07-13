@@ -7,10 +7,9 @@ const updateOrderStatus = 'UPDATE orders SET status=$1 WHERE id=$2 RETURNING *';
 
 const queryById = 'SELECT * FROM orders WHERE id=$1';
 
-const queryByOwner = 'SELECT * FROM orders WHERE buyer=$1';
+const queryByOwner = 'SELECT * FROM cars JOIN orders on cars.id = orders.car_id WHERE buyer=$1';
 
-const queryByCarId = 'SELECT * FROM orders WHERE car_id=$1';
-
+const queryByCarId = 'SELECT * FROM cars JOIN orders on cars.id = orders.car_id WHERE car_id=$1';
 
 export {
   createOrder,
