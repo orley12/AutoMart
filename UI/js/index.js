@@ -83,7 +83,7 @@ const getQueryParams = () => {
     queryParams.push(`manufacturer=${makeParam}`);
   }
   if (bodytypeParam) {
-    queryParams.push(`bodytype=${bodytypeParam}`);
+    queryParams.push(`body_type=${bodytypeParam}`);
   }
   if (stateParam) {
     queryParams.push(`state=${stateParam}`);
@@ -100,7 +100,7 @@ searchButton.addEventListener('click', () => {
 for (let i = 0; i < bodyTypeViews.length; i++) {
   bodyTypeViews[i].addEventListener('click', (e) => {
     const query = e.currentTarget.querySelector('h1').innerHTML;
-    const queryArray = [`bodytype=${query.toLowerCase()}`];
+    const queryArray = [`body_type=${query.toLowerCase()}`];
     localStorage.setItem('query', JSON.stringify(queryArray));
     window.location = 'vehicles.html';
   });
