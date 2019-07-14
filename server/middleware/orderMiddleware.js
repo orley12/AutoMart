@@ -48,6 +48,7 @@ export default class OrderMiddleware {
   }
 
   static canWrite(req, res, next) {
+    console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
     const token = req.headers['x-access-token'];
     try {
       if (!token) {
@@ -105,8 +106,8 @@ export default class OrderMiddleware {
         throw new ApiError(500, 'Internal Server Error',
           [new ErrorDetail('updateStatus', 'order id', 'no return value from update operation', req.params.id)]);
       }
-      const { owner } = carRows[0];
 
+      const { owner } = carRows[0];
       if (owner !== req.decoded.id) {
         throw new ApiError(401, 'Unauthorizied',
           [new ErrorDetail('Headers', 'userId', 'You do not have permission to perform this action', req.decoded.id)]);

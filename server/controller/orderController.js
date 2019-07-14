@@ -89,7 +89,7 @@ export default class CarController {
       const { rows } = await OrderRepository.findByOwner(Number(ownerId));
       if (rows.length < 1) {
         throw new ApiError(404, 'Not Found',
-          [new ErrorDetail('header', 'ownerId', 'user as order nothing yet', ownerId)]);
+          [new ErrorDetail('header', 'ownerId', 'user as ordered nothing yet', ownerId)]);
       }
 
       res.status(200).json({
@@ -102,6 +102,7 @@ export default class CarController {
   }
 
   static async getOrder(req, res, next) {
+    console.log('I got here');
     try {
       const { rows } = await OrderRepository.findById(Number(req.params.id));
       if (rows.length < 1) {
@@ -122,12 +123,12 @@ export default class CarController {
 
   static async updateStatus(req, res, next) {
     const { status } = req.body;
-
-    if (status.toLowerCase() !== 'accepted' || status.toLowerCase() !== 'rejected') {
-      throw new ApiError(400, 'Bad Request',
-        [new ErrorDetail('body', 'status', 'invalid status', status)]);
-    }
     try {
+      if (status.toLowerCase() !== 'accepted' && status.toLowerCase() !== 'rejected') {
+        throw new ApiError(400, 'Bad Request',
+          [new ErrorDetail('body', 'status', 'invalid status', status)]);
+      }
+
       const { rows } = await OrderRepository.updateStatus(status.toLowerCase(), Number(req.params.id));
       if (rows.length < 1) {
         throw new ApiError(500, 'Internal Server Error',
