@@ -823,6 +823,176 @@ describe('CAR ROUTES TEST', () => {
     });
   });/* STOP */
 
+  describe('/GET ORDER BY CAR ID', () => {
+    let token = '';
+    let carId = '';
+    let orderId = '';
+    let anotherToken = '';
+    let anotherCarId = '';
+    before((done) => {
+      requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'sole@yahoo.com',
+          password: 'hashedPassword',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('token');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('phone');
+          res.body.data.should.have.property('address');
+          // eslint-disable-next-line prefer-destructuring
+          token = res.body.data.token;
+        });
+
+        requester.post('/api/v1/auth/signin')
+        .send({
+          email: 'sam@gmail.com',
+          password: 'password',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('message');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('token');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('first_name');
+          res.body.data.should.have.property('last_name');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('phone');
+          res.body.data.should.have.property('address');
+          // eslint-disable-next-line prefer-destructuring
+          anotherToken = res.body.data.token;
+          done();
+        });
+    });
+
+    it('should correctly return a car data if it was created successful', (done) => {
+      requester.post('/api/v1/car')
+        .set('x-access-token', token)
+        .attach('exterior', fs.readFileSync('./test/img/coupe.JPEG'), 'coupe.JPEG')
+      // .attach('interior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
+      // .attach('engine', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
+        .field('data', JSON.stringify({
+          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img', location: '75 Bode Thomas Surulere',
+        }))
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(201);
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('owner');
+          res.body.data.should.have.property('manufacturer');
+          res.body.data.should.have.property('price');
+          res.body.data.should.have.property('state');
+          res.body.data.should.have.property('status');
+          res.body.data.should.have.property('body_type');
+          res.body.data.should.have.property('milage');
+          res.body.data.should.have.property('year');
+          res.body.data.should.have.property('exterior_img');
+          res.body.data.should.have.property('interior_img');
+          res.body.data.should.have.property('engine_img');
+          res.body.data.should.have.property('created_on');
+          res.body.data.should.have.property('model');
+          res.body.data.should.have.property('transmission');
+          carId = Number(res.body.data.id);
+          done();
+        });
+    });
+
+    it('should correctly return a car data if it was created successful', (done) => {
+      requester.post('/api/v1/car')
+        .set('x-access-token', token)
+        .attach('exterior', fs.readFileSync('./test/img/coupe.JPEG'), 'coupe.JPEG')
+      // .attach('interior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
+      // .attach('engine', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
+        .field('data', JSON.stringify({
+          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img', location: '75 Bode Thomas Surulere',
+        }))
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(201);
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('owner');
+          res.body.data.should.have.property('manufacturer');
+          res.body.data.should.have.property('price');
+          res.body.data.should.have.property('state');
+          res.body.data.should.have.property('status');
+          res.body.data.should.have.property('body_type');
+          res.body.data.should.have.property('milage');
+          res.body.data.should.have.property('year');
+          res.body.data.should.have.property('exterior_img');
+          res.body.data.should.have.property('interior_img');
+          res.body.data.should.have.property('engine_img');
+          res.body.data.should.have.property('created_on');
+          res.body.data.should.have.property('model');
+          res.body.data.should.have.property('transmission');
+          anotherCarId = Number(res.body.data.id);
+          done();
+        });
+    });
+
+    it('should correctly return a order data if order was successful', (done) => {
+      requester.post('/api/v1/order')
+        .set('x-access-token', token)
+        .send({
+          carId: carId,
+          price: '400000',
+        }).end((err, res) => {
+          res.body.should.have.property('status').eql(201);
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('object');
+          res.body.data.should.have.property('id');
+          res.body.data.should.have.property('car_id');
+          res.body.data.should.have.property('created_on');
+          res.body.data.should.have.property('buyer');
+          orderId = Number(res.body.data.id);
+          done();
+        });
+    });
+
+    it('/GET CAR should return orders made for a car', (done) => {
+      requester.get(`/api/v1/car/${carId}/orders`)
+        .set('x-access-token', token)
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(200);
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('array');
+          done();
+        });
+    });
+
+    it('/GET CAR should return error response when non car owner tries accessing this route', (done) => {
+      requester.get(`/api/v1/car/${carId}/orders`)
+        .set('x-access-token', anotherToken)
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(401);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+
+    it('/GET CAR should return error response when car as no order on it', (done) => {
+      requester.get(`/api/v1/car/${anotherCarId}/orders`)
+        .set('x-access-token', token)
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(404);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
+  });/* STOP */
+
   describe('/DELETE car', () => {
     let token = '';
     let anotherToken = '';

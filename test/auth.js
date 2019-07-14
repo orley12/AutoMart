@@ -381,6 +381,16 @@ describe('USER ROUTES TEST', () => {
           done();
         });
     });
+
+    it('should return an error in the responds body,  when trying to access a resource that is not found', (done) => {
+      requester.get('/')
+        .end((err, res) => {
+          res.body.should.have.property('status').eql(404);
+          res.body.should.have.property('message');
+          res.body.should.have.property('errors');
+          done();
+        });
+    });
   }); // END
 
   describe('/POST reset password', () => {
@@ -777,7 +787,6 @@ describe('USER ROUTES TEST', () => {
           status: true,
         })
         .end((err, res) => {
-          console.log(res);
           res.body.should.have.property('status').eql(200);
           res.body.should.have.property('message');
           res.body.should.have.property('data');

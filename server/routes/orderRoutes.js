@@ -20,7 +20,7 @@ router.post('/', [canWrite, userExist, validateOrderProps], createOrder);
 
 router.get('/', canWrite, getByOwner);
 
-router.get('/:id', [isOwner, canWrite], getOrder);
+router.get('/:id', [canWrite, isOwner], getOrder);
 
 router.patch('/:id/price', [canWrite, isOwner, validateUpdateOrderProps], updatePrice);
 

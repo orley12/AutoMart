@@ -157,7 +157,6 @@ export default class CarController {
   static async deleteCar(req, res, next) {
     try {
       const { rows } = await CarRepository.delete(Number(req.params.id));
-      console.log(rows);
       res.status(200).json({
         status: 200,
         message: 'Request Successful',
