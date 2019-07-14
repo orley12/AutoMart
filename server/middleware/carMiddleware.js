@@ -39,28 +39,6 @@ export default class CarMiddleware {
     next();
   }
 
-  static validateFlagProps(req, res, next) {
-    req
-      .checkBody('reason')
-      .notEmpty()
-      .withMessage('Reason field is required')
-      .isLength({ min: 6, max: 50 })
-      .withMessage('Reason should be between 6 to 50 characters');
-
-    req
-      .checkBody('description')
-      .notEmpty()
-      .withMessage('Description field is required')
-      .isLength({ min: 10, max: 200 })
-      .withMessage('Description should be between 10 to 200 characters');
-
-    const errors = req.validationErrors();
-    if (errors) {
-      next(new ApiError(400, 'Bad Request', errors));
-    }
-    next();
-  }
-
   static canWrite(req, res, next) {
     const token = req.headers['x-access-token'];
     try {
