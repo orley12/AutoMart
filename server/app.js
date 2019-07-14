@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import swaggerUI from 'swagger-ui-express';
 import authRoutes from './routes/authRoutes';
 import carRoutes from './routes/carRoutes';
+import flagRoutes from './routes/flagRoutes';
 import orderRoutes from './routes/orderRoutes';
 import docs from '../swagger.json';
 
@@ -23,6 +24,7 @@ app.use(expressValidator());
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/car', carRoutes);
+app.use('/api/v1/flag', flagRoutes);
 app.use('/api/v1/order', orderRoutes);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 

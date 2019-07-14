@@ -15,9 +15,6 @@ const queryById = 'SELECT * FROM cars WHERE id=$1';
 
 const deletecar = 'DELETE FROM cars WHERE id=$1';
 
-const createFlag = `INSERT INTO flags(reason, description, user_id, car_id) 
-VALUES($1,$2,$3,$4) RETURNING *`;
-
 export {
   createCar,
   queryAll,
@@ -26,5 +23,4 @@ export {
   queryById,
   updateCarPrice,
   deletecar,
-  createFlag,
 };

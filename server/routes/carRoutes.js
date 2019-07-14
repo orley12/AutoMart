@@ -10,7 +10,6 @@ const {
   isOwner,
   validateUpdateStatusProps,
   validateUpdatePriceProps,
-  validateFlagProps,
   canDelete,
   isAdmin,
   hasToken,
@@ -35,8 +34,6 @@ router.patch('/:id/price', [canWrite, isOwner, validateUpdatePriceProps], update
 router.get('/:id', canWrite, getCar);
 
 router.delete('/:id', [canWrite, canDelete], deleteCar);
-
-router.post('/:id/flag', [canWrite, validateFlagProps], flag);
 
 router.get('/:id/orders', [canWrite, isOwner], getOrderByCarId);
 
