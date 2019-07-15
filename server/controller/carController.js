@@ -34,6 +34,8 @@ export default class CarController {
           }
 
           const car = carRows[0];
+          console.log(carRows);
+          
 
           res.status(201).json({
             status: 201,
