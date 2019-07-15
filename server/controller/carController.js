@@ -23,6 +23,11 @@ export default class CarController {
         throw new ApiError(404, 'Not Found', [new ErrorDetail('header', 'x-accass-token', 'User not found', userId)]);
       }
 
+      console.log(req.files);
+      console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
+
+      console.log(req.file);
+      console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
       const filekeys = Object.keys(req.files);
       const filePromises = CarUtil.fileUploadPromises(req.files, filekeys);
 
