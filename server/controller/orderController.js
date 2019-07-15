@@ -14,11 +14,13 @@ export default class CarController {
         throw new ApiError(404, 'Not Found',
           [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.body.car_id)]);
       }
+      console.log(rows)
       const { rows: order } = await OrderRepository.save(Number(buyerId), req.body, rows[0].price);
       if (order.length < 1) {
         throw new ApiError(500, 'Internal Server Error',
           [new ErrorDetail('save', 'order data', 'no return value from save operation', req.body)]);
       }
+      console.log(order)
 
 
       const {
