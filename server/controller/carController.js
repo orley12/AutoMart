@@ -1,10 +1,17 @@
 /* eslint-disable max-len */
+import cloudinary from 'cloudinary';
 import CarUtil from '../util/carUtil';
 import ApiError from '../error/ApiError';
 import CarRepository from '../repository/carRepository';
 import AuthRepository from '../repository/authRepository';
 import OrderRepository from '../repository/orderRepository';
 import ErrorDetail from '../error/ErrorDetail';
+
+cloudinary.v2.config({
+  cloud_name: 'automart-api',
+  api_key: '168729795321398',
+  api_secret: 'dRX06FUg-zSy36Flbv9qixJ_AdQ',
+});
 
 const { validatePropsCreateCar } = CarUtil;
 
@@ -14,48 +21,43 @@ export default class CarController {
     try {
       const userId = req.decoded.id;
       const props = ['price', 'state', 'manufacturer', 'model', 'body_type'];
-      
+
       const carProps = req.body;
-      // validatePropsCreateCar(carProps, props);
+      validatePropsCreateCar(carProps, props);
 
       const { rows: userRows } = await AuthRepository.findById(userId);
       if (userRows.length < 1) {
-        throw new ApiError(404, 'Not Found', [new ErrorDetail('header', 'x-accass-token', 'User not found', userId)]);
+        throw new ApiError(404, 'Not Found', [new ErrorDetail('header', 'x-access-token', 'User not found', userId)]);
       }
+      let exterior = '';
+      let interior = '';
+      let engine = '';
 
-      console.log(req.files);
-      console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
+      if (req.files.exterior) {
+        exterior = await cloudinary.v2.uploader.upload(req.files.exterior.path, { folder: 'exterior/', use_filename: true, unique_filename: false });
+      } else if (req.files.interior) {
+        interior = await cloudinary.v2.uploader.upload(req.files.interior.path, { folder: 'interior/', use_filename: true, unique_filename: false });
+      } else if (req.files.engine) {
+        engine = await cloudinary.v2.uploader.upload(req.files.engine.path, { folder: 'engine/', use_filename: true, unique_filename: false });
+      }
+      carProps.img_url = req.img_url;
 
-      console.log(req.file);
-      console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
-      const filekeys = Object.keys(req.files);
-      const filePromises = CarUtil.fileUploadPromises(req.files, filekeys);
+      carProps.exterior = exterior.url;
+      carProps.interior = interior.url;
+      carProps.engine = engine.url;
 
-      Promise.all(filePromises).then(async (files) => {
-        try {
-          const { rows: carRows } = await CarRepository.save(carProps, userRows[0], files);
-          if (userRows.length < 1) {
-            throw new ApiError(500, 'Internal Server Error', [new ErrorDetail('save', 'car data', 'no return value from save operation', carProps)]);
-          }
+      const { rows: carRows } = await CarRepository.save(carProps, userRows[0]);
+      if (userRows.length < 1) {
+        throw new ApiError(500, 'Internal Server Error', [new ErrorDetail('save', 'car data', 'no return value from save operation', carProps)]);
+      }
+      const car = carRows[0];
 
-          const car = carRows[0];
-          console.log(carRows);
-          
-
-          res.status(201).json({
-            status: 201,
-            message: `${car.manufacturer} ${car.model} Created`,
-            data: {
-              ...car,
-            },
-          });
-        } catch (error) {
-          console.log(error);
-          next(error);
-        }
-      }).catch((err) => {
-        console.log(err);
-        next(new ApiError(408, 'Request Timeout', [new ErrorDetail('body', 'Images', 'Unable to upload Photos', userId)]));
+      res.status(201).json({
+        status: 201,
+        message: `${car.manufacturer} ${car.model} Created`,
+        data: {
+          ...car,
+        },
       });
     } catch (e) {
       console.log(e);

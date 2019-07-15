@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-param-reassign */
 import db from '../model/db';
 import ApiError from '../error/ApiError';
@@ -13,23 +14,10 @@ import {
 } from '../model/queries/carQueries';
 
 export default class CarRepository {
-  static save(car, user, files) {
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < files.length; i++) {
-      if (files[i].public_id.includes('exterior')) {
-        car.exteriorImg = files[i].secure_url;
-      } else if (files[i].public_id.includes('interior')) {
-        car.interiorImg = files[i].secure_url;
-      } else if (files[i].public_id.includes('engine')) {
-        car.engineImg = files[i].secure_url;
-      } else {
-        car.imgUrl = files[i].secure_url;
-      }
-    }
-
+  static save(car, user) {
     const carData = [car.state, car.price, car.manufacturer, car.model, car.body_type,
-      car.transmission, car.milage, car.year, car.exteriorImg,
-      car.interiorImg, car.engineImg, car.imgUrl, car.location, user.id];
+      car.transmission, car.milage, car.year, car.exterior,
+      car.interior, car.engine, car.img_url, car.location, user.id];
     try {
       return db.query(createCar, carData);
     } catch (error) {
