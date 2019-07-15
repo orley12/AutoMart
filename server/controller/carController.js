@@ -33,14 +33,16 @@ export default class CarController {
       let interior = '';
       let engine = '';
 
-      if (req.files.exterior) {
-        exterior = await cloudinary.v2.uploader.upload(req.files.exterior.path, { folder: 'exterior/', use_filename: true, unique_filename: false });
-      } else if (req.files.interior) {
-        interior = await cloudinary.v2.uploader.upload(req.files.interior.path, { folder: 'interior/', use_filename: true, unique_filename: false });
-      } else if (req.files.engine) {
-        engine = await cloudinary.v2.uploader.upload(req.files.engine.path, { folder: 'engine/', use_filename: true, unique_filename: false });
+      if (req.files) {
+        if (req.files.exterior) {
+          exterior = await cloudinary.v2.uploader.upload(req.files.exterior.path, { folder: 'exterior/', use_filename: true, unique_filename: false });
+        } else if (req.files.interior) {
+          interior = await cloudinary.v2.uploader.upload(req.files.interior.path, { folder: 'interior/', use_filename: true, unique_filename: false });
+        } else if (req.files.engine) {
+          engine = await cloudinary.v2.uploader.upload(req.files.engine.path, { folder: 'engine/', use_filename: true, unique_filename: false });
+        }
+        carProps.img_url = req.img_url;
       }
-      carProps.img_url = req.img_url;
 
       carProps.exterior = exterior.url;
       carProps.interior = interior.url;
