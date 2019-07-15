@@ -14,7 +14,7 @@ export default class AuthMiddleware {
       .customSanitizer(email => email.toLowerCase());
 
     req
-      .checkBody('firstName')
+      .checkBody('first_name')
       .notEmpty()
       .withMessage('First name field is required')
       .trim()
@@ -25,7 +25,7 @@ export default class AuthMiddleware {
       .customSanitizer(firstName => firstName.toLowerCase());
 
     req
-      .checkBody('lastName')
+      .checkBody('last_name')
       .notEmpty()
       .withMessage('Last name field is required')
       .trim()
@@ -33,6 +33,7 @@ export default class AuthMiddleware {
       .withMessage('Last name should be between 3 to 15 characters')
       .isAlpha()
       .withMessage('Last name should only contain alphabets')
+      /* istanbul ignore next */
       .customSanitizer(lastName => lastName.toLowerCase());
 
     req
@@ -43,13 +44,13 @@ export default class AuthMiddleware {
       .isLength({ min: 6, max: 40 })
       .withMessage('Password should be between 6 to 15 characters');
 
-    req
-      .checkBody('confirmPassword')
-      .notEmpty()
-      .withMessage('Password field is required')
-      .trim()
-      .equals(req.body.password)
-      .withMessage('Passwords dont match');
+    // req
+    //   .checkBody('confirm_password')
+    //   .notEmpty()
+    //   .withMessage('Password field is required')
+    //   .trim()
+    //   .equals(req.body.password)
+    //   .withMessage('Passwords dont match');
 
     req
       .checkBody('phone')
@@ -85,6 +86,7 @@ export default class AuthMiddleware {
       .trim()
       .isEmail()
       .withMessage('Invalid Email Address Entered!')
+      /* istanbul ignore next */
       .customSanitizer(email => email.toLowerCase());
 
     req
@@ -124,6 +126,7 @@ export default class AuthMiddleware {
       req.resetPath = 0;
       next();
     } else {
+      /* istanbul ignore next */
       req.resetPath = null;
       next();
     }
@@ -139,16 +142,19 @@ export default class AuthMiddleware {
       jwt.verify(token, process.env.SECRET, (error, decoded) => {
         try {
           if (error) {
+            /* istanbul ignore next */
             throw new ApiError(401, 'Unauthorized',
               [new ErrorDetail('headers', 'x-access-token', 'Failed to authenticate token', token)]);
           }
           req.decoded = decoded;
           next();
         } catch (err) {
+          /* istanbul ignore next */
           next(err);
         }
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }

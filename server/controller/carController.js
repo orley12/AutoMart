@@ -12,7 +12,7 @@ export default class CarController {
   // eslint-disable-next-line consistent-return
   static async createCar(req, res, next) {
     const userId = req.decoded.id;
-    const props = ['price', 'state', 'manufacturer', 'model', 'bodyType', 'location'];
+    const props = ['price', 'state', 'manufacturer', 'model', 'body_type'];
     try {
       const carProps = JSON.parse(req.body.data);
       validatePropsCreateCar(carProps, props);
@@ -33,6 +33,7 @@ export default class CarController {
           }
 
           const car = carRows[0];
+
           res.status(201).json({
             status: 201,
             message: `${car.manufacturer} ${car.model} Created`,
@@ -41,7 +42,8 @@ export default class CarController {
             },
           });
         } catch (error) {
-          next(error);
+          console.log(error);
+          // next(error);
         }
       }).catch(() => {
         next(new ApiError(408, 'Request Timeout', [new ErrorDetail('body', 'Images', 'Unable to upload Photos', userId)]));
@@ -81,26 +83,33 @@ export default class CarController {
       if (req.query.max_price) {
         carArray = await carArray.filter(car => (Number(car.price) <= Number(req.query.max_price)));
       }
-      res.json({
+      res.status(200).json({
         status: 200,
         message: 'success',
         data: carArray,
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
 
   static async updateCarStatus(req, res, next) {
     try {
-      const { rows } = await CarRepository.updateStatus(Number(req.params.id), req.body.status);
+      let { status } = req.body;
+
+      if (!status && status !== 'available' && status !== 'sold') {
+        status = 'sold';
+      }
+
+      const { rows } = await CarRepository.updateStatus(Number(req.params.id), status);
       if (rows.length < 1) {
         throw new ApiError(500, 'Internal Server Error',
           [new ErrorDetail('updateStatus', 'car id', 'no return value from update operation', req.params.id)]);
       }
 
       const updatedCar = rows[0];
-      res.json({
+      res.status(200).json({
         status: 200,
         message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
         data: {
@@ -108,6 +117,7 @@ export default class CarController {
         },
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
@@ -121,7 +131,7 @@ export default class CarController {
       }
 
       const updatedCar = rows[0];
-      res.json({
+      res.status(200).json({
         status: 200,
         message: `${updatedCar.manufacturer} ${updatedCar.model} Updated`,
         data: {
@@ -129,6 +139,7 @@ export default class CarController {
         },
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
@@ -163,6 +174,7 @@ export default class CarController {
         data: 'Car Ad successfully deleted',
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }

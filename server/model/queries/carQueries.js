@@ -1,7 +1,7 @@
 const createCar = `INSERT INTO cars(state, price, manufacturer, model,
    body_type, transmission, milage, year, exterior_img, interior_img, 
-   engine_img, location, owner)
-VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`;
+   engine_img, img_url, location, owner)
+VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING *`;
 
 const queryAll = 'SELECT * FROM cars';
 

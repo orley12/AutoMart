@@ -9,12 +9,11 @@ export default class CarController {
   static async createOrder(req, res, next) {
     try {
       const buyerId = JSON.parse(req.decoded.id);
-      const { rows } = await CarRepository.findById(Number(req.body.carId));
+      const { rows } = await CarRepository.findById(Number(req.body.car_id));
       if (rows.length < 1) {
         throw new ApiError(404, 'Not Found',
-          [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.body.carId)]);
+          [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.body.car_id)]);
       }
-
       const { rows: order } = await OrderRepository.save(Number(buyerId), req.body, rows[0].price);
       if (order.length < 1) {
         throw new ApiError(500, 'Internal Server Error',
@@ -39,6 +38,7 @@ export default class CarController {
         },
       });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
@@ -79,6 +79,7 @@ export default class CarController {
         },
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
@@ -97,6 +98,7 @@ export default class CarController {
         data: rows,
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }

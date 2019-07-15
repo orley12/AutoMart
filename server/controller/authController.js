@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import dotenv from 'dotenv';
 
@@ -25,13 +26,13 @@ export default class AuthController {
    */
   static async signUp(req, res, next) {
     const {
-      firstName, lastName, email, address, password, phone,
+      first_name, last_name, email, address, password, phone,
     } = req.body;
 
     try {
       const hashedPassword = await AuthUtil.hashPassWord(password);
 
-      const userData = [firstName, lastName, email, hashedPassword, phone, address];
+      const userData = [first_name, last_name, email, hashedPassword, phone, address];
       const result = await AuthRepository.save(userData);
       if (result.rows[0]) {
         const user = result.rows[0];
@@ -102,6 +103,7 @@ export default class AuthController {
         data: rows,
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
@@ -115,6 +117,7 @@ export default class AuthController {
         data: 'Car Ad successfully deleted',
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
@@ -140,6 +143,7 @@ export default class AuthController {
         },
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
