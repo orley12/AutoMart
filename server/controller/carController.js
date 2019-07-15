@@ -11,10 +11,11 @@ const { validatePropsCreateCar } = CarUtil;
 export default class CarController {
   // eslint-disable-next-line consistent-return
   static async createCar(req, res, next) {
-    const userId = req.decoded.id;
-    const props = ['price', 'state', 'manufacturer', 'model', 'body_type'];
     try {
-      const carProps = JSON.parse(req.body.data);
+      const userId = req.decoded.id;
+      const props = ['price', 'state', 'manufacturer', 'model', 'body_type'];
+      
+      const carProps = req.body;
       validatePropsCreateCar(carProps, props);
 
       const { rows: userRows } = await AuthRepository.findById(userId);
@@ -43,7 +44,7 @@ export default class CarController {
           });
         } catch (error) {
           console.log(error);
-          // next(error);
+          next(error);
         }
       }).catch(() => {
         next(new ApiError(408, 'Request Timeout', [new ErrorDetail('body', 'Images', 'Unable to upload Photos', userId)]));

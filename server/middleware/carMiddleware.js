@@ -40,7 +40,8 @@ export default class CarMiddleware {
   }
 
   static canWrite(req, res, next) {
-    const token = req.headers['x-access-token'];
+    console.log(req.body);
+    const token = req.headers['x-access-token'] || req.header('x-access-token') || req.body.token || req.headers.token;
     try {
       if (!token) {
         throw new ApiError(400, 'Bad Request',
