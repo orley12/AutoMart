@@ -16,7 +16,7 @@ export default class CarController {
       const props = ['price', 'state', 'manufacturer', 'model', 'body_type'];
       
       const carProps = req.body;
-      validatePropsCreateCar(carProps, props);
+      // validatePropsCreateCar(carProps, props);
 
       const { rows: userRows } = await AuthRepository.findById(userId);
       if (userRows.length < 1) {
