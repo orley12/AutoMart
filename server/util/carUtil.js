@@ -6,7 +6,7 @@ export default class AuthUtil {
   static validatePropsCreateCar(obj, props) {
     const errors = [];
     props.forEach((property) => {
-      if (!obj[property] || obj[property].trim() === '') {
+      if (!obj[property] || obj[property] === '') {
         errors.push(new ErrorDetail('body', property, `${property} is required`, obj[property]));
       }
     });
