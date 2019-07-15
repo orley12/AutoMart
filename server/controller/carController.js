@@ -46,11 +46,13 @@ export default class CarController {
           console.log(error);
           next(error);
         }
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err);
         next(new ApiError(408, 'Request Timeout', [new ErrorDetail('body', 'Images', 'Unable to upload Photos', userId)]));
       });
-    } catch (error) {
-      next(error);
+    } catch (e) {
+      console.log(e);
+      next(e);
     }
   }
 

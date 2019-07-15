@@ -30,9 +30,9 @@ export default class AuthUtil {
         promises.push(promise);
       }
     }
-    if (promises.length < 1 || promises.length > 3) {
-      throw new ApiError(400, 'Bad Request', [new ErrorDetail('body', null, 'Photos must be between 1 & 3', null)]);
-    }
+    // if (promises.length < 1 || promises.length > 3) {
+    //   throw new ApiError(400, 'Bad Request', [new ErrorDetail('body', null, 'Photos must be between 1 & 3', null)]);
+    // }
     return promises;
   }
 }
