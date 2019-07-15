@@ -16,6 +16,7 @@ export default class authRepository {
     try {
       return db.query(queryByEmail, [email]);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal server error',
         [new ErrorDetail('body', 'email', 'User not found', email)]);
     }
@@ -25,6 +26,7 @@ export default class authRepository {
     try {
       return db.query(createUser, user);
     } catch (error) {
+      /* istanbul ignore next */
       throw error;
     }
   }
@@ -33,6 +35,7 @@ export default class authRepository {
     try {
       return db.query(queryAll);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('findAll', 'null', 'Unable to get all users', 'null')]);
     }
@@ -42,6 +45,7 @@ export default class authRepository {
     try {
       return db.query(queryById, [id]);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal server error',
         [new ErrorDetail('findById', 'user id', `Error finding user with id ${id} `, id)]);
     }
@@ -51,6 +55,7 @@ export default class authRepository {
     try {
       return db.query(updateStatus, [isAdmin, userId]);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('updateStatus', 'user id & status', 'Unable to update user', `${isAdmin} & ${userId}`)]);
     }
@@ -60,6 +65,7 @@ export default class authRepository {
     try {
       return db.query(updatePassword, [password, id]);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal server error',
         [new ErrorDetail('updatePassword', 'user id & password', 'Password could not be updated try again', `${id} & ${password}`)]);
     }
@@ -69,6 +75,7 @@ export default class authRepository {
     try {
       return db.query(deleteUser, [userId]);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('Params', 'user id', 'Unable to delete user', userId)]);
     }

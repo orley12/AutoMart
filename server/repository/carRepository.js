@@ -10,7 +10,6 @@ import {
   queryById,
   updateCarPrice,
   deletecar,
-  createFlag,
 } from '../model/queries/carQueries';
 
 export default class CarRepository {
@@ -23,15 +22,18 @@ export default class CarRepository {
         car.interiorImg = files[i].secure_url;
       } else if (files[i].public_id.includes('engine')) {
         car.engineImg = files[i].secure_url;
+      } else {
+        car.imgUrl = files[i].secure_url;
       }
     }
 
-    const carData = [car.state, car.price, car.manufacturer, car.model, car.bodyType,
+    const carData = [car.state, car.price, car.manufacturer, car.model, car.body_type,
       car.transmission, car.milage, car.year, car.exteriorImg,
-      car.interiorImg, car.engineImg, car.location, user.id];
+      car.interiorImg, car.engineImg, car.imgUrl, car.location, user.id];
     try {
       return db.query(createCar, carData);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('body', 'Car Properties', 'Unable to save car', carData)]);
     }
@@ -41,6 +43,7 @@ export default class CarRepository {
     try {
       return db.query(queryAll);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('findAll', 'null', 'Unable to get all cars', 'null')]);
     }
@@ -50,6 +53,7 @@ export default class CarRepository {
     try {
       return db.query(queryAllUnsold, ['available']);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('findAllUnsold', 'null', 'Unable to get all available cars', 'null')]);
     }
@@ -59,6 +63,7 @@ export default class CarRepository {
     try {
       return db.query(updateCarStatus, [status, carId]);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('updateStatus', 'car id & status', 'Unable to update car', `${status} & ${carId}`)]);
     }
@@ -68,6 +73,7 @@ export default class CarRepository {
     try {
       return db.query(queryById, [carId]);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('findById', 'car id', 'Unable to find car by id', carId)]);
     }
@@ -77,6 +83,7 @@ export default class CarRepository {
     try {
       return db.query(updateCarPrice, [price, carId]);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('updatePrice', 'car id & price', 'Unable to update car', `${price} & ${carId}`)]);
     }
@@ -86,6 +93,7 @@ export default class CarRepository {
     try {
       return db.query(deletecar, [carId]);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('Params', 'car id', 'Unable to delete AD', carId)]);
     }

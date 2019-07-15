@@ -41,7 +41,8 @@ const queryTable = async () => {
         exterior_img TEXT,
         interior_img TEXT,
         engine_img TEXT,
-        location VARCHAR(200) NOT NULL,
+        img_url TEXT,
+        location VARCHAR(200) DEFAULT 'no location',
         owner INTEGER REFERENCES users(id) ON DELETE CASCADE
     );`);
 

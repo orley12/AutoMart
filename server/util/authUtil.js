@@ -9,6 +9,7 @@ export default class AuthUtil {
     try {
       return bcrypt.hashSync(password, 10);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error', [new ErrorDetail('Body', 'password', 'Unable to hash password', password)]);
     }
   }
@@ -17,6 +18,7 @@ export default class AuthUtil {
     try {
       return jwt.sign(payload, process.env.SECRET, { expiresIn: '24h' });
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('generateToken', 'payload', 'Unable to generate token', payload)]);
     }
@@ -26,6 +28,7 @@ export default class AuthUtil {
     try {
       return bcrypt.compare(password, hashedPassword);
     } catch (error) {
+      /* istanbul ignore next */
       throw new ApiError(500, 'Internal Server Error',
         [new ErrorDetail('comparePassword', 'password', 'Unable to compare password', password)]);
     }
@@ -69,6 +72,7 @@ export default class AuthUtil {
 
   static passwordMatch(password, confirmPassword) {
     if (password !== confirmPassword) {
+      /* istanbul ignore next */
       throw new ApiError(400, 'Bad Request', [new ErrorDetail('body', 'password', 'Passwords don\'t match', { password, confirmPassword })]);
     }
   }

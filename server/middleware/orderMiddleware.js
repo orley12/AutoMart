@@ -12,18 +12,18 @@ dotenv.config();
 export default class OrderMiddleware {
   static validateOrderProps(req, res, next) {
     req
-      .checkBody('carId')
+      .checkBody('car_id')
       .notEmpty()
-      .withMessage('CarId field is required')
+      .withMessage('car_id field is required')
       .isInt()
-      .withMessage('CarId should be a number');
+      .withMessage('car_id should be a number');
 
     req
-      .checkBody('price')
+      .checkBody('amount')
       .notEmpty()
-      .withMessage('Price field is required')
+      .withMessage('amount field is required')
       .isInt()
-      .withMessage('Price should be a number');
+      .withMessage('amount should be a number');
 
     const errors = req.validationErrors();
     if (errors) {
