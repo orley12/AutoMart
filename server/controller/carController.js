@@ -77,11 +77,6 @@ export default class CarController {
       }
       let carArray = result.rows;
 
-      if (carArray.length < 1) {
-        throw new ApiError(404, 'Not found',
-          [new ErrorDetail('query param', 'query', 'We could not find specified cars', req.query)]);
-      }
-
       if (req.query.manufacturer) {
         carArray = await carArray.filter(car => req.query.manufacturer.toLowerCase() === car.manufacturer.toLowerCase());
       }
