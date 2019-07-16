@@ -8,7 +8,7 @@ import carController from '../controller/carController';
 const {
   canWrite,
   isOwner,
-  // validateUpdateStatusProps,
+  validateUpdateStatusProps,
   validateUpdatePriceProps,
   canDelete,
   isAdmin,
@@ -27,7 +27,7 @@ router.post('/', [multipartMiddleware, canWrite], createCar);
 
 router.get('/', [hasToken, isAdmin], getCars);
 
-router.patch('/:id/status', [canWrite, isOwner], updateCarStatus);
+router.patch('/:id/status', [canWrite, isOwner, validateUpdateStatusProps], updateCarStatus);
 
 router.patch('/:id/price', [canWrite, isOwner, validateUpdatePriceProps], updateCarPrice);
 

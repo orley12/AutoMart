@@ -104,12 +104,11 @@ export default class CarController {
   }
 
   static async updateCarStatus(req, res, next) {
+    console.log('ERRRORNOUS');
+    console.log(req.body);
+    console.log('ERRRORNOUS');
     try {
-      let { status } = req.body;
-
-      if (!status && status !== 'available' && status !== 'sold') {
-        status = 'sold';
-      }
+      const { status } = req.body;
 
       const { rows } = await CarRepository.updateStatus(Number(req.params.id), status);
       if (rows.length < 1) {

@@ -8,21 +8,21 @@ import ErrorDetail from '../error/ErrorDetail';
 dotenv.config();
 
 export default class CarMiddleware {
-  // static validateUpdateStatusProps(req, res, next) {
-  //   req
-  //     .checkBody('status')
-  //     .notEmpty()
-  //     .withMessage('Status field is required')
-  //     .customSanitizer(status => status.toLowerCase())
-  //     .isIn(['sold', 'available'])
-  //     .withMessage('Status should be available or sold');
+  static validateUpdateStatusProps(req, res, next) {
+    req
+      .checkBody('status')
+      .notEmpty()
+      .withMessage('Status field is required')
+      .customSanitizer(status => status.toLowerCase())
+      .isIn(['sold', 'available'])
+      .withMessage('Status should be available or sold');
 
-  //   const errors = req.validationErrors();
-  //   if (errors) {
-  //     next(new ApiError(400, 'Bad Request', errors));
-  //   }
-  //   next();
-  // }
+    const errors = req.validationErrors();
+    if (errors) {
+      next(new ApiError(400, 'Bad Request', errors));
+    }
+    next();
+  }
 
   static validateUpdatePriceProps(req, res, next) {
     req
@@ -112,6 +112,10 @@ export default class CarMiddleware {
         throw new ApiError(404, 'Not Found',
           [new ErrorDetail('Params', 'carId', 'Car is not in our database', req.params.id)]);
       }
+
+      console.log('IS ADMIN');
+      console.log(userId === rows[0].owner);
+      console.log('IS ADMIN');
 
       if (userId !== rows[0].owner) {
         throw new ApiError(401, 'Unauthorizied',
