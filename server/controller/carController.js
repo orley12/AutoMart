@@ -104,9 +104,6 @@ export default class CarController {
   }
 
   static async updateCarStatus(req, res, next) {
-    console.log('ERRRORNOUS');
-    console.log(req.body);
-    console.log('ERRRORNOUS');
     try {
       const { status } = req.body;
 
