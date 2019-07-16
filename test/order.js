@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-expressions */
 // Require the dev-dependencies
 import chai from 'chai';
@@ -41,8 +42,8 @@ describe('ORDER ROUTES TEST', () => {
       requester.post('/api/v1/order')
         .set('x-access-token', token)
         .send({
-          carId: '1',
-          price: '400000',
+          car_id: '1',
+          amount: '400000',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(201);
           res.body.should.have.property('data');
@@ -58,15 +59,15 @@ describe('ORDER ROUTES TEST', () => {
         });
     });
 
-    it('should return status 400 and error, if carId is not provided', (done) => {
+    it('should return status 400 and error, if car_id is not provided', (done) => {
       requester.post('/api/v1/order')
         .set('x-access-token', token)
         .send({
-          price: '400000',
+          amount: '400000',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -75,25 +76,25 @@ describe('ORDER ROUTES TEST', () => {
       requester.post('/api/v1/order')
         .set('x-access-token', token)
         .send({
-          carId: '2',
+          car_id: '2',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
 
-    it('should return status 400 and error, if carId is not valid', (done) => {
+    it('should return status 400 and error, if car_id is not valid', (done) => {
       requester.post('/api/v1/order')
         .set('x-access-token', token)
         .send({
-          carId: '2a',
-          price: '400000',
+          car_id: '2a',
+          amount: '400000',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -102,12 +103,12 @@ describe('ORDER ROUTES TEST', () => {
       requester.post('/api/v1/order')
         .set('x-access-token', token)
         .send({
-          carId: '1',
-          price: '400000a',
+          car_id: '1',
+          amount: '400000a',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -116,12 +117,12 @@ describe('ORDER ROUTES TEST', () => {
       requester.post('/api/v1/order')
         .set('x-access-token', token)
         .send({
-          carId: '100',
-          price: '400000',
+          car_id: '100',
+          amount: '400000',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(404);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -179,8 +180,8 @@ describe('ORDER ROUTES TEST', () => {
       requester.post('/api/v1/order')
         .set('x-access-token', token)
         .send({
-          carId: '1',
-          price: '400000',
+          car_id: '1',
+          amount: '400000',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(201);
           res.body.should.have.property('data');
@@ -217,7 +218,7 @@ describe('ORDER ROUTES TEST', () => {
         .set('x-access-token', token)
         .send().end((err, res) => {
           res.body.should.have.property('status').eql(404);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -228,7 +229,7 @@ describe('ORDER ROUTES TEST', () => {
         .set('x-access-token', anotherToken)
         .end((err, res) => {
           res.body.should.have.property('status').eql(401);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -238,7 +239,7 @@ describe('ORDER ROUTES TEST', () => {
       requester.get(`/api/v1/order/${orderId}`)
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -249,7 +250,7 @@ describe('ORDER ROUTES TEST', () => {
         .set('x-access-token', 1234567890)
         .end((err, res) => {
           res.body.should.have.property('status').eql(401);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -305,7 +306,7 @@ describe('ORDER ROUTES TEST', () => {
         .set('x-access-token', token)
         .send().end((err, res) => {
           res.body.should.have.property('status').eql(400);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -315,11 +316,11 @@ describe('ORDER ROUTES TEST', () => {
       requester.patch('/api/v1/order/1/price')
         .set('x-access-token', token)
         .send({
-          price: '400000a',
+          amount: '400000a',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -331,7 +332,7 @@ describe('ORDER ROUTES TEST', () => {
         }).end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -344,7 +345,7 @@ describe('ORDER ROUTES TEST', () => {
         }).end((err, res) => {
           res.body.should.have.property('status').eql(404);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -357,7 +358,7 @@ describe('ORDER ROUTES TEST', () => {
         }).end((err, res) => {
           res.body.should.have.property('status').eql(401);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -426,7 +427,7 @@ describe('ORDER ROUTES TEST', () => {
       requester.get('/api/v1/order')
         .send().end((err, res) => {
           res.body.should.have.property('status').eql(400);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -437,7 +438,7 @@ describe('ORDER ROUTES TEST', () => {
         .set('x-access-token', '1234567890')
         .end((err, res) => {
           res.body.should.have.property('status').eql(401);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -448,7 +449,7 @@ describe('ORDER ROUTES TEST', () => {
         .set('x-access-token', anotherToken)
         .end((err, res) => {
           res.body.should.have.property('status').eql(404);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -459,7 +460,7 @@ describe('ORDER ROUTES TEST', () => {
     let token = '';
     let anotherToken = '';
     let orderId = '';
-    let carId = '';
+    let car_id = '';
 
     before((done) => {
       requester.post('/api/v1/auth/signin')
@@ -508,11 +509,16 @@ describe('ORDER ROUTES TEST', () => {
       requester.post('/api/v1/car')
         .set('x-access-token', token)
         .attach('exterior', fs.readFileSync('./test/img/coupe.JPEG'), 'coupe.JPEG')
-      // .attach('interior', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
-      // .attach('engine', fs.readFileSync('./test/img/coupe.png'), 'coupe.png')
-        .field('data', JSON.stringify({
-          manufacturer: 'aston-martin', model: 'stallion', price: '750000', state: 'new', bodyType: 'sedan', transnmission: 'automatic', milage: '5000', year: '2018', exteriorImg: 'car.exterior_img', interiorImg: 'car.interior_img', engineImg: 'car.engine_img', location: '75 Bode Thomas Surulere',
-        }))
+        .field('manufacturer', 'aston-martin')
+        .field('model', 'stallion')
+        .field('price', '750000')
+        .field('state', 'aston-martin')
+        .field('manufacturer', 'new')
+        .field('body_type', 'sedan')
+        .field('transnmission', 'automatic')
+        .field('milage', '5000')
+        .field('year', '2018')
+        .field('location', '75 Bode Thomas Surulere')
         .end((err, res) => {
           res.body.should.have.property('status').eql(201);
           res.body.should.have.property('data');
@@ -521,7 +527,7 @@ describe('ORDER ROUTES TEST', () => {
           res.body.data.should.have.property('id');
           res.body.data.should.have.property('owner');
           res.body.data.should.have.property('manufacturer');
-          res.body.data.should.have.property('price');
+          // res.body.data.should.have.property('amount');
           res.body.data.should.have.property('state');
           res.body.data.should.have.property('status');
           res.body.data.should.have.property('body_type');
@@ -533,7 +539,7 @@ describe('ORDER ROUTES TEST', () => {
           res.body.data.should.have.property('created_on');
           res.body.data.should.have.property('model');
           res.body.data.should.have.property('transmission');
-          carId = Number(res.body.data.id);
+          car_id = Number(res.body.data.id);
           done();
         });
     });
@@ -542,8 +548,8 @@ describe('ORDER ROUTES TEST', () => {
       requester.post('/api/v1/order')
         .set('x-access-token', token)
         .send({
-          carId,
-          price: '400000',
+          car_id,
+          amount: '400000',
         }).end((err, res) => {
           res.body.should.have.property('status').eql(201);
           res.body.should.have.property('data');
@@ -581,7 +587,7 @@ describe('ORDER ROUTES TEST', () => {
         .send({ status: 'accepted' })
         .end((err, res) => {
           res.body.should.have.property('status').eql(500);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -593,7 +599,7 @@ describe('ORDER ROUTES TEST', () => {
         .send({ status: 'accepted' })
         .end((err, res) => {
           res.body.should.have.property('status').eql(500);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -605,7 +611,7 @@ describe('ORDER ROUTES TEST', () => {
         .send({ status: 'accepted' })
         .end((err, res) => {
           res.body.should.have.property('status').eql(401);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -617,7 +623,7 @@ describe('ORDER ROUTES TEST', () => {
         .send({ status: 'thanks' })
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });
@@ -629,7 +635,7 @@ describe('ORDER ROUTES TEST', () => {
         .send({ status: 'accepted' })
         .end((err, res) => {
           res.body.should.have.property('status').eql(500);
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           res.body.should.have.property('message');
           done();
         });

@@ -67,7 +67,7 @@ describe('CAR ROUTES TEST', () => {
         .end((err, res) => {
           res.body.should.have.property('status').eql(404);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -81,7 +81,7 @@ describe('CAR ROUTES TEST', () => {
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -95,7 +95,7 @@ describe('CAR ROUTES TEST', () => {
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -110,7 +110,7 @@ describe('CAR ROUTES TEST', () => {
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -125,7 +125,7 @@ describe('CAR ROUTES TEST', () => {
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -139,7 +139,7 @@ describe('CAR ROUTES TEST', () => {
         .end((err, res) => {
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -155,7 +155,7 @@ describe('CAR ROUTES TEST', () => {
         .end((err, res) => {
           res.body.should.have.property('status').eql(401);
           res.body.should.have.property('message');
-          res.body.should.have.property('errors');
+          res.body.should.have.property('error');
           done();
         });
     });
