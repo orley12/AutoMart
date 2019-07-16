@@ -8,11 +8,11 @@ import carController from '../controller/carController';
 const {
   canWrite,
   isOwner,
-  // validateUpdateStatusProps,
+  validateUpdateStatusProps,
   validateUpdatePriceProps,
   canDelete,
   isAdmin,
-  hasToken,
+  // hasToken,
 } = carMiddleWare;
 const {
   createCar, getCars, updateCarStatus, updateCarPrice, getCar, deleteCar, getOrderByCarId,
@@ -25,9 +25,9 @@ const router = express.Router();
 
 router.post('/', [multipartMiddleware, canWrite], createCar);
 
-router.get('/', [hasToken, isAdmin], getCars);
+router.get('/', [canWrite, isAdmin], getCars);
 
-router.patch('/:id/status', [canWrite, isOwner], updateCarStatus);
+router.patch('/:id/status', [canWrite, isOwner, validateUpdateStatusProps], updateCarStatus);
 
 router.patch('/:id/price', [canWrite, isOwner, validateUpdatePriceProps], updateCarPrice);
 

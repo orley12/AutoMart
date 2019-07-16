@@ -48,8 +48,8 @@ export default class OrderMiddleware {
   }
 
   static canWrite(req, res, next) {
-    console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
-    const token = req.headers['x-access-token'];
+    console.log(req.body);
+    const token = req.headers['x-access-token'] || req.header('x-access-token') || req.body.token || req.headers.token;
     try {
       if (!token) {
         throw new ApiError(400, 'Bad Request', [new ErrorDetail('headers', 'x-access-token', 'No token was provided', null)]);

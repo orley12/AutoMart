@@ -70,9 +70,9 @@ export default class AuthMiddleware {
       .withMessage('Address should be between 10 to 50 characters')
       .matches(/^[A-Za-z0-9\.\-\s\,]*$/)
       .withMessage('Invalid Address format entered');
-    const errors = req.validationErrors();
-    if (errors) {
-      next(new ApiError(400, 'Bad Request', errors));
+    const error = req.validationErrors();
+    if (error) {
+      next(new ApiError(400, 'Bad Request', error));
     }
     next();
     return null;
