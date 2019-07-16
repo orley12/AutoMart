@@ -12,7 +12,7 @@ const {
   validateUpdatePriceProps,
   canDelete,
   isAdmin,
-  hasToken,
+  // hasToken,
 } = carMiddleWare;
 const {
   createCar, getCars, updateCarStatus, updateCarPrice, getCar, deleteCar, getOrderByCarId,
@@ -25,7 +25,7 @@ const router = express.Router();
 
 router.post('/', [multipartMiddleware, canWrite], createCar);
 
-router.get('/', [hasToken, isAdmin], getCars);
+router.get('/', [canWrite, isAdmin], getCars);
 
 router.patch('/:id/status', [canWrite, isOwner, validateUpdateStatusProps], updateCarStatus);
 
