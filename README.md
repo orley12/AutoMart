@@ -10,7 +10,6 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [UI Templates](#ui-templates)
 - [API](#api)
 - [API Documentation](#api-documentation)
 - [Pivotal Tracker ID](https://www.pivotaltracker.com/n/projects/2346834)
