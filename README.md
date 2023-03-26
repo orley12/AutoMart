@@ -28,10 +28,6 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 
 [Airbnb ](https://github.com/airbnb/javascript)(Javascript style guide)
 
-# UI Templates
-
-Preview UI templates :+1: [Github Pages](https://orley12.github.io/AutoMart/UI/index.html)
-
 # API
 
 The API is currently in version 1 (v1) and is hosted at https://infinite-garden-51728.herokuapp.com/
